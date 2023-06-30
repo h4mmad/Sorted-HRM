@@ -1,0 +1,32 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = "mongodb+srv://admin:n9GA1Fwxnqt5w8nX@testcluster.5tycidj.mongodb.net/sorted_hrm"
+}
+
+model layouts {
+  sectionID   String  @id @map("_id")
+  sectionName String
+  fields    Field[]  
+}
+
+
+type Field {
+  label   String
+  fieldID String 
+  type    String
+}
+
+
+
+model employee{
+  employeeID String  @id @map("_id")
+  
+
+}
