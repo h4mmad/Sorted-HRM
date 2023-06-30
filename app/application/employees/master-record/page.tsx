@@ -4,14 +4,6 @@ import React, { Suspense, useEffect, useReducer } from "react";
 import { v4 } from "uuid";
 import MasterRecordLayout from "./MasterRecordLayout";
 import classNames from "classnames";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { useData } from "@/app/hooks/useData";
-
-function loadingIJ() {
-  // You can add any UI inside Loading, including a Skeleton.
-  return <div>loading....</div>;
-}
 
 export type Action1 = {
   type: ActionTypes;
@@ -49,6 +41,7 @@ interface InitialState {
   toggleForm: boolean;
   disabled: boolean;
   server: { message: string; status: string };
+  loading: boolean;
 }
 
 function reducer(state: InitialState, action: Action): InitialState {
@@ -153,6 +146,12 @@ function reducer(state: InitialState, action: Action): InitialState {
         server: (action as Action6).payload,
       };
     }
+    case "SET_LOADING": {
+      return {
+        ...state,
+        loading: (action as Action5).payload,
+      };
+    }
 
     default: {
       return {
@@ -168,12 +167,25 @@ export default function masterRecord() {
     inputFieldType: "",
     toggleForm: false,
     disabled: true,
+    loading: true,
     server: { message: "", status: "" },
   });
 
-  const { data } = useData("http://localhost:3000/api/employee-model");
-  const layouts: SectionType[] = data.layouts;
-  dispatch({ type: "SET_LAYOUTS", payload: layouts });
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        dispatch({ type: "SET_LOADING", payload: true });
+        const data = await (
+          await fetch("http://localhost:3000/api/employee-model")
+        ).json();
+        dispatch({ type: "SET_LAYOUTS", payload: data });
+        dispatch({ type: "SET_LOADING", payload: false });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -237,12 +249,7 @@ export default function masterRecord() {
                 className="bg-myLightBlue text-white hover:bg-myDarkBlue py-1 px-3 rounded-full flex flex-row justify-center items-center space-x-2"
                 onClick={() => dispatch({ type: "TOGGLE_EDIT" })}
               >
-                {state.layouts.length > 0 ? "Edit model" : "Add model"}
-                {state.layouts.length > 0 ? (
-                  <EditOutlinedIcon className="text-white" />
-                ) : (
-                  <AddOutlinedIcon className="text-white" />
-                )}
+                Edit model
               </button>
             </>
           ) : (
@@ -308,28 +315,32 @@ export default function masterRecord() {
         </div>
       )}
 
-      <div
-        className={classNames([
-          "mt-4",
-          {
-            "opacity-40 disabled select-none pointer-events-none":
-              state.disabled,
-          },
-        ])}
-      >
-        {state?.layouts?.map(({ sectionID, sectionName, fields }, index) => {
-          return (
-            <MasterRecordLayout
-              key={sectionID}
-              sectionID={sectionID}
-              sectionName={sectionName}
-              fields={fields}
-              dispatch={dispatch}
-              disabled={state.disabled}
-            />
-          );
-        })}
-      </div>
+      {state.loading ? (
+        "loading..."
+      ) : (
+        <div
+          className={classNames([
+            "mt-4",
+            {
+              "opacity-40 disabled select-none pointer-events-none":
+                state.disabled,
+            },
+          ])}
+        >
+          {state?.layouts?.map(({ sectionID, sectionName, fields }, index) => {
+            return (
+              <MasterRecordLayout
+                key={sectionID}
+                sectionID={sectionID}
+                sectionName={sectionName}
+                fields={fields}
+                dispatch={dispatch}
+                disabled={state.disabled}
+              />
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

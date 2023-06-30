@@ -12,3 +12,5 @@
 - make api handler for employee model
 
 - make update of sections
+
+- cache the response from the api request

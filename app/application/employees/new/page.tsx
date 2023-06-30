@@ -1,14 +1,29 @@
 "use client";
 
-import { use, useState } from "react";
+import { useEffect, useState } from "react";
 import { TextField } from "../../../components/TextField";
 import { DateField } from "../../../components/DateField";
 import femaleUser from "@/public/pngegg.png";
 import maleUser from "@/public/pngegg.png";
+import { v4 } from "uuid";
 
 export default function NewEmployee() {
   const [disabled, setDisabled] = useState(true);
-  const [gender, setGender] = useState("female");
+  const [model, setModel] = useState<SectionType[]>();
+
+  useEffect(() => {
+    async function getModel() {
+      try {
+        const data: SectionType[] = await (
+          await fetch("http://localhost:3000/api/employee-model")
+        ).json();
+        setModel(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getModel();
+  }, []);
 
   return (
     <div className="lg:w-2/3 2xl:w-1/2">
@@ -61,7 +76,7 @@ export default function NewEmployee() {
       {/* form */}
       {/* Personal details */}
       <section className="mt-12">
-        <h2 className="text-2xl font-semibold">Personal details</h2>
+        <h2 className="text-2xl font-semibold">Essential details</h2>
 
         <div className="lg:flex justify-between mt-2">
           <TextField labelText="Name" disabled={disabled} />
@@ -70,65 +85,36 @@ export default function NewEmployee() {
 
         <div className="lg:flex justify-between mt-2">
           <TextField labelText="Contact No." disabled={disabled} />
+          <TextField labelText="Iqama No." disabled={disabled} />
         </div>
       </section>
 
-      <section className="mt-12">
-        <h2 className="text-2xl font-semibold">Personal details</h2>
+      {model?.map((section) => {
+        return (
+          <section className="my-12" id={section.sectionID}>
+            <h2 className="text-2xl font-semibold">{section.sectionName}</h2>
 
-        <div className="lg:flex justify-between mt-2">
-          <TextField labelText="Name" disabled={disabled} />
-          <DateField labelText="Date of Birth" disabled={disabled} />
-        </div>
-
-        <div className="lg:flex justify-between mt-2">
-          {/* <BinaryChoiceSelector
-            choice1="Male"
-            choice2="Female"
-            value1="male"
-            value2="female"
-            id1="male"
-            id2="female"
-            name="gender"
-            disabled={disabled}
-            labelText="Gender"
-          /> */}
-
-          <TextField labelText="Contact No." disabled={disabled} />
-        </div>
-      </section>
-
-      <section className="mt-12">
-        <h2 className="text-2xl font-semibold">Job details</h2>
-
-        <div className="lg:flex justify-between mt-2">
-          <TextField labelText="Job title" disabled={disabled} />
-
-          <TextField labelText="Contact No." disabled={disabled} />
-        </div>
-
-        <div className="lg:flex justify-between mt-2">
-          <TextField labelText="Contact No." disabled={disabled} />
-
-          <TextField labelText="Contact No." disabled={disabled} />
-        </div>
-      </section>
-
-      <section className="mt-12">
-        <h2 className="text-2xl font-semibold">Education background</h2>
-
-        <div className="lg:flex justify-between mt-2">
-          <TextField labelText="Contact No." disabled={disabled} />
-
-          <TextField labelText="Contact No." disabled={disabled} />
-        </div>
-
-        <div className="lg:flex justify-between mt-2">
-          <TextField labelText="Contact No." disabled={disabled} />
-
-          <TextField labelText="Contact No." disabled={disabled} />
-        </div>
-      </section>
+            {section.fields.map((field) => {
+              return (
+                <div className="mt-2 lg:mt-0" key={v4()}>
+                  <label className="text-gray-500 block text-sm">
+                    {field.label}
+                  </label>
+                  <input
+                    disabled={disabled}
+                    className={
+                      "border rounded-md p-1 " +
+                      (disabled ? "cursor-not-allowed" : "cursor-text border")
+                    }
+                    type={field.type}
+                    key={field.fieldID}
+                  />
+                </div>
+              );
+            })}
+          </section>
+        );
+      })}
     </div>
   );
 }

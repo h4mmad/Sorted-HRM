@@ -19,4 +19,5 @@ type ActionTypes =
   | "DELETE_FIELD"
   | "SET_LAYOUTS"
   | "TOGGLE_EDIT"
-  | "SET_SERVER_MESSAGE";
+  | "SET_SERVER_MESSAGE"
+  | "SET_LOADING";

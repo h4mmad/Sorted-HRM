@@ -4,9 +4,9 @@ Making a GET request to the api endpoint, if authorized will result
 in an array, each element in the array will be a section object, each object will
 contain the sectionID, sectionName and a fields array.
 
-Each fields array will contain
+The fields property will contain an array of objects, each object will contain the, fieldID, label and type property
 
-Sample response
+Sample response employee-model
 
 ```
 [
@@ -33,5 +33,56 @@ Sample response
   },
 ]
 
+
+```
+
+There will be a basic schema of an employee, however if the HR representative wants to add additional data,
+they may.
+In the add employee page, the basic form data will be shown, if there are additional fields, then the data will
+be fetched from the add additional data.
+
+Employee basic model
+
+```javascript
+
+[{
+    employeeId: ""
+    imageUrl ? : ""
+
+    personalDetails: {
+        name: ""
+        dateOfBirth: ""
+        nationality: ""
+    }
+
+    contactDetails: {
+        phoneNumber: ""
+        personalEmail: ""
+        workEmail ? : ""
+    }
+
+    idDetails: {
+        iqamaNumber: ""
+        iqamaExpiry: ""
+        iqamaStatus: ""
+        passportNumber ? : ""
+        passportExpiry ? : ""
+    }
+
+    jobDetails: {
+        designation: ""
+        stream: ""
+        department: ""
+        remarks: ""
+        dateOfJoining: ""
+        workStatus: ""
+        sponsoredBy: ""
+    }
+
+    qualificationDetails: {
+        qualification: ""
+        university: ""
+    }
+}]
 
 ```

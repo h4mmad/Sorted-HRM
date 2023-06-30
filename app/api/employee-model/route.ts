@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { MongoClient } from "mongodb";
 import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
+import { getToken } from "next-auth/jwt";
 
 const mongoURI =
   "mongodb+srv://admin:n9GA1Fwxnqt5w8nX@testcluster.5tycidj.mongodb.net/";
@@ -23,13 +25,15 @@ async function run() {
 
 const prisma = new PrismaClient();
 
-export async function GET(req: NextRequest) {
-  const session = await getServerSession();
+export async function GET(req: NextRequest, res: NextResponse) {
+  const token = await getToken({ req });
+  // console.log("token from api", token);
 
-  if (!session) {
-    const result = await prisma.layouts.findMany();
-    return NextResponse.json(result);
-  }
+  // if (!session) {
+  const result = await prisma.layouts.findMany();
+
+  return NextResponse.json(result);
+  // }
   return NextResponse.json({ message: "Not authorized" }, { status: 401 });
 }
 
