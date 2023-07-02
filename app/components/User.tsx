@@ -3,7 +3,7 @@ import { useState } from "react";
 import classNames from "classnames";
 import { signOut, useSession } from "next-auth/react";
 
-export const User = () => {
+export default function User() {
   const [slideUp, setSlideUp] = useState(false);
   const { data: session } = useSession();
 
@@ -46,4 +46,4 @@ export const User = () => {
       </div>
     </div>
   );
-};
+}

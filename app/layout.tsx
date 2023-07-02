@@ -1,5 +1,6 @@
 "use client";
 import { SessionProvider } from "next-auth/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./globals.css";
 import { Inter } from "next/font/google";
 
@@ -15,11 +16,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const queryClient = new QueryClient();
   return (
     <html lang="en">
       <body className={inter.className}>
         <div>
-          <SessionProvider>{children}</SessionProvider>
+          <QueryClientProvider client={queryClient}>
+            <SessionProvider>{children}</SessionProvider>
+          </QueryClientProvider>
         </div>
       </body>
     </html>

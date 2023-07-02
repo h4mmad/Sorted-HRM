@@ -1,22 +1,18 @@
 import { useState } from "react";
-import { Action } from "../application/employees/master-record/page";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { v4 } from "uuid";
 
 interface SwitchChoiceSelectorProps {
   choices: { choiceLabel: string; value: string }[];
   name: string;
-  defaultVal?: string | number;
-  disabled?: boolean;
   title: string;
-  titleStyle?: string;
-  stateFunctionProp: React.Dispatch<Action>;
+  register: any;
 }
 
-export const SwitchChoiceSelector = ({
+export const FieldTypeSelector = ({
   choices,
   name,
   title,
-  stateFunctionProp,
 }: SwitchChoiceSelectorProps) => {
   return (
     <div>
@@ -33,12 +29,6 @@ export const SwitchChoiceSelector = ({
                   name={name}
                   value={value}
                   id={value}
-                  onChange={(e) =>
-                    stateFunctionProp({
-                      type: "TOGGLE_FIELD_TYPE",
-                      payload: e.target.value,
-                    })
-                  }
                 />
                 <label
                   htmlFor={value}
@@ -58,12 +48,6 @@ export const SwitchChoiceSelector = ({
                   value={value}
                   id={value}
                   className="peer  w-0.5 h-0.5 appearance-none outline-none"
-                  onChange={(e) =>
-                    stateFunctionProp({
-                      type: "TOGGLE_FIELD_TYPE",
-                      payload: e.target.value,
-                    })
-                  }
                 />
                 <label
                   className="px-2 py-1 text-myDarkBlue bg-white  cursor-pointer peer-checked:bg-myLightBlue peer-checked:text-white rounded-tr-full rounded-br-full"
@@ -84,12 +68,6 @@ export const SwitchChoiceSelector = ({
                 name={name}
                 value={value}
                 id={value}
-                onChange={(e) =>
-                  stateFunctionProp({
-                    type: "TOGGLE_FIELD_TYPE",
-                    payload: e.target.value,
-                  })
-                }
               />
               <label
                 htmlFor={value}

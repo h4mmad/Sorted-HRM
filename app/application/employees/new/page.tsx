@@ -2,9 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { TextField } from "../../../components/TextField";
-import { DateField } from "../../../components/DateField";
-import femaleUser from "@/public/pngegg.png";
-import maleUser from "@/public/pngegg.png";
 import { v4 } from "uuid";
 
 export default function NewEmployee() {
@@ -80,7 +77,6 @@ export default function NewEmployee() {
 
         <div className="lg:flex justify-between mt-2">
           <TextField labelText="Name" disabled={disabled} />
-          <DateField labelText="Date of Birth" disabled={disabled} />
         </div>
 
         <div className="lg:flex justify-between mt-2">

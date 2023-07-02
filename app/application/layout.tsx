@@ -28,14 +28,7 @@ export default function ApplicationLayout({
       </div>
     );
   }
-  // if (data.status === "loading") {
-  //   return (
-  //     <div className="flex flex-col justify-center items-center">
-  //       <img src={loading.src} className="" />
-  //       <h2 className="text-myDarkBlue text-xl">Checking credentials..</h2>
-  //     </div>
-  //   );
-  // }
+
   if (myData.status === "loading") {
   }
 }

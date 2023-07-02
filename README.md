@@ -1,5 +1,7 @@
 ## Employee model API response structure
 
+This document will be used to structure code and ideas
+
 Making a GET request to the api endpoint, if authorized will result
 in an array, each element in the array will be a section object, each object will
 contain the sectionID, sectionName and a fields array.
@@ -64,7 +66,7 @@ Employee basic model
     idDetails: {
         iqamaNumber: ""
         iqamaExpiry: ""
-        iqamaStatus: ""
+        iqamaStatus: "expired | active"
         passportNumber ? : ""
         passportExpiry ? : ""
     }
@@ -75,7 +77,7 @@ Employee basic model
         department: ""
         remarks: ""
         dateOfJoining: ""
-        workStatus: ""
+        workStatus: "inactive | active"
         sponsoredBy: ""
     }
 
@@ -84,5 +86,21 @@ Employee basic model
         university: ""
     }
 }]
+
+```
+
+Add section form returns the following object
+
+```javascript
+{
+  sectionName: "Personal";
+}
+```
+
+Add field form returns the following object
+
+```javascript
+{fieldName: 'Name', fieldType: 'text'}
+
 
 ```

@@ -2,8 +2,7 @@
 import { useParams, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { TextField } from "@/app/components/TextField";
-import { DateField } from "@/app/components/DateField";
-import { SwitchChoiceSelector } from "@/app/components/SwitchChoiceSelector";
+import { SwitchChoiceSelector } from "@/app/components/FieldTypeSelector";
 
 export default function Page() {
   const searchParams = useSearchParams();
@@ -74,7 +73,6 @@ export default function Page() {
             defaultValue={searchParams.get("name")}
             disabled={disabled}
           />
-          <DateField labelText="Date of Birth" disabled={disabled} />
         </div>
 
         <div className="lg:flex justify-between mt-2">
@@ -107,22 +105,9 @@ export default function Page() {
             defaultValue={searchParams.get("name")}
             disabled={disabled}
           />
-          <DateField labelText="Date of Birth" disabled={disabled} />
         </div>
 
         <div className="lg:flex justify-between mt-2">
-          {/* <BinaryChoiceSelector
-            choice1="Male"
-            choice2="Female"
-            value1="male"
-            value2="female"
-            id1="male"
-            id2="female"
-            name="gender"
-            disabled={disabled}
-            labelText="Gender"
-          /> */}
-
           <TextField
             labelText="Contact No."
             defaultValue={searchParams.get("contactNo")}

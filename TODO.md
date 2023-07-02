@@ -14,3 +14,7 @@
 - make update of sections
 
 - cache the response from the api request
+
+Sun Jul 2
+
+- useReact query and axios, get rid of loading

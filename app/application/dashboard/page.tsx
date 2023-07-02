@@ -1,6 +1,9 @@
-"use client";
-import { signIn, useSession } from "next-auth/react";
+import AddSectionForm from "@/app/components/AddSectionForm";
 
 export default function Dashboard() {
-  return <div className="w-96 h-20 bg-gray-500 rounded-md animate-pulse"></div>;
+  return (
+    <div className="flex items-center justify-center">
+      <AddSectionForm />
+    </div>
+  );
 }
