@@ -13,7 +13,7 @@ Sample response employee-model
 ```
 [
   {
-    "sectionID": "eb73a85e-0872-474f-98bf-9cc6eb0474a7",
+    "sectionId": "eb73a85e-0872-474f-98bf-9cc6eb0474a7",
     "sectionName": "Personal details",
     "fields": [
       {
@@ -23,12 +23,12 @@ Sample response employee-model
       },
       {
         "label": "Date of birth",
-        "fieldID": "241f9e99-a036-4eba-9f6b-460827dc23fe",
+        "fieldId": "241f9e99-a036-4eba-9f6b-460827dc23fe",
         "type": "date"
       },
       {
         "label": "Personal email",
-        "fieldID": "0eab3385-2897-4ab8-813a-8c12b5886ccb",
+        "fieldId": "0eab3385-2897-4ab8-813a-8c12b5886ccb",
         "type": "email"
       }
     ]

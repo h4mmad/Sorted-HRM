@@ -1,17 +1,34 @@
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { v4 } from "uuid";
+import { addSection } from "../clientApiFns/employeeModelApi";
 export default function AddSectionForm() {
   type Inputs = {
     sectionName: string;
   };
+
+  const queryClient = useQueryClient();
+
+  const addSectionMutation = useMutation(addSection, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["employee-model"]);
+    },
+  });
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    addSectionMutation.mutate({
+      sectionName: data.sectionName,
+      sectionId: v4(),
+      sectionFields: [],
+    });
+  };
   const {} = useForm<Inputs>();
 
   return (

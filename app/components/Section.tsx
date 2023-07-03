@@ -4,18 +4,29 @@ import { v4 } from "uuid";
 import { useState } from "react";
 import { Tooltip } from "react-tooltip";
 import AddFieldForm from "@/app/components/AddFieldForm";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function Section({
-  sectionID,
+  sectionId,
   sectionName,
-  fields,
-  dispatch,
-  disabled,
+  sectionFields,
+  handleSectionDelete,
 }: SectionProps) {
-  const [toggleForm, setToggleForm] = useState(false);
+  const [toggleAddFieldForm, setToggleAddFieldForm] = useState(false);
+
+  const queryClient = useQueryClient();
+
+  const {} = useMutation({
+    mutationKey: ["delete", "employee", "section"],
+    onSuccess: () => {
+      //invalidate cache so the todos are refetched
+      queryClient.invalidateQueries(["employee-model"]);
+    },
+  });
+
   return (
     <div
-      key={sectionID}
+      key={sectionId}
       className="p-3 border-2 border-myDarkBlue rounded-md mb-4"
     >
       <div key={v4()} className="flex flex-row justify-between">
@@ -25,8 +36,9 @@ export default function Section({
         <button
           className="text-sm"
           onMouseOver={() => {}}
-          onClick={() =>
-            dispatch({ type: "DELETE_SECTION", payload: sectionID })
+          onClick={
+            () => handleSectionDelete(sectionId)
+            // dispatch({ type: "DELETE_SECTION", payload: sectionId })
           }
           key={v4()}
         >
@@ -44,34 +56,26 @@ export default function Section({
       </div>
 
       <div className="flex flex-row justify-between flex-wrap">
-        {fields.map((item: FieldType) => {
+        {sectionFields.map((item: FieldType) => {
           return (
             <div key={v4()} className="my-2">
               <label className="block text-myDarkBlue" key={v4()}>
-                {item.label}
+                {item.fieldName}
               </label>
               <input
-                disabled={disabled}
-                type={item.type}
-                key={item.fieldID}
+                type={item.fieldType}
+                key={item.fieldId}
                 className="rounded-md p-1 border border-myDarkBlue w-64"
                 placeholder={
-                  item.type === "email" ? "johndoe@gmail.com" : item.label
+                  item.fieldType === "email"
+                    ? "johndoe@gmail.com"
+                    : item.fieldName
                 }
               />
-              <button
-                className="ml-2"
-                key={v4()}
-                onClick={() =>
-                  dispatch({
-                    type: "DELETE_FIELD",
-                    payload: { sectionID, fieldID: item.fieldID },
-                  })
-                }
-              >
+              <button className="ml-2" key={v4()}>
                 <a
                   data-tooltip-id="delete-field"
-                  data-tooltip-content={`Delete ${item.label}`}
+                  data-tooltip-content={`Delete ${item.fieldName}`}
                 >
                   <RemoveCircleOutlineIcon
                     className="hover:text-red-500 text-red-400"
@@ -87,13 +91,13 @@ export default function Section({
 
       <div className="relative w-fit">
         <button
-          onClick={() => setToggleForm(!toggleForm)}
+          onClick={() => setToggleAddFieldForm(!toggleAddFieldForm)}
           className="text-sm text-myLightBlue"
         >
-          {toggleForm ? "Cancel" : "+ Add field"}
+          {toggleAddFieldForm ? "Cancel" : "+ Add field"}
         </button>
 
-        {toggleForm && <AddFieldForm />}
+        {toggleAddFieldForm && <AddFieldForm sectionId={sectionId} />}
       </div>
     </div>
   );

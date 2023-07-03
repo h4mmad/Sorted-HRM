@@ -11,16 +11,17 @@ datasource db {
 }
 
 model layouts {
-  sectionID   String  @id @map("_id")
+  id  String @id @default(auto()) @map("_id") @db.ObjectId
+  sectionId   String  @unique
   sectionName String
-  fields    Field[]  
+  sectionFields   Field[]  
 }
 
 
 type Field {
-  label   String
-  fieldID String 
-  type    String
+  fieldName   String
+  fieldId String 
+  fieldType    String
 }
 
 

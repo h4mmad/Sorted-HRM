@@ -1,19 +1,37 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import classNames from "classnames";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addField } from "../clientApiFns/employeeModelApi";
+import { v4 } from "uuid";
 
 type Inputs = {
   fieldName: string;
   fieldType: string;
 };
 
-export default function AddFieldForm() {
+export default function AddFieldForm({ sectionId }: { sectionId: string }) {
+  const queryClient = useQueryClient();
+
+  const addFieldMutation = useMutation(addField, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["employee-model"]);
+    },
+  });
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    addFieldMutation.mutate({
+      sectionId: sectionId,
+      fieldId: v4(),
+      fieldName: data.fieldName,
+      fieldType: data.fieldType,
+    });
+  };
   const fieldTypes = ["text", "date", "email"];
 
   return (

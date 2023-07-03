@@ -24,10 +24,10 @@ export const authOptions: AuthOptions = {
       // Persist the OAuth access_token to the token right after signin
       if (account) {
         token.accessToken = account.access_token;
-        console.log("account from jwt callback", account);
+        // console.log("account from jwt callback", account);
       }
 
-      console.log("token from jwt callback: ", token);
+      // console.log("token from jwt callback: ", token);
 
       return token;
     },

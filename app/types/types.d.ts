@@ -1,13 +1,13 @@
 type FieldType = {
-  label: string | undefined;
-  fieldID: string;
-  type: string;
+  fieldName: string;
+  fieldId: string;
+  fieldType: string;
 };
 
 type SectionType = {
   sectionName: string;
-  sectionID: string;
-  fields: FieldType[];
+  sectionId: string;
+  sectionFields: FieldType[];
 };
 
 type ActionTypes =
@@ -29,8 +29,8 @@ type Action1 = {
 type Action2 = {
   type: ActionTypes;
   payload: {
-    sectionID: string;
-    fieldID: string;
+    sectionId: string;
+    fieldId: string;
   };
 };
 type Action3 = {
@@ -59,27 +59,40 @@ type FormBuilderAction =
 
 type SectionProps = {
   sectionName: string;
-  sectionID: string;
-  fields: {
-    label: string | undefined;
-    fieldID: string;
-    type: string;
-  }[];
-  dispatch: React.Dispatch<Action>;
-  disabled: boolean;
+  sectionId: string;
+  sectionFields: FieldType[];
+  handleSectionDelete: any;
 };
 
 type FormBuilderReducerInitialState = {
-  inputField: string;
-  layouts: SectionType[];
-  inputFieldType: string;
-  toggleForm: boolean;
+  inputField?: string;
+  layouts?: SectionType[];
+  toggleForm?: boolean;
   disabled: boolean;
-  server: { message: string; status: string };
-  loading: boolean;
+  server?: { message: string; status: string };
+  loading?: boolean;
 };
 
 type ResponseAlert = {
   statusCode: string;
   message: string;
 };
+
+type AddFieldInterface = {
+  sectionId: string;
+  fieldName: string | undefined;
+  fieldId: string;
+  fieldType: string;
+};
+
+type Employee = {};
+
+type opPatchTypes = "add" | "remove" | "replace";
+"move" | "copy" | "test";
+
+interface PatchType {
+  op: opPatchTypes;
+  path: string;
+  sectionId: string;
+  fieldId: string;
+}
