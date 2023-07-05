@@ -6,8 +6,8 @@ type FieldType = {
 
 type SectionType = {
   sectionName: string;
-  sectionId: string;
-  sectionFields: FieldType[];
+  _id: string;
+  sectionFields: FieldType[] | undefined;
 };
 
 type ActionTypes =
@@ -29,7 +29,7 @@ type Action1 = {
 type Action2 = {
   type: ActionTypes;
   payload: {
-    sectionId: string;
+    _id: string;
     fieldId: string;
   };
 };
@@ -57,13 +57,6 @@ type FormBuilderAction =
   | Action5
   | Action6;
 
-type SectionProps = {
-  sectionName: string;
-  sectionId: string;
-  sectionFields: FieldType[];
-  handleSectionDelete: any;
-};
-
 type FormBuilderReducerInitialState = {
   inputField?: string;
   layouts?: SectionType[];
@@ -79,9 +72,8 @@ type ResponseAlert = {
 };
 
 type AddFieldInterface = {
-  sectionId: string;
-  fieldName: string | undefined;
-  fieldId: string;
+  _id: string;
+  fieldName: string;
   fieldType: string;
 };
 
@@ -90,9 +82,56 @@ type Employee = {};
 type opPatchTypes = "add" | "remove" | "replace";
 "move" | "copy" | "test";
 
-interface PatchType {
+interface RemovePatchType {
   op: opPatchTypes;
   path: string;
-  sectionId: string;
+  _id: string;
   fieldId: string;
+}
+interface AddPatchType {
+  op: opPatchTypes;
+  path: string;
+  _id: string;
+  fieldName: string;
+  fieldType: string;
+}
+
+interface NewEmployeeFormInputs {
+  employeeId: string;
+  imageUrl?: string;
+
+  personalDetails: {
+    name: string;
+    dateOfBirth: Date;
+    nationality: string;
+  };
+
+  contactDetails: {
+    phoneNumber: string;
+    personalEmail: string;
+    workEmail?: string;
+  };
+
+  idDetails: {
+    iqamaNumber: number;
+    iqamaExpiry: Date;
+    iqamaStatus: "expired" | "active";
+    passportNumber?: number;
+    passportExpiry?: Date;
+  };
+
+  jobDetails: {
+    designation: string;
+    stream: string;
+    department: string;
+    remarks: string;
+    dateOfJoining: Date;
+    workStatus: "inactive" | "active";
+    sponsoredBy: string;
+  };
+
+  qualificationDetails: {
+    qualification: string;
+    university: string;
+  };
 }

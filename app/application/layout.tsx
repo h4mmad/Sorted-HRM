@@ -16,19 +16,19 @@ export default function ApplicationLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const myData = useSession({
-    required: true,
-  });
-  console.log(myData);
-  if (myData.status === "authenticated") {
-    return (
-      <div>
-        <NavBar />
-        <div className="ml-32 flex justify-center">{children}</div>
-      </div>
-    );
-  }
+  // const myData = useSession({
+  // required: true,
+  // });
+  // console.log(myData);
+  // if (myData.status !== "authenticated") {
+  return (
+    <>
+      <NavBar />
+      <div className="ml-32 flex justify-center">{children}</div>
+    </>
+  );
+  // }
 
-  if (myData.status === "loading") {
-  }
+  // if (myData.status === "loading") {
+  // }
 }

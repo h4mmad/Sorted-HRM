@@ -5,46 +5,72 @@ const employeeModelApi = axios.create({
 });
 
 export async function getSections() {
-  const response = await employeeModelApi.get("/employee-model/sections");
-  return response.data as SectionType[];
+  try {
+    const response = await employeeModelApi.get("/employee-model");
+
+    return await response.data;
+  } catch (error) {
+    throw error;
+  }
 }
 
+///////////////////////
+/// ERROR in Next JS //
+//////////////////////
 export async function deleteSection(sectionId: string) {
-  return await employeeModelApi.delete(`/employee-model/sections`, {
-    data: { sectionId },
+  console.log(sectionId);
+  return await employeeModelApi.delete("/employee-model", {
+    data: {
+      sectionId,
+    },
   });
 }
+///////////////////////
 
-export async function addSection({ sectionId, sectionName }: SectionType) {
-  return await employeeModelApi.post("/employee-model/sections", {
-    sectionId,
+export async function addSection({
+  sectionName,
+  sectionFields,
+}: {
+  sectionName: string;
+  sectionFields: FieldType[];
+}) {
+  return await employeeModelApi.post("/employee-model", {
     sectionName,
+    sectionFields,
   });
 }
 
 export async function addField({
-  sectionId,
-  fieldId,
+  _id,
   fieldName,
   fieldType,
 }: AddFieldInterface) {
-  return await employeeModelApi.patch("/employee-model/fields", {
-    sectionId,
-    fieldId,
-    fieldName,
+  const data: AddPatchType = {
+    op: "add",
+    path: "/sectionFields",
+    _id,
     fieldType,
-  });
+    fieldName,
+  };
+
+  return await employeeModelApi.patch("/employee-model", data);
 }
 
-export async function deleteField(fieldId: string, sectionId: string) {
-  const data: PatchType = {
+export async function removeField({
+  fieldId,
+  _id,
+}: {
+  fieldId: string;
+  _id: string;
+}) {
+  const data: RemovePatchType = {
     op: "remove",
     path: "/sectionFields",
-    sectionId,
+    _id,
     fieldId,
   };
 
-  return await employeeModelApi.patch("employee-model", data);
+  return await employeeModelApi.patch("/employee-model", data);
 }
 
 export default employeeModelApi;

@@ -1,6 +1,11 @@
-import { MongoClient } from "mongodb";
-import { PrismaClient } from "@prisma/client";
+import { Db, MongoClient } from "mongodb";
 
-const client = new MongoClient(process.env.NEXT_PUBLIC_MONGODB_URI);
-export const database = client.db("sorted_hrm");
-export const prisma = new PrismaClient();
+export default function dbConnection() {
+  try {
+    const client = new MongoClient(process.env.NEXT_PUBLIC_MONGODB_URI);
+    const database = client.db("sorted_hrm");
+    return { database };
+  } catch (error) {
+    throw error;
+  }
+}

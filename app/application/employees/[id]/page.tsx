@@ -1,8 +1,6 @@
 "use client";
 import { useParams, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { TextField } from "@/app/components/TextField";
-import { SwitchChoiceSelector } from "@/app/components/FieldTypeSelector";
 
 export default function Page() {
   const searchParams = useSearchParams();
@@ -65,15 +63,11 @@ export default function Page() {
       {/* form */}
       {/* Personal details */}
       <section className="mt-12">
-        <h2 className="text-2xl font-semibold">Personal details</h2>
+        <h2 className="text-2xl font-semibold text-myDarkBlue">
+          Personal details
+        </h2>
 
-        <div className="lg:flex justify-between mt-2">
-          <TextField
-            labelText="Name"
-            defaultValue={searchParams.get("name")}
-            disabled={disabled}
-          />
-        </div>
+        <div className="lg:flex justify-between mt-2"></div>
 
         <div className="lg:flex justify-between mt-2">
           {/* <BinaryChoiceSelector
@@ -87,93 +81,31 @@ export default function Page() {
             disabled={disabled}
             labelText="Gender"
           /> */}
-
-          <TextField
-            labelText="Contact No."
-            defaultValue={searchParams.get("contactNo")}
-            disabled={disabled}
-          />
         </div>
       </section>
 
       <section className="mt-12">
-        <h2 className="text-2xl font-semibold">Personal details</h2>
+        <h2 className="text-2xl font-semibold text-myDarkBlue">Job</h2>
 
-        <div className="lg:flex justify-between mt-2">
-          <TextField
-            labelText="Name"
-            defaultValue={searchParams.get("name")}
-            disabled={disabled}
-          />
-        </div>
+        <div className="lg:flex justify-between mt-2"></div>
 
-        <div className="lg:flex justify-between mt-2">
-          <TextField
-            labelText="Contact No."
-            defaultValue={searchParams.get("contactNo")}
-            disabled={disabled}
-          />
-        </div>
+        <div className="lg:flex justify-between mt-2"></div>
       </section>
 
       <section className="mt-12">
-        <h2 className="text-2xl font-semibold">Job details</h2>
+        <h2 className="text-2xl font-semibold text-myDarkBlue">Job details</h2>
 
-        <div className="lg:flex justify-between mt-2">
-          <TextField labelText="Job title" disabled={disabled} />
+        <div className="lg:flex justify-between mt-2"></div>
 
-          <TextField
-            labelText="Contact No."
-            defaultValue={searchParams.get("contactNo")}
-            disabled={disabled}
-          />
-        </div>
-
-        <div className="lg:flex justify-between mt-2">
-          <TextField
-            labelText="Contact No."
-            defaultValue={searchParams.get("contactNo")}
-            disabled={disabled}
-          />
-
-          <TextField
-            labelText="Contact No."
-            defaultValue={searchParams.get("contactNo")}
-            disabled={disabled}
-          />
-        </div>
+        <div className="lg:flex justify-between mt-2"></div>
       </section>
 
       <section className="mt-12">
         <h2 className="text-2xl font-semibold">Education background</h2>
 
-        <div className="lg:flex justify-between mt-2">
-          <TextField
-            labelText="Contact No."
-            defaultValue={searchParams.get("contactNo")}
-            disabled={disabled}
-          />
+        <div className="lg:flex justify-between mt-2"></div>
 
-          <TextField
-            labelText="Contact No."
-            defaultValue={searchParams.get("contactNo")}
-            disabled={disabled}
-          />
-        </div>
-
-        <div className="lg:flex justify-between mt-2">
-          <TextField
-            labelText="Contact No."
-            defaultValue={searchParams.get("contactNo")}
-            disabled={disabled}
-          />
-
-          <TextField
-            labelText="Contact No."
-            defaultValue={searchParams.get("contactNo")}
-            disabled={disabled}
-          />
-        </div>
+        <div className="lg:flex justify-between mt-2"></div>
       </section>
     </div>
   );

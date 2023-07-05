@@ -13,24 +13,24 @@ Sample response employee-model
 ```
 [
   {
-    "sectionId": "eb73a85e-0872-474f-98bf-9cc6eb0474a7",
+    "_id": "eb73a85e-0872-474f-98bf-9cc6eb0474a7",
     "sectionName": "Personal details",
-    "fields": [
+    "sectionFields": [
       {
-        "label": "Name",
-        "fieldID": "9f0ac870-1f8e-4738-ac96-7d87b8b7442d",
-        "type": "text"
+        "fieldName": "Name",
+        "fieldId": "9f0ac870-1f8e-4738-ac96-7d87b8b7442d",
+        "fieldType": "text"
       },
       {
-        "label": "Date of birth",
-        "fieldId": "241f9e99-a036-4eba-9f6b-460827dc23fe",
-        "type": "date"
+        "fieldName": "Name",
+        "fieldId": "9f0ac870-1f8e-4738-ac96-7d87b8b7442d",
+        "fieldType": "text"
       },
       {
-        "label": "Personal email",
-        "fieldId": "0eab3385-2897-4ab8-813a-8c12b5886ccb",
-        "type": "email"
-      }
+        "fieldName": "Name",
+        "fieldId": "9f0ac870-1f8e-4738-ac96-7d87b8b7442d",
+        "fieldType": "text"
+      },
     ]
   },
 ]
@@ -102,5 +102,33 @@ Add field form returns the following object
 ```javascript
 {fieldName: 'Name', fieldType: 'text'}
 
+
+```
+
+ID generation will occur server side
+
+---
+
+- admin builds employee model
+- adds sections, where each section has a sectionId
+- adds fields, each field has an id, name, type, required checkbox
+
+- allow admin to add a selection field
+- selection field has an id
+- if field type is selected as dropdown, then show the drop down
+- can select only one value
+
+possible json structure for the selection field
+possible use of state or reducer
+
+```javascript
+
+{
+  fieldName: "Stream",
+  fieldId: "as3fev2cs",
+  fieldType: "selection",
+  required: true,
+  choices: ["admin", "primary", "teacher"]
+}
 
 ```

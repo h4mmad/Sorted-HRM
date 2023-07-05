@@ -1,34 +1,24 @@
 "use client";
 
-import React, { useEffect, useReducer } from "react";
-import Section from "../../../components/Section";
-import classNames from "classnames";
-import ResponseAlert from "@/app/components/ResponseAlert";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import React from "react";
+import { v4 } from "uuid";
+import { useQuery } from "@tanstack/react-query";
 import AddSectionForm from "@/app/components/AddSectionForm";
-import {
-  addSection,
-  deleteSection,
-  getSections,
-} from "@/app/clientApiFns/employeeModelApi";
+import { getSections } from "@/app/clientApiFns/employeeModelApi";
+import LoadingSkeleton from "@/app/components/LoadingSekeleton";
+import NoSections from "@/app/components/NoSections";
+import { AxiosError } from "axios";
+import SectionErrorMessage from "@/app/components/SectionErrorMessage";
+import DynamicSection from "../../../components/DynamicSection";
 
 export default function ModelBuilder() {
-  const queryClient = useQueryClient();
-
-  const { data, isSuccess } = useQuery({
+  const { data, isSuccess, isLoading, isError, error } = useQuery<
+    SectionType[],
+    AxiosError
+  >({
     queryKey: ["employee-model"],
     queryFn: getSections,
   });
-
-  const deleteSectionMutation = useMutation(deleteSection, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["employee-model"]);
-    },
-  });
-
-  const handleSectionDelete = (id: string) => {
-    deleteSectionMutation.mutate(id);
-  };
 
   return (
     <div className="w-3/4 relative">
@@ -47,18 +37,35 @@ export default function ModelBuilder() {
           <AddSectionForm />
         </div>
 
-        <div className={classNames(["flex-grow", ,])}>
-          {data?.map(({ sectionId, sectionName, sectionFields }) => {
-            return (
-              <Section
-                key={sectionId}
-                sectionId={sectionId}
-                sectionName={sectionName}
-                sectionFields={sectionFields}
-                handleSectionDelete={handleSectionDelete}
-              />
-            );
-          })}
+        <div className="flex-grow">
+          {isError && <SectionErrorMessage errorMessage={error.message} />}
+          {isSuccess && data.length === 0 && <NoSections />}
+          {
+            <>
+              {isLoading ? (
+                <div>
+                  <LoadingSkeleton />
+                  <LoadingSkeleton />
+                  <LoadingSkeleton />
+                </div>
+              ) : (
+                isSuccess &&
+                data.length != 0 &&
+                data?.map(
+                  ({ _id, sectionFields, sectionName }: SectionType) => {
+                    return (
+                      <DynamicSection
+                        key={v4()}
+                        _id={_id}
+                        sectionName={sectionName}
+                        sectionFields={sectionFields}
+                      />
+                    );
+                  }
+                )
+              )}
+            </>
+          }
         </div>
       </div>
     </div>
