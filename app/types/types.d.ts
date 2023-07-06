@@ -135,3 +135,22 @@ interface NewEmployeeFormInputs {
     university: string;
   };
 }
+type SectionProps = {
+  sectionTitle: string;
+  sectionFields: Fields[];
+  visible?: boolean;
+};
+
+type Fields = {
+  fieldName: string;
+  isRequired: boolean;
+} & (SingleField | OptionField);
+
+type SingleField = {
+  fieldType: "text" | "email" | "date" | "number" | "file";
+};
+
+type OptionField = {
+  fieldType: "options";
+  fieldOptions: string[];
+};

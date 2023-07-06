@@ -6,13 +6,16 @@ import { Tooltip } from "react-tooltip";
 import AddFieldForm from "@/app/components/AddFieldForm";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { removeField } from "../clientApiFns/employeeModelApi";
+import OptionsMenu from "./OptionsMenu";
 
 export default function DynamicSection({
   _id,
   sectionName,
   sectionFields,
 }: SectionType) {
+  //true in dev mode
   const [toggleAddFieldForm, setToggleAddFieldForm] = useState(false);
+  const [toggleAddSelectionForm, setToggleAddSelectionForm] = useState(false);
 
   const queryClient = useQueryClient();
 
