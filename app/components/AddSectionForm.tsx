@@ -30,30 +30,36 @@ export default function AddSectionForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className={"p-3 bg-gray-200 rounded-md h-fit w-64"}>
-        <label className="block text-myDarkBlue font-bold">Section name</label>
-        <input
-          {...register("sectionName", { required: true })}
-          name="sectionName"
-          id="sectionName"
-          type="text"
-          className="rounded-md p-1 appearance-none w-full"
-        />
-        {errors.sectionName?.type === "required" && (
-          <p role="alert" className="text-red-500 text-sm">
-            Section name is required
-          </p>
-        )}
+    <div className="p-3 border border-slate-300 rounded-lg w-64 bg-slate-100 dark:bg-black dark:border-gray-700">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <label className="text-myLightBlue dark:text-white font-semibold text-lg">
+            Section name
+          </label>
+          <input
+            {...register("sectionName", { required: true })}
+            type="text"
+            autoComplete="none"
+            aria-autocomplete="none"
+            className="block w-full rounded-lg border border-slate-300 p-1 dark:bg-gray-700 dark:border-gray-700"
+          />
+          {errors.sectionName?.type === "required" && (
+            <p role="alert" className="text-red-500 text-sm">
+              Section name is required
+            </p>
+          )}
+        </div>
 
-        <button
-          type="submit"
-          className="px-4 py-1 text-white mt-2 hover:bg-myDarkBlue rounded-full bg-myLightBlue"
-        >
-          + Add section
-        </button>
-      </div>
-    </form>
+        <div className="flex flex-row justify-end mt-8">
+          <button
+            type="submit"
+            className="px-4 py-2 text-white text-sm w-full hover:bg-myDarkBlue dark:hover:bg-gray-700 rounded-full bg-myLightBlue dark:bg-black dark:border dark:border-gray-700"
+          >
+            + Add section
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
 

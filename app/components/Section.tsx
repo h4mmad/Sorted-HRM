@@ -2,22 +2,25 @@ import classNames from "classnames";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { v4 } from "uuid";
 
 export default function Section({
   sectionTitle,
   sectionFields,
   visible,
+  register,
+  errors,
 }: SectionProps) {
   const [isVisible, setIsVisible] = useState(visible);
 
-  const { register } = useForm();
+  console.log(errors);
 
   return (
     <section
       className={classNames([
-        "my-8 rounded-md border border-slate-300 bg-slate-100",
+        "my-8 rounded-lg border border-slate-300 ",
         {
-          "opacity-50": !isVisible,
+          "shadow-lg": isVisible,
         },
       ])}
     >
@@ -28,12 +31,20 @@ export default function Section({
         <h2 className="text-xl font-semibold text-myDarkBlue  select-none">
           {sectionTitle}
         </h2>
+        <ExpandLessIcon
+          className={classNames([
+            "text-myLightBlue",
+            {
+              "rotate-180": isVisible,
+            },
+          ])}
+        />
       </div>
 
       {
         <div
           className={classNames([
-            "flex flex-row flex-wrap justify-between p-2 transition-transform",
+            "flex flex-row flex-wrap  justify-between p-2 transition-transform",
             {
               hidden: !isVisible,
             },
@@ -41,14 +52,14 @@ export default function Section({
         >
           {sectionFields?.map((field, index) => {
             return (
-              <div className="m-2">
+              <div className="m-2" key={v4()}>
                 {field.fieldType === "options" ? (
                   <div>
-                    <p className="text-myDarkBlue select-none">
+                    <p className="text-myDarkBlue">
                       {field.fieldName}
                       <span className="text-red-500"> *</span>
                     </p>
-                    <select className="p-1 rounded-lg w-64 bg-white  border border-slate-300">
+                    <select className="p-2 rounded-lg w-64 bg-white  border border-slate-300 cursor-pointer">
                       {field?.fieldOptions?.map((fieldOption) => {
                         return <option>{fieldOption}</option>;
                       })}
@@ -67,9 +78,11 @@ export default function Section({
                     <input
                       {...register(field.fieldName, {
                         required: field.isRequired,
+                        pattern: field.pattern,
                       })}
+                      placeholder={field.placeholder}
                       type={field.fieldType}
-                      className="p-1 appearance-none rounded-lg w-64 bg-white  border border-slate-300"
+                      className="p-2 appearance-none  rounded-lg w-64 bg-white  border border-slate-300"
                     />
                   </div>
                 )}

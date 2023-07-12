@@ -22,18 +22,24 @@ export default function ModelBuilder() {
 
   return (
     <div className="w-3/4 relative">
-      <div className="flex flex-row space-x-8 mt-4">
+      <h1 className="text-myLightBlue dark:text-white text-3xl font-semibold mt-4">
+        Model builder
+      </h1>
+
+      <div className="flex flex-row space-x-8 my-8">
         <div className="sticky top-0 h-fit">
-          <div className="p-3 border border-gray-200 rounded-md mb-4">
+          {/* <div className="p-3 border border-slate-300 rounded-lg mb-4">
             <button
               className="text-myLightBlue hover:underline"
               onClick={() => {}}
-            ></button>
+            >
+              Edit
+            </button>
 
             <button className="text-myLightBlue float-right hover:underline">
-              Save model
+              Cancel
             </button>
-          </div>
+          </div> */}
           <AddSectionForm />
         </div>
 

@@ -13,8 +13,8 @@ export default function NavButton({
   const conditionalClassName = classNames([
     "w-full p-3 cursor-pointer",
     {
-      "bg-myLightBlue": to == currentPath,
-      "hover:bg-myLightBlue": to != currentPath,
+      "bg-myLightBlue dark:bg-gray-700": to == currentPath,
+      "hover:bg-myLightBlue dark:hover:bg-gray-700": to != currentPath,
     },
   ]);
   return (

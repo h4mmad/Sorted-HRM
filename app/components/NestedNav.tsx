@@ -18,7 +18,7 @@ export default function NestedNav({
     <>
       <div
         className={
-          "w-full p-3  hover:bg-myLightBlue cursor-pointer flex flex-row items-center justify-between select-none"
+          "w-full p-3  hover:bg-myLightBlue dark:hover:bg-gray-700 cursor-pointer flex flex-row items-center justify-between select-none"
         }
         onClick={() => setDropDownIsOpen(!dropDownIsOpen)}
       >
@@ -45,9 +45,9 @@ export default function NestedNav({
         <div>
           {routes.map((route, index) => {
             const conditionalClassName = classNames([
-              "w-full p-3 cursor-pointer hover:bg-myLightBlue",
+              "w-full p-3 cursor-pointer hover:bg-myLightBlue dark:hover:bg-gray-700",
               {
-                "bg-myLightBlue": route.to == currentPath,
+                "bg-myLightBlue dark:bg-gray-700": route.to == currentPath,
               },
             ]);
             return (

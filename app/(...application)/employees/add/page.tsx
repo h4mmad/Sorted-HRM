@@ -1,6 +1,11 @@
 "use client";
 
-import { useForm, SubmitHandler, Field } from "react-hook-form";
+import {
+  useForm,
+  SubmitHandler,
+  Field,
+  UseFormRegister,
+} from "react-hook-form";
 import Section from "@/app/components/Section";
 
 export default function NewEmployee() {
@@ -30,12 +35,12 @@ export default function NewEmployee() {
       fieldName: "Sponsored by",
       fieldType: "options",
       isRequired: true,
-      fieldOptions: ["School sponsored", "Husband sponsored", "Other"],
+      fieldOptions: ["School", "Husband", "Self", "Other"],
     },
   ];
 
   const PersonalDetails: Fields[] = [
-    { fieldName: "Name", fieldType: "text", isRequired: true },
+    { fieldName: "Full Name", fieldType: "text", isRequired: true },
 
     { fieldName: "Date of birth", fieldType: "date", isRequired: true },
     {
@@ -50,24 +55,36 @@ export default function NewEmployee() {
       isRequired: true,
       fieldType: "options",
       fieldOptions: [
-        "India",
-        "Egypt",
-        "Sudan",
-        "Saudi Arabia",
-        "Bangladesh",
-        "Pakistan",
+        "🇮🇳 India",
+        "🇪🇬 Egypt",
+        "🇸🇩 Sudan",
+        "🇸🇦 Saudi Arabia",
+        "🇧🇩 Bangladesh",
+        "🇵🇰 Pakistan",
       ],
     },
   ];
 
   const ContactDetails: Fields[] = [
-    { fieldName: "Phone number", fieldType: "number", isRequired: true },
-    { fieldName: "Personal email", fieldType: "email", isRequired: true },
+    {
+      fieldName: "Phone number",
+      fieldType: "number",
+      isRequired: true,
+    },
+    {
+      fieldName: "Personal email",
+      fieldType: "email",
+      isRequired: true,
+    },
     { fieldName: "Work email", fieldType: "email", isRequired: false },
   ];
 
   const IqamaDetails: Fields[] = [
-    { fieldName: "Iqama number", fieldType: "number", isRequired: true },
+    {
+      fieldName: "Iqama number",
+      fieldType: "number",
+      isRequired: true,
+    },
     { fieldName: "Iqama expiry", fieldType: "date", isRequired: true },
     {
       fieldName: "Iqama status",
@@ -87,45 +104,68 @@ export default function NewEmployee() {
     { fieldName: "Passport expiry", fieldType: "date", isRequired: false },
   ];
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { isDirty, errors },
+  } = useForm<AddEmployeeFormInputs>();
 
-  const onSubmit: SubmitHandler<any> = (data) => {
-    console.log(data);
-  };
+  const onSubmit: any = (values: any) => console.log(values);
 
   return (
     <div className="w-3/4">
       <h1 className="text-3xl text-myDarkBlue font-semibold mt-4">
         Add Employee
       </h1>
-      <form onSubmit={() => {}}>
-        <Section
-          sectionTitle="Iqama details"
-          sectionFields={IqamaDetails}
-          visible={true}
-        />
-        <Section
-          sectionTitle="Personal details"
-          sectionFields={PersonalDetails}
-        />
-        <Section
-          sectionTitle="Contact details"
-          sectionFields={ContactDetails}
-        />
-        <Section
-          sectionTitle="Passport details"
-          sectionFields={PassportDetails}
-        />
-        <Section sectionTitle="Job details" sectionFields={JobDetails} />
-        <Section sectionTitle="Qualification" sectionFields={Qualification} />
 
-        <button
-          type="submit"
-          className="px-4 py-1 w-fit float-right text-white hover:bg-myDarkBlue rounded-full bg-myLightBlue "
-        >
-          Submit
-        </button>
-      </form>
+      <div className="flex-grow">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Section
+            sectionTitle="Iqama details"
+            sectionFields={IqamaDetails}
+            visible={true}
+            register={register}
+            errors={errors}
+          />
+          <Section
+            sectionTitle="Personal details"
+            sectionFields={PersonalDetails}
+            register={register}
+            errors={errors}
+          />
+          {/* <Section
+            sectionTitle="Contact details"
+            sectionFields={ContactDetails}
+            register={register}
+            errors={errors}
+          />
+          <Section
+            sectionTitle="Passport details"
+            sectionFields={PassportDetails}
+            register={register}
+            errors={errors}
+          />
+          <Section
+            sectionTitle="Job details"
+            sectionFields={JobDetails}
+            register={register}
+            errors={errors}
+          />
+          <Section
+            sectionTitle="Education"
+            sectionFields={Qualification}
+            register={register}
+            errors={errors}
+          /> */}
+
+          <button
+            type="submit"
+            className="px-4 py-1 w-fit float-right text-white hover:bg-myDarkBlue rounded-full bg-myLightBlue"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

@@ -4,13 +4,13 @@ import NavButton from "./NavButton";
 
 export default function NavBar() {
   return (
-    <div className="flex flex-col bg-myDarkBlue h-screen fixed w-fit">
+    <div className="flex flex-col bg-myDarkBlue dark:bg-black h-screen fixed w-fit dark:border-r border-gray-700">
       <NavButton title="Dashboard" to="/dashboard" />
 
       <NestedNav
         dropDownTitle="Employees"
         routes={[
-          { title: "View all", to: "/employees" },
+          { title: "View employees", to: "/employees" },
           { title: "Add employee", to: "/employees/add" },
           {
             title: "Model builder",
@@ -18,8 +18,7 @@ export default function NavBar() {
           },
         ]}
       />
-
-      <User />
+      {/* <User /> */}
     </div>
   );
 }

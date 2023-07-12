@@ -54,7 +54,7 @@ export default function AddFieldForm({ _id }: { _id: string }) {
           </label>
           <input
             type="text"
-            className="rounded-md p-1"
+            className="rounded-md p-1 border border-slate-300"
             {...register("fieldName", { required: true })}
           />
           {errors.fieldName?.type === "required" && (
@@ -76,7 +76,7 @@ export default function AddFieldForm({ _id }: { _id: string }) {
                   <input
                     {...register("fieldType", { required: true })}
                     type="radio"
-                    className="peer  w-0.5 h-0.5 appearance-none outline-none"
+                    className="peer  w-0.5 h-0.5 appearance-none outline-none "
                     value={type}
                     id={type}
                   />
@@ -127,7 +127,7 @@ export default function AddFieldForm({ _id }: { _id: string }) {
 
   const [index, setIndex] = useState(0);
   return (
-    <div className="bg-gray-200 mt-4 rounded-md shadow-md w-fit left-0 z-10 absolute top-2">
+    <div className="bg-slate-100 border border-slate-300 mt-4 rounded-lg shadow-lg w-fit left-0 z-10 absolute top-2">
       {content[0]}
     </div>
   );

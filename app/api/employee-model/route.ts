@@ -8,6 +8,23 @@ const client = new MongoClient(process.env.NEXT_PUBLIC_MONGODB_URI);
 const database = client.db("sorted_hrm");
 const sections = database.collection("employee-model-sections");
 
+export async function DELETE(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const sectionId = searchParams.get("sectionId");
+
+  if (sectionId) {
+    return NextResponse.json({
+      messsage: `deleted section ${sectionId}`,
+    });
+  } else {
+    return NextResponse.json(
+      {
+        message: "sectionId param not found",
+      },
+      { status: 404 }
+    );
+  }
+}
 export async function GET(request: NextRequest) {
   try {
     const cursor = sections.find();

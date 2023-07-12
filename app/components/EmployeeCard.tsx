@@ -14,13 +14,13 @@ export default function EmployeeCard({
       {/* profile pic */}
       <img
         src={pictureURL}
-        className="bg-gray-200 h-20 w-20 mr-2 rounded-full border-2 border-gray-300 self-center"
+        className="bg-slate-100 h-20 w-20 mr-2 rounded-full border-2 border-gray-300 self-center"
       />
 
       {/* employee info */}
 
       <div className="flex-grow">
-        <div className=" bg-gray-200 p-2 rounded-tl-md rounded-bl-md">
+        <div className=" border border-slate-300 p-2 rounded-tl-lg rounded-bl-lg">
           <div className="flex flex-row space-x-24 items-center mb-2">
             <h1 className="text-myDarkBlue font-bold text-xl flex-1">{name}</h1>
             <h4 className="text-sm">{contactNo}</h4>

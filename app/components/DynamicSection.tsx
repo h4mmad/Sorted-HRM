@@ -36,9 +36,14 @@ export default function DynamicSection({
   };
 
   return (
-    <div key={_id} className="p-3 border-2 border-myDarkBlue rounded-md mb-4">
-      <div className="flex flex-row justify-between">
-        <h2 className="font-bold text-2xl text-myDarkBlue">{sectionName}</h2>
+    <div
+      key={_id}
+      className="p-3 border border-slate-300 dark:bg-gray-900 dark:border-gray-700 rounded-lg mb-4 shadow-lg"
+    >
+      <div className="flex flex-row justify-between mb-2">
+        <h2 className="font-bold text-xl text-myDarkBlue dark:text-white dark:font-normal">
+          {sectionName}
+        </h2>
         <button className="text-sm" onMouseOver={() => {}}>
           <a
             data-tooltip-id="delete-section"
@@ -54,15 +59,12 @@ export default function DynamicSection({
         {sectionFields?.map((item: FieldType) => {
           return (
             <div key={v4()} className="my-2">
-              <label className="block text-myDarkBlue">{item.fieldName}</label>
+              <label className="block text-myDarkBlue dark:text-white">
+                {item.fieldName}
+              </label>
               <input
                 type={item.fieldType}
-                className="rounded-md p-1 border border-myDarkBlue w-64"
-                placeholder={
-                  item.fieldType === "email"
-                    ? "johndoe@gmail.com"
-                    : item.fieldName
-                }
+                className="rounded-md p-1 border border-slate-300 w-64 dark:bg-gray-700 dark:border-none"
               />
               <button
                 className="ml-2"
@@ -83,10 +85,10 @@ export default function DynamicSection({
         })}
       </div>
 
-      <div className="relative w-fit">
+      <div className="relative w-fit mt-4">
         <button
           onClick={() => setToggleAddFieldForm(!toggleAddFieldForm)}
-          className="text-sm text-myLightBlue"
+          className="text-sm text-myLightBlue dark:text-gray-500  dark:hover:text-white"
         >
           {toggleAddFieldForm ? "Cancel" : "+ Add field"}
         </button>
