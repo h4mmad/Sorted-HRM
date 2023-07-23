@@ -114,7 +114,7 @@ export default function NewEmployee() {
 
   return (
     <div className="w-3/4">
-      <h1 className="text-3xl text-myDarkBlue font-semibold mt-4">
+      <h1 className="text-3xl text-myDarkBlue dark:text-white font-semibold mt-4">
         Add Employee
       </h1>
 
@@ -133,7 +133,7 @@ export default function NewEmployee() {
             register={register}
             errors={errors}
           />
-          {/* <Section
+          <Section
             sectionTitle="Contact details"
             sectionFields={ContactDetails}
             register={register}
@@ -156,7 +156,7 @@ export default function NewEmployee() {
             sectionFields={Qualification}
             register={register}
             errors={errors}
-          /> */}
+          />
 
           <button
             type="submit"

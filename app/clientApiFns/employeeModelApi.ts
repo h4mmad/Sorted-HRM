@@ -19,11 +19,9 @@ export async function getSections() {
 //////////////////////
 export async function deleteSection(sectionId: string) {
   console.log(sectionId);
-  return await employeeModelApi.delete("/employee-model", {
-    data: {
-      sectionId,
-    },
-  });
+  return await employeeModelApi.delete(
+    `/employee-model/?sectionId=${sectionId}`
+  );
 }
 ///////////////////////
 

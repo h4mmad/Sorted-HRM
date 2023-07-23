@@ -47,7 +47,7 @@ export default function EmployeeCard({
       </div>
       <Link
         href={{
-          pathname: `/application/employees/${iqama}`,
+          pathname: `/employees/${iqama}`,
           query: { name, designation, iqama, contactNo, pictureURL, status },
         }}
         className="w-12 h-100 rounded-tr-md rounded-br-md  text-white bg-myLightBlue hover:bg-myDarkBlue flex  justify-center items-center cursor-pointer "

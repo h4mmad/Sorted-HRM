@@ -41,7 +41,7 @@ export default function AddSectionForm() {
             type="text"
             autoComplete="none"
             aria-autocomplete="none"
-            className="block w-full rounded-lg border border-slate-300 p-1 dark:bg-gray-700 dark:border-gray-700"
+            className="block w-full dark:text-white rounded-lg border border-slate-300 p-1 dark:bg-gray-700 dark:border-gray-700"
           />
           {errors.sectionName?.type === "required" && (
             <p role="alert" className="text-red-500 text-sm">

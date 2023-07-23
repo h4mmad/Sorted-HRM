@@ -11,6 +11,7 @@ const sections = database.collection("employee-model-sections");
 export async function DELETE(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const sectionId = searchParams.get("sectionId");
+  console.log(sectionId);
 
   if (sectionId) {
     return NextResponse.json({

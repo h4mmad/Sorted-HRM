@@ -18,9 +18,10 @@ export default function Section({
   return (
     <section
       className={classNames([
-        "my-8 rounded-lg border border-slate-300 ",
+        "my-8 rounded-lg border border-slate-300 dark:bg-gray-900",
         {
           "shadow-lg": isVisible,
+          "opacity-70": !isVisible,
         },
       ])}
     >
@@ -28,12 +29,12 @@ export default function Section({
         className="w-full flex justify-between items-center cursor-pointer p-3 rounded-lg"
         onClick={() => setIsVisible(!isVisible)}
       >
-        <h2 className="text-xl font-semibold text-myDarkBlue  select-none">
+        <h2 className="text-xl font-semibold text-myDarkBlue dark:text-white select-none">
           {sectionTitle}
         </h2>
         <ExpandLessIcon
           className={classNames([
-            "text-myLightBlue",
+            "text-myLightBlue dark:text-white",
             {
               "rotate-180": isVisible,
             },
@@ -55,7 +56,7 @@ export default function Section({
               <div className="m-2" key={v4()}>
                 {field.fieldType === "options" ? (
                   <div>
-                    <p className="text-myDarkBlue">
+                    <p className="text-myDarkBlue dark:text-white">
                       {field.fieldName}
                       <span className="text-red-500"> *</span>
                     </p>
@@ -67,7 +68,7 @@ export default function Section({
                   </div>
                 ) : (
                   <div>
-                    <p className="text-myDarkBlue select-none">
+                    <p className="text-myDarkBlue dark:text-white select-none">
                       {field.fieldName}
                       {field.isRequired ? (
                         <span className="text-red-500"> *</span>
@@ -82,7 +83,7 @@ export default function Section({
                       })}
                       placeholder={field.placeholder}
                       type={field.fieldType}
-                      className="p-2 appearance-none  rounded-lg w-64 bg-white  border border-slate-300"
+                      className="p-2 appearance-none  rounded-lg w-64 bg-white  border border-slate-300 dark:bg-gray-700"
                     />
                   </div>
                 )}

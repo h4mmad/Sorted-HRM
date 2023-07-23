@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Tooltip } from "react-tooltip";
 import AddFieldForm from "@/app/components/AddFieldForm";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { removeField } from "../clientApiFns/employeeModelApi";
+import { removeField, deleteSection } from "../clientApiFns/employeeModelApi";
 import OptionsMenu from "./OptionsMenu";
 
 export default function DynamicSection({
@@ -25,6 +25,12 @@ export default function DynamicSection({
     },
   });
 
+  const deleteSectionMutation = useMutation(deleteSection, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["employee-model"]);
+    },
+  });
+
   const removeFieldHandler = ({
     fieldId,
     _id,
@@ -33,6 +39,10 @@ export default function DynamicSection({
     _id: string;
   }) => {
     removeFieldMutation.mutate({ fieldId, _id });
+  };
+
+  const deleteSectionHandler = (_id: string) => {
+    deleteSectionMutation.mutate(_id);
   };
 
   return (
@@ -44,7 +54,7 @@ export default function DynamicSection({
         <h2 className="font-bold text-xl text-myDarkBlue dark:text-white dark:font-normal">
           {sectionName}
         </h2>
-        <button className="text-sm" onMouseOver={() => {}}>
+        <button className="text-sm" onClick={() => deleteSectionHandler(_id)}>
           <a
             data-tooltip-id="delete-section"
             data-tooltip-content={`Delete ${sectionName}`}
