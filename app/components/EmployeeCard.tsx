@@ -19,7 +19,7 @@ export default function EmployeeCard({
 
       {/* employee info */}
 
-      <div className="flex-grow">
+      <div className="flex-1">
         <div className=" border border-slate-300 p-2 rounded-tl-lg rounded-bl-lg">
           <div className="flex flex-row space-x-24 items-center mb-2">
             <h1 className="text-myDarkBlue font-bold text-xl flex-1">{name}</h1>

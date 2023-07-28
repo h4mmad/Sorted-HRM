@@ -8,7 +8,7 @@ export default function Employees() {
   const [dropDown, setDropDown] = useState(false);
 
   return (
-    <div className="w-3/4">
+    <div>
       <div className="flex justify-between items-center mt-4">
         <h1 className="text-3xl text-myLightBlue font-semibold">Employees</h1>
         <Search />

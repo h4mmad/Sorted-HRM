@@ -21,7 +21,7 @@ export default function ModelBuilder() {
   });
 
   return (
-    <div className="w-3/4 relative">
+    <div className="">
       <h1 className="text-myLightBlue dark:text-white text-3xl font-semibold mt-4">
         Model builder
       </h1>
@@ -43,7 +43,7 @@ export default function ModelBuilder() {
           <AddSectionForm />
         </div>
 
-        <div className="flex-grow">
+        <div className="flex-1">
           {isError && <SectionErrorMessage errorMessage={error.message} />}
           {isSuccess && data.length === 0 && <NoSections />}
           {

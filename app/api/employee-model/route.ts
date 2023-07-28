@@ -14,9 +14,17 @@ export async function DELETE(request: NextRequest) {
   console.log(sectionId);
 
   if (sectionId) {
-    return NextResponse.json({
-      messsage: `deleted section ${sectionId}`,
-    });
+    try {
+      await sections.deleteOne({ _id: new ObjectId(sectionId) });
+      return NextResponse.json({
+        messsage: `deleted section ${sectionId}`,
+      });
+    } catch (e) {
+      console.log(e);
+      return NextResponse.json({
+        messsage: `an error occured ${e}`,
+      });
+    }
   } else {
     return NextResponse.json(
       {

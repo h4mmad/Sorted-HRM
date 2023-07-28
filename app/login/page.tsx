@@ -19,14 +19,14 @@ export default function LoginPage() {
           text="Continue with Google"
           logo={GoogleLogo.src}
           provider="google"
-          callbackUrl="/application/dashboard"
+          callbackUrl="/dashboard"
         />
 
         <LoginButton
           text="Continue with Github"
           logo={GithubLogo.src}
           provider="github"
-          callbackUrl="/application/dashboard"
+          callbackUrl="/dashboard"
         />
       </div>
     </div>

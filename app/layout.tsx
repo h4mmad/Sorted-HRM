@@ -21,7 +21,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={classNames([inter.className, "dark:bg-black"])}>
+      <body
+        className={classNames([
+          inter.className,
+          "dark:bg-black",
+          "overflow-hidden",
+          "h-screen",
+        ])}
+      >
         <div>
           <QueryClientProvider client={queryClient}>
             <SessionProvider>{children}</SessionProvider>

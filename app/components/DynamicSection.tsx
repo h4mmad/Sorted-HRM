@@ -74,7 +74,7 @@ export default function DynamicSection({
               </label>
               <input
                 type={item.fieldType}
-                className="rounded-md p-1 border border-slate-300 w-64 dark:bg-gray-700 dark:border-none"
+                className="rounded-md p-1 border border-slate-300  dark:bg-gray-700 dark:border-none"
               />
               <button
                 className="ml-2"

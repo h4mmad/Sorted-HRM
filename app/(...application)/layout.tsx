@@ -23,10 +23,18 @@ export default function ApplicationLayout({
   // console.log(myData);
   // if (myData.status !== "authenticated") {
   return (
-    <>
-      <NavBar />
-      <div className="ml-32 flex justify-center">{children}</div>
-    </>
+    <div className="flex h-screen space-x-14">
+      <div className="">
+        <NavBar />
+      </div>
+
+      <div className="overflow-y-auto flex-1 h-full no-scrollbar">
+        {children}
+      </div>
+      <div className="bg-myDarkBlue p-4">
+        <User />
+      </div>
+    </div>
   );
   // }
 
