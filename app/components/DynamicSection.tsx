@@ -8,11 +8,19 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { removeField, deleteSection } from "../clientApiFns/employeeModelApi";
 import OptionsMenu from "./OptionsMenu";
 
+type Props = {
+  sectionName: string;
+  _id: string;
+  sectionFields: FieldType[] | undefined;
+  deleteSectionMutation: any;
+};
+
 export default function DynamicSection({
   _id,
   sectionName,
   sectionFields,
-}: SectionType) {
+  deleteSectionMutation,
+}: Props) {
   //true in dev mode
   const [toggleAddFieldForm, setToggleAddFieldForm] = useState(false);
   const [toggleAddSelectionForm, setToggleAddSelectionForm] = useState(false);
@@ -20,12 +28,6 @@ export default function DynamicSection({
   const queryClient = useQueryClient();
 
   const removeFieldMutation = useMutation(removeField, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["employee-model"]);
-    },
-  });
-
-  const deleteSectionMutation = useMutation(deleteSection, {
     onSuccess: () => {
       queryClient.invalidateQueries(["employee-model"]);
     },

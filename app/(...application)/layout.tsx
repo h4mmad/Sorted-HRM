@@ -23,12 +23,12 @@ export default function ApplicationLayout({
   // console.log(myData);
   // if (myData.status !== "authenticated") {
   return (
-    <div className="flex h-screen space-x-14">
+    <div className="flex h-screen">
       <div className="">
         <NavBar />
       </div>
 
-      <div className="overflow-y-auto flex-1 h-full no-scrollbar">
+      <div className="overflow-y-auto flex-1 h-full no-scrollbar px-14 py-14">
         {children}
       </div>
       <div className="bg-myDarkBlue p-4">

@@ -5,7 +5,7 @@ import { signOut, useSession } from "next-auth/react";
 
 export default function User() {
   const [isOpen, setIsOpen] = useState(false);
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   return (
     <div className="relative">

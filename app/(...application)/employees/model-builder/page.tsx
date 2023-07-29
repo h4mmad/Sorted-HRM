@@ -2,7 +2,7 @@
 
 import React from "react";
 import { v4 } from "uuid";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import AddSectionForm from "@/app/components/AddSectionForm";
 import { getSections } from "@/app/clientApiFns/employeeModelApi";
 import LoadingSkeleton from "@/app/components/LoadingSekeleton";
@@ -10,8 +10,11 @@ import NoSections from "@/app/components/NoSections";
 import { AxiosError } from "axios";
 import SectionErrorMessage from "@/app/components/SectionErrorMessage";
 import DynamicSection from "../../../components/DynamicSection";
+import { deleteSection } from "@/app/clientApiFns/employeeModelApi";
 
 export default function ModelBuilder() {
+  const queryClient = useQueryClient();
+
   const { data, isSuccess, isLoading, isError, error } = useQuery<
     SectionType[],
     AxiosError
@@ -19,27 +22,16 @@ export default function ModelBuilder() {
     queryKey: ["employee-model"],
     queryFn: getSections,
   });
+  const deleteSectionMutation = useMutation(deleteSection, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["employee-model"]);
+    },
+  });
 
   return (
-    <div className="">
-      <h1 className="text-myLightBlue dark:text-white text-3xl font-semibold mt-4">
-        Model builder
-      </h1>
-
+    <div>
       <div className="flex flex-row space-x-8 my-8">
         <div className="sticky top-0 h-fit">
-          {/* <div className="p-3 border border-slate-300 rounded-lg mb-4">
-            <button
-              className="text-myLightBlue hover:underline"
-              onClick={() => {}}
-            >
-              Edit
-            </button>
-
-            <button className="text-myLightBlue float-right hover:underline">
-              Cancel
-            </button>
-          </div> */}
           <AddSectionForm />
         </div>
 
@@ -65,6 +57,7 @@ export default function ModelBuilder() {
                         _id={_id}
                         sectionName={sectionName}
                         sectionFields={sectionFields}
+                        deleteSectionMutation={deleteSectionMutation}
                       />
                     );
                   }

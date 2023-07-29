@@ -8,7 +8,7 @@ export default function Page() {
   const [disabled, setDisabled] = useState(true);
 
   return (
-    <div className="lg:w-2/3 2xl:w-1/2">
+    <div className="">
       {/* profile section */}
       <div className="flex flex-row space-x-8 mt-4">
         <img

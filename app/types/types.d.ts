@@ -135,12 +135,10 @@ interface NewEmployeeFormInputs {
     university: string;
   };
 }
-type SectionProps = {
-  sectionTitle: string;
+
+type AddEmployeeSection = {
+  sectionName: string;
   sectionFields: Fields[];
-  visible?: boolean;
-  register: UseFormRegister<AddEmployeeFormInputs>;
-  errors: FieldErrors<AddEmployeeFormInputs>;
 };
 
 type Fields = {
@@ -157,28 +155,4 @@ type SingleField = {
 type OptionField = {
   fieldType: "options";
   fieldOptions: string[];
-};
-
-type AddEmployeeFormInputs = {
-  iqamaNumber: number;
-  iqamaExpiry: Date;
-  iqamaStatus: string;
-  fullName: string;
-  dateOfBirth: Date;
-  gender: string;
-  nationality: string;
-  phoneNumber: number;
-  personalEmail: string;
-  workEmail?: string;
-  passportNumber: string;
-  passportExpiry?: Date;
-  designation: string;
-  department: string;
-  stream: string;
-  remarks?: string;
-  dateOfJoining: Date;
-  workStatus: string;
-  sponsoredBy: string;
-  qualification?: string;
-  university: string;
 };
