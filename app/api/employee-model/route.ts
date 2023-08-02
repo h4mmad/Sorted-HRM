@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import dbConnection from "../lib/db";
 import { ObjectId } from "mongodb";
 import { MongoClient } from "mongodb";
 import { v4 } from "uuid";
@@ -15,7 +14,7 @@ export async function DELETE(request: NextRequest) {
 
   if (sectionId) {
     try {
-      await sections.deleteOne({ _id: new ObjectId(sectionId) });
+      await sections.deleteOne({ sectionId: sectionId });
       return NextResponse.json({
         messsage: `deleted section ${sectionId}`,
       });
@@ -40,7 +39,6 @@ export async function GET(request: NextRequest) {
 
     const documents = [];
 
-    // replace _id for sectionId
     for await (const document of cursor) {
       documents.push(document);
     }
@@ -55,13 +53,11 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
-    const {
-      sectionName,
-      sectionFields,
-    }: { sectionName: string; sectionFields: FieldType[] } = data;
+    const { sectionName, sectionId, sectionFields }: Section = data;
 
     const doc = {
       sectionName,
+      sectionId,
       sectionFields,
     };
     await sections.insertOne(doc);
@@ -72,29 +68,26 @@ export async function POST(request: NextRequest) {
       message: "OK",
     });
   } catch (error) {
-    // console.log(error);
+    throw error;
   }
 }
 
 //using PATCH as fields nested inside the main resource
 export async function PATCH(request: NextRequest) {
-  const data = await request.json();
+  const data: EmployeeModelPatch = await request.json();
   console.log("api reached", data);
 
   if (data.op === "add") {
     try {
-      const addData = data as AddPatchType;
-
-      //The id of the field object is added on the server
       const fieldObj = {
-        fieldId: v4(),
-        fieldName: addData.fieldName,
-        fieldType: addData.fieldType,
+        fieldId: data.fieldId,
+        fieldName: data.fieldName,
+        fieldType: data.fieldType,
       };
 
       const result = await sections.updateOne(
         {
-          _id: new ObjectId(addData._id),
+          sectionId: data.sectionId,
         },
         {
           $push: {
@@ -103,28 +96,26 @@ export async function PATCH(request: NextRequest) {
         }
       );
     } catch (error) {
-      // console.log(error);
+      throw error;
     }
   }
 
   if (data.op === "remove") {
     try {
-      const removalData = data as RemovePatchType;
-
       const result = await sections.updateOne(
         {
-          _id: new ObjectId(removalData._id),
+          sectionId: data.sectionId,
         },
         {
           $pull: {
             sectionFields: {
-              fieldId: removalData.fieldId,
+              fieldId: data.fieldId,
             },
           },
         }
       );
     } catch (error) {
-      // console.log(error);
+      throw error;
     }
   }
 

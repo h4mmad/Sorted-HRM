@@ -4,7 +4,7 @@ import NavButton from "./NavButton";
 
 export default function NavBar() {
   return (
-    <div className="flex flex-col bg-myDarkBlue dark:bg-black h-screen  w-fit dark:border-r border-gray-700 justify-items-end">
+    <div className="flex flex-col bg-myDarkBlue dark:bg-black h-screen  w-fit dark:border-r justify-items-end">
       <NavButton title="Dashboard" to="/dashboard" />
 
       <NestedNav

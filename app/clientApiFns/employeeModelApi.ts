@@ -14,39 +14,36 @@ export async function getSections() {
   }
 }
 
-///////////////////////
-/// ERROR in Next JS //
-//////////////////////
+/*
+  deleteSection will delete the whole section resource including all fields in it.
+*/
 export async function deleteSection(sectionId: string) {
-  console.log(sectionId);
-  return await employeeModelApi.delete(
-    `/employee-model/?sectionId=${sectionId}`
-  );
+  try {
+    console.log(sectionId);
+    return await employeeModelApi.delete(
+      `/employee-model/?sectionId=${sectionId}`
+    );
+  } catch (error) {
+    throw error;
+  }
 }
-///////////////////////
 
-export async function addSection({
-  sectionName,
-  sectionFields,
-}: {
-  sectionName: string;
-  sectionFields: FieldType[];
-}) {
+export async function addSection({ sectionName, sectionId }: Section) {
   return await employeeModelApi.post("/employee-model", {
     sectionName,
-    sectionFields,
+    sectionId,
   });
 }
 
 export async function addField({
-  _id,
+  sectionId,
   fieldName,
   fieldType,
 }: AddFieldInterface) {
   const data: AddPatchType = {
     op: "add",
     path: "/sectionFields",
-    _id,
+    sectionId,
     fieldType,
     fieldName,
   };

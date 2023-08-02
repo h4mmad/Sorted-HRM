@@ -16,7 +16,11 @@ module.exports = {
       },
       colors: {
         myDarkBlue: "#063549",
+        // myDarkBlue: "#184e77",
+        // myDarkBlue: "#e76f51",
+
         myLightBlue: "#176384",
+        // myLightBlue: "#2a9d8f",
       },
     },
   },

@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import classNames from "classnames";
 import { signOut, useSession } from "next-auth/react";
 
 export default function User() {

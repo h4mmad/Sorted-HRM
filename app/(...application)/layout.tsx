@@ -28,10 +28,10 @@ export default function ApplicationLayout({
         <NavBar />
       </div>
 
-      <div className="overflow-y-auto flex-1 h-full no-scrollbar px-14 py-14">
+      <div className="overflow-y-auto flex-1 h-full no-scrollbar px-14 py-14 ">
         {children}
       </div>
-      <div className="bg-myDarkBlue p-4">
+      <div className="border border-l-2 p-4">
         <User />
       </div>
     </div>

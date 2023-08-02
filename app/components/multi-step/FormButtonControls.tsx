@@ -1,33 +1,50 @@
 import { useFormContext } from "@/app/context/FormContext";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function FormButtonControls() {
-  const { goToNextStep, goToPreviousStep, step, length } = useFormContext();
+  const { goToNextStep, goToPreviousStep, step, length, sectionTitle } =
+    useFormContext();
 
   return (
-    <div className="flex flex-row justify-between">
-      {step > 0 && (
-        <button
-          onClick={goToPreviousStep}
-          className="p-2 bg-myLightBlue hover:bg-myDarkBlue text-white font-semibold rounded-md"
-        >
-          Previous
-        </button>
-      )}
-      {step !== length - 1 ? (
-        <button
-          onClick={goToNextStep}
-          className="ml-auto p-2 bg-myLightBlue hover:bg-myDarkBlue text-white font-semibold rounded-md"
-        >
-          Next
-        </button>
-      ) : (
-        <button
-          type="submit"
-          className="p-2 rounded-md border border-green-700 text-green-700 hover:bg-green-700 hover:text-white"
-        >
-          Submit
-        </button>
-      )}
+    <div className="flex flex-row space-x-2 justify-between">
+      <div>
+        <h2 className="text-3xl font-semibold text-myDarkBlue dark:text-white select-none ">
+          {sectionTitle}
+        </h2>
+        <p className="mt-2">
+          Step {step + 1} of {length}
+        </p>
+      </div>
+
+      <div className="flex space-x-3 ">
+        {step > 0 && (
+          <button
+            onClick={goToPreviousStep}
+            className="p-2 flex space-x-4  hover:bg-myLightBlue hover:text-white  text-myLightBlue border border-myLightBlue  rounded-md h-fit"
+          >
+            <ArrowBackIcon />
+
+            <p>Previous</p>
+          </button>
+        )}
+        {step !== length - 1 ? (
+          <button
+            type="submit"
+            className="p-2 flex space-x-4  hover:bg-myLightBlue hover:text-white  text-myLightBlue border border-myLightBlue  rounded-md h-fit"
+          >
+            <p>Next</p>
+            <ArrowForwardIcon />
+          </button>
+        ) : (
+          <button
+            type="submit"
+            className="px-4 py-2 rounded-md border border-green-700 text-green-700 hover:bg-green-700 hover:text-white h-fit"
+          >
+            Submit
+          </button>
+        )}
+      </div>
     </div>
   );
 }
