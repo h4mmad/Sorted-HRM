@@ -19,7 +19,6 @@ export async function getSections() {
 */
 export async function deleteSection(sectionId: string) {
   try {
-    console.log(sectionId);
     return await employeeModelApi.delete(
       `/employee-model/?sectionId=${sectionId}`
     );
@@ -37,15 +36,21 @@ export async function addSection({ sectionName, sectionId }: Section) {
 
 export async function addField({
   sectionId,
-  fieldName,
-  fieldType,
-}: AddFieldInterface) {
-  const data: AddPatchType = {
+  field,
+}: {
+  sectionId: string;
+  field: Field;
+}) {
+  const data: {
+    op: opPatchTypes;
+    path: string;
+    sectionId: string;
+    field: Field;
+  } = {
     op: "add",
     path: "/sectionFields",
     sectionId,
-    fieldType,
-    fieldName,
+    field,
   };
 
   return await employeeModelApi.patch("/employee-model", data);
@@ -53,16 +58,21 @@ export async function addField({
 
 export async function removeField({
   fieldId,
-  _id,
+  sectionId,
 }: {
   fieldId: string;
-  _id: string;
+  sectionId: string;
 }) {
-  const data: RemovePatchType = {
+  const data: {
+    op: opPatchTypes;
+    path: string;
+    fieldId: string;
+    sectionId: string;
+  } = {
     op: "remove",
     path: "/sectionFields",
-    _id,
-    fieldId,
+    fieldId: fieldId,
+    sectionId: sectionId,
   };
 
   return await employeeModelApi.patch("/employee-model", data);

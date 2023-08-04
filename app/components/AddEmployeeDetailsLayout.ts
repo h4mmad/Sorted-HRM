@@ -20,7 +20,7 @@ export const JobDetails: Section = {
       fieldJsonName: "stream",
       fieldType: "options",
       fieldIsRequired: true,
-      fieldOptions: ["Admin", "Teaching"],
+      fieldOptionValues: [{ name: "Admin" }, { name: "Teaching" }],
     },
     {
       fieldId: v4(),
@@ -28,7 +28,7 @@ export const JobDetails: Section = {
       fieldJsonName: "department",
       fieldType: "options",
       fieldIsRequired: true,
-      fieldOptions: ["Teaching", "Non-Teaching"],
+      fieldOptionValues: [{ name: "Teaching" }, { name: "Non-Teaching" }],
     },
     {
       fieldId: v4(),
@@ -50,7 +50,7 @@ export const JobDetails: Section = {
       fieldJsonName: "workStatus",
       fieldType: "options",
       fieldIsRequired: true,
-      fieldOptions: ["active", "inactive"],
+      fieldOptionValues: [{ name: "active" }, { name: "inactive" }],
     },
     {
       fieldId: v4(),
@@ -58,7 +58,7 @@ export const JobDetails: Section = {
       fieldJsonName: "sponsoredBy",
       fieldType: "options",
       fieldIsRequired: true,
-      fieldOptions: ["School", "Husband", "Self", "Other"],
+      fieldOptionValues: [{ name: "School" }, { name: "Husband" }],
     },
   ],
 };
@@ -88,7 +88,7 @@ export const PersonalDetails: Section = {
       fieldJsonName: "gender",
       fieldIsRequired: true,
       fieldType: "options",
-      fieldOptions: ["Male", "Female"],
+      fieldOptionValues: [{ name: "Male" }, { name: "Female" }],
     },
     // { fieldName: "Photo", fieldIsRequired: false, fieldType: "file" },
     {
@@ -97,13 +97,13 @@ export const PersonalDetails: Section = {
       fieldId: v4(),
       fieldIsRequired: true,
       fieldType: "options",
-      fieldOptions: [
-        "🇮🇳 India",
-        "🇪🇬 Egypt",
-        "🇸🇩 Sudan",
-        "🇸🇦 Saudi Arabia",
-        "🇧🇩 Bangladesh",
-        "🇵🇰 Pakistan",
+      fieldOptionValues: [
+        { name: "🇮🇳 India" },
+        { name: "🇪🇬 Egypt" },
+        { name: "🇸🇩 Sudan" },
+        { name: "🇸🇦 Saudi Arabia" },
+        { name: "🇧🇩 Bangladesh" },
+        { name: "🇵🇰 Pakistan" },
       ],
     },
   ],
@@ -162,7 +162,7 @@ export const IqamaDetails: Section = {
       fieldJsonName: "iqamaStatus",
       fieldType: "options",
       fieldIsRequired: true,
-      fieldOptions: ["active", "inactive"],
+      fieldOptionValues: [{ name: "active" }, { name: "inactive" }],
     },
   ],
 };
@@ -209,19 +209,7 @@ const PassportDetails: Section = {
   ],
 };
 
-const Other = () => {
-  const { data, isSuccess, isLoading, isError, error } = useQuery<
-    Section[],
-    AxiosError
-  >({
-    queryKey: ["employee-model"],
-    queryFn: getSections,
-  });
-
-  return data;
-};
-
-export const allSections: any = [
+export const allSections: Section[] = [
   IqamaDetails,
   PersonalDetails,
   ContactDetails,

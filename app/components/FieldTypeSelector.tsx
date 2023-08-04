@@ -16,7 +16,7 @@ export const FieldTypeSelector = ({
 }: SwitchChoiceSelectorProps) => {
   return (
     <div>
-      <h2 className="block font-bold text-myDarkBlue mb-1">{title}</h2>
+      <p className="block font-bold text-myDarkBlue">{title}</p>
 
       <div className="flex">
         {choices.map(({ choiceLabel, value }, index) => {
@@ -32,7 +32,7 @@ export const FieldTypeSelector = ({
                 />
                 <label
                   htmlFor={value}
-                  className="px-2 py-1 text-myDarkBlue cursor-pointer bg-white  peer-checked:bg-myLightBlue peer-checked:text-white rounded-tl-full rounded-bl-full"
+                  className="p-2 text-myDarkBlue cursor-pointer bg-white  peer-checked:bg-myLightBlue peer-checked:text-white rounded-tl-full rounded-bl-full"
                 >
                   {choiceLabel}
                 </label>
@@ -50,7 +50,7 @@ export const FieldTypeSelector = ({
                   className="peer  w-0.5 h-0.5 appearance-none outline-none"
                 />
                 <label
-                  className="px-2 py-1 text-myDarkBlue bg-white  cursor-pointer peer-checked:bg-myLightBlue peer-checked:text-white rounded-tr-full rounded-br-full"
+                  className="p-2 text-myDarkBlue bg-white  cursor-pointer peer-checked:bg-myLightBlue peer-checked:text-white rounded-tr-full rounded-br-full"
                   htmlFor={value}
                 >
                   {choiceLabel}
@@ -71,7 +71,7 @@ export const FieldTypeSelector = ({
               />
               <label
                 htmlFor={value}
-                className="px-2 py-1 text-myDarkBlue bg-white  cursor-pointer  peer-checked:bg-myLightBlue peer-checked:text-white"
+                className="p-2 text-myDarkBlue bg-white  cursor-pointer  peer-checked:bg-myLightBlue peer-checked:text-white"
               >
                 {choiceLabel}
               </label>

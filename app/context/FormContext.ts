@@ -3,7 +3,6 @@ import { FieldValues, UseFormReturn } from "react-hook-form";
 
 type FormContextType = {
   step: number;
-  sectionTitle: string;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   length: number;
   goToNextStep: (e: React.MouseEvent) => void;

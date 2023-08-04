@@ -1,25 +1,24 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, ReactNode, useState } from "react";
 import { useForm, FormProvider, useFormContext } from "react-hook-form";
-import FormButtonControls from "./multi-step/FormButtonControls";
-import FormContext from "../context/FormContext";
-import Section from "./Section";
+import FormButtonControls from "./FormButtonControls";
+import FormContext from "../../context/FormContext";
+import Section from "../Section";
 
 type MultiStepFormProps = {
-  allSections: SectionType[];
+  children: ReactNode;
 };
 
-export default function MultiStepForm({ allSections }: MultiStepFormProps) {
+export default function MultiStepForm({ children }: MultiStepFormProps) {
   const methods = useForm();
   const [step, setStep] = useState(0);
 
-  const steps = allSections;
-  const length = allSections.length;
-  const currentStep = allSections[step];
-  const sectionTitle = currentStep.sectionName;
+  const steps = React.Children.toArray(children);
+  const length = steps.length;
+  const currentStep = steps[step];
 
   const goToNextStep = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (step < steps.length) {
+    if (step < steps?.length) {
       setStep(step + 1);
     }
   };
@@ -54,7 +53,6 @@ export default function MultiStepForm({ allSections }: MultiStepFormProps) {
         goToPreviousStep,
         methods,
         setStep,
-        sectionTitle,
         submitStep,
       }}
     >
@@ -62,11 +60,7 @@ export default function MultiStepForm({ allSections }: MultiStepFormProps) {
         <form onSubmit={methods.handleSubmit(submitStep)}>
           <FormButtonControls />
 
-          <Section
-            _id={currentStep._id}
-            sectionFields={currentStep.sectionFields}
-            sectionName={currentStep.sectionName}
-          />
+          {currentStep}
         </form>
       </div>
     </FormContext.Provider>

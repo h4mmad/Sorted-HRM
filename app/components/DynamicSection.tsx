@@ -6,26 +6,21 @@ import { Tooltip } from "react-tooltip";
 import AddFieldForm from "@/app/components/AddFieldForm";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { removeField, deleteSection } from "../clientApiFns/employeeModelApi";
-import OptionsMenu from "./OptionsMenu";
-
-type Props = {
-  sectionName: string;
-  _id: string;
-  sectionFields: FieldType[] | undefined;
-  deleteSectionMutation: any;
-};
 
 export default function DynamicSection({
-  _id,
+  sectionId,
   sectionName,
   sectionFields,
-  deleteSectionMutation,
-}: Props) {
-  //true in dev mode
+}: Section) {
   const [toggleAddFieldForm, setToggleAddFieldForm] = useState(false);
-  const [toggleAddSelectionForm, setToggleAddSelectionForm] = useState(false);
 
   const queryClient = useQueryClient();
+
+  const deleteSectionMutation = useMutation(deleteSection, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["employee-model"]);
+    },
+  });
 
   const removeFieldMutation = useMutation(removeField, {
     onSuccess: () => {
@@ -35,77 +30,112 @@ export default function DynamicSection({
 
   const removeFieldHandler = ({
     fieldId,
-    _id,
+    sectionId,
   }: {
     fieldId: string;
-    _id: string;
+    sectionId: string;
   }) => {
-    removeFieldMutation.mutate({ fieldId, _id });
+    removeFieldMutation.mutate({ fieldId, sectionId });
   };
 
-  const deleteSectionHandler = (_id: string) => {
-    deleteSectionMutation.mutate(_id);
+  const deleteSectionHandler = (sectionId: string) => {
+    deleteSectionMutation.mutate(sectionId);
   };
 
   return (
-    <div
-      key={_id}
-      className="p-3 border border-slate-300 dark:bg-gray-900 dark:border-gray-700 rounded-lg mb-4 shadow-lg"
-    >
-      <div className="flex flex-row justify-between mb-2">
-        <h2 className="font-bold text-xl text-myDarkBlue dark:text-white dark:font-normal">
-          {sectionName}
-        </h2>
-        <button className="text-sm" onClick={() => deleteSectionHandler(_id)}>
-          <a
-            data-tooltip-id="delete-section"
-            data-tooltip-content={`Delete ${sectionName}`}
+    <div className="mb-8">
+      <div key={v4()} className="p-4 border border-slate-300   rounded-lg  ">
+        <div className="flex flex-row justify-between mb-2">
+          <h2 className="font-medium text-2xl text-myDarkBlue dark:text-white dark:font-normal">
+            {sectionName}
+          </h2>
+
+          <button
+            className="text-sm"
+            onClick={() => deleteSectionHandler(sectionId)}
           >
-            <DeleteIcon className="hover:text-red-500 text-red-400 " />
-          </a>
-          <Tooltip id="delete-section" />
-        </button>
-      </div>
+            <a
+              data-tooltip-id="delete-section"
+              data-tooltip-content={`Delete ${sectionId}`}
+            >
+              <DeleteIcon className="hover:text-red-500 text-red-400 " />
+            </a>
+            <Tooltip id="delete-section" />
+          </button>
+        </div>
+        <div className="relative w-fit mt-4">
+          <button
+            onClick={() => setToggleAddFieldForm(!toggleAddFieldForm)}
+            className="text-sm text-myLightBlue dark:text-gray-500  dark:hover:text-white"
+          >
+            {toggleAddFieldForm ? "Cancel" : "+ Add field"}
+          </button>
 
-      <div className="flex flex-row justify-between flex-wrap">
-        {sectionFields?.map((item: FieldType) => {
-          return (
-            <div key={v4()} className="my-2">
-              <label className="block text-myDarkBlue dark:text-white">
-                {item.fieldName}
-              </label>
-              <input
-                type={item.fieldType}
-                className="rounded-md p-1 border border-slate-300  dark:bg-gray-700 dark:border-none"
-              />
-              <button
-                className="ml-2"
-                onClick={() =>
-                  removeFieldHandler({ fieldId: item.fieldId, _id })
-                }
-              >
-                <a
-                  data-tooltip-id="delete-field"
-                  data-tooltip-content={`Delete ${item.fieldName}`}
-                >
-                  <RemoveCircleOutlineIcon className="hover:text-red-500 text-red-400" />
-                </a>
-                <Tooltip id="delete-field" />
-              </button>
-            </div>
-          );
-        })}
-      </div>
+          {toggleAddFieldForm && <AddFieldForm sectionId={sectionId} />}
+        </div>
+        <div className="flex flex-row flex-wrap">
+          {sectionFields?.map((field, index) => {
+            return (
+              <div className="rounded-lg  p-4 border border-slate-300 bg-white m-2 select-none">
+                <div className="flex items-center">
+                  <p className="text-myDarkBlue font-medium text-lg">
+                    {field.fieldName}
+                  </p>
+                  <button
+                    className="ml-2"
+                    onClick={() =>
+                      removeFieldHandler({
+                        fieldId: field.fieldId,
+                        sectionId: sectionId,
+                      })
+                    }
+                  >
+                    <a
+                      data-tooltip-id="delete-field"
+                      data-tooltip-content={`Delete ${field.fieldName}`}
+                    >
+                      <RemoveCircleOutlineIcon className="hover:text-red-500 text-red-400" />
+                    </a>
+                    <Tooltip id="delete-field" />
+                  </button>
+                </div>
 
-      <div className="relative w-fit mt-4">
-        <button
-          onClick={() => setToggleAddFieldForm(!toggleAddFieldForm)}
-          className="text-sm text-myLightBlue dark:text-gray-500  dark:hover:text-white"
-        >
-          {toggleAddFieldForm ? "Cancel" : "+ Add field"}
-        </button>
+                <div className="mt-2 flex flex-col space-y-2">
+                  <div>
+                    <p className="text-slate-500">type:</p>
+                    <p className="text-myDarkBlue ml-2"> {field.fieldType}</p>
+                  </div>
 
-        {toggleAddFieldForm && <AddFieldForm _id={_id} />}
+                  <div>
+                    <p className="text-slate-500">id:</p>
+                    <p className="text-myDarkBlue ml-2"> {field.fieldId}</p>
+                  </div>
+
+                  <div>
+                    <p className="text-slate-500">required:</p>
+                    <p className="text-myDarkBlue ml-2">
+                      {field.fieldIsRequired ? "yes" : "no"}
+                    </p>
+                  </div>
+                  {field.fieldType === "options" ? (
+                    <div>
+                      <p className="text-slate-500">options:</p>
+                      {field?.fieldOptionValues?.map((val, index) => {
+                        return (
+                          <p className="ml-2 text-myDarkBlue">
+                            {index + 1}. {val.name}
+                          </p>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

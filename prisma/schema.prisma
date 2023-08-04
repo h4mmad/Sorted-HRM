@@ -6,28 +6,19 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "mysql"
   url      = "mongodb+srv://admin:n9GA1Fwxnqt5w8nX@testcluster.5tycidj.mongodb.net/sorted_hrm"
 }
 
-model layouts {
-  id  String @id @default(auto()) @map("_id") @db.ObjectId
-  sectionId   String  @unique
-  sectionName String
-  sectionFields   Field[]  
+model section{
+ sectionId
+ sectionName
 }
 
-
-type Field {
-  fieldName   String
-  fieldId String 
-  fieldType    String
-}
-
-
-
-model employee{
-  employeeID String  @id @map("_id")
+model field{
+  fieldId
+  fieldName
+  fieldType
+  fieldIsRequired
   
-
 }

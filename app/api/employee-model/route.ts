@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ObjectId } from "mongodb";
 import { MongoClient } from "mongodb";
-import { v4 } from "uuid";
 
 const client = new MongoClient(process.env.NEXT_PUBLIC_MONGODB_URI);
 const database = client.db("sorted_hrm");
@@ -10,7 +8,7 @@ const sections = database.collection("employee-model-sections");
 export async function DELETE(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const sectionId = searchParams.get("sectionId");
-  console.log(sectionId);
+  console.log("from backend", sectionId);
 
   if (sectionId) {
     try {
@@ -58,11 +56,8 @@ export async function POST(request: NextRequest) {
     const doc = {
       sectionName,
       sectionId,
-      sectionFields,
     };
     await sections.insertOne(doc);
-
-    console.log(data);
 
     return NextResponse.json({
       message: "OK",
@@ -74,24 +69,18 @@ export async function POST(request: NextRequest) {
 
 //using PATCH as fields nested inside the main resource
 export async function PATCH(request: NextRequest) {
-  const data: EmployeeModelPatch = await request.json();
+  const data = await request.json();
   console.log("api reached", data);
 
   if (data.op === "add") {
     try {
-      const fieldObj = {
-        fieldId: data.fieldId,
-        fieldName: data.fieldName,
-        fieldType: data.fieldType,
-      };
-
       const result = await sections.updateOne(
         {
           sectionId: data.sectionId,
         },
         {
           $push: {
-            sectionFields: fieldObj,
+            sectionFields: data.field,
           },
         }
       );
