@@ -1,10 +1,9 @@
-import { AxiosError } from "axios";
-import { getSections } from "../clientApiFns/employeeModelApi";
-import { useQuery } from "@tanstack/react-query";
 import { v4 } from "uuid";
+import { getCamelCase } from "../helperFns/fns";
 
 export const JobDetails: Section = {
   sectionName: "Job",
+  sectionJsonName: "job",
   sectionId: v4(),
   sectionFields: [
     {
@@ -65,6 +64,7 @@ export const JobDetails: Section = {
 
 export const PersonalDetails: Section = {
   sectionName: "Personal",
+  sectionJsonName: "personal",
   sectionId: v4(),
   sectionFields: [
     {
@@ -90,7 +90,6 @@ export const PersonalDetails: Section = {
       fieldType: "options",
       fieldOptionValues: [{ name: "Male" }, { name: "Female" }],
     },
-    // { fieldName: "Photo", fieldIsRequired: false, fieldType: "file" },
     {
       fieldName: "Nationality",
       fieldJsonName: "nationality",
@@ -98,18 +97,19 @@ export const PersonalDetails: Section = {
       fieldIsRequired: true,
       fieldType: "options",
       fieldOptionValues: [
-        { name: "🇮🇳 India" },
-        { name: "🇪🇬 Egypt" },
-        { name: "🇸🇩 Sudan" },
-        { name: "🇸🇦 Saudi Arabia" },
-        { name: "🇧🇩 Bangladesh" },
-        { name: "🇵🇰 Pakistan" },
+        { name: "India" },
+        { name: "Egypt" },
+        { name: "Sudan" },
+        { name: "Saudi Arabia" },
+        { name: "Bangladesh" },
+        { name: "Pakistan" },
       ],
     },
   ],
 };
 
 const ContactDetails: Section = {
+  sectionJsonName: "contact",
   sectionName: "Contact",
   sectionId: v4(),
 
@@ -140,6 +140,7 @@ const ContactDetails: Section = {
 
 export const IqamaDetails: Section = {
   sectionName: "Iqama",
+  sectionJsonName: "iqama",
   sectionId: v4(),
   sectionFields: [
     {
@@ -168,6 +169,7 @@ export const IqamaDetails: Section = {
 };
 
 const Qualification: Section = {
+  sectionJsonName: "qualification",
   sectionName: "Qualification",
   sectionId: v4(),
   sectionFields: [
@@ -190,6 +192,7 @@ const Qualification: Section = {
 
 const PassportDetails: Section = {
   sectionName: "Passport",
+  sectionJsonName: "passport",
   sectionId: v4(),
   sectionFields: [
     {
@@ -202,7 +205,7 @@ const PassportDetails: Section = {
     {
       fieldId: v4(),
       fieldName: "Passport expiry",
-      fieldJsonName: "passportNumber",
+      fieldJsonName: "passportExpiry",
       fieldType: "date",
       fieldIsRequired: false,
     },

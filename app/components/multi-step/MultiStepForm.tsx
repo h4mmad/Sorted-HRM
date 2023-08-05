@@ -1,8 +1,9 @@
-import React, { ReactElement, ReactNode, useState } from "react";
-import { useForm, FormProvider, useFormContext } from "react-hook-form";
+import React, { ReactNode, useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import FormButtonControls from "./FormButtonControls";
 import FormContext from "../../context/FormContext";
-import Section from "../Section";
+import { useMutation } from "@tanstack/react-query";
+import { addEmployee } from "@/app/clientApiFns/employeeApi";
 
 type MultiStepFormProps = {
   children: ReactNode;
@@ -29,7 +30,13 @@ export default function MultiStepForm({ children }: MultiStepFormProps) {
     }
   };
 
-  const onSubmit = (data: any) => console.log(data);
+  const addEmployeeMutation = useMutation(addEmployee, {
+    onSuccess: () => {},
+  });
+  const onSubmit: SubmitHandler<Employee> = (data) => {
+    console.log(data);
+    addEmployeeMutation.mutate(data);
+  };
 
   const submitStep = (data: any) => {
     if (step === steps.length - 1) {
@@ -59,7 +66,6 @@ export default function MultiStepForm({ children }: MultiStepFormProps) {
       <div className="flex flex-col">
         <form onSubmit={methods.handleSubmit(submitStep)}>
           <FormButtonControls />
-
           {currentStep}
         </form>
       </div>

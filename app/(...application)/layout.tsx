@@ -28,7 +28,7 @@ export default function ApplicationLayout({
         <NavBar />
       </div>
 
-      <div className="overflow-y-auto flex-1 h-full no-scrollbar px-14 py-14 ">
+      <div className="overflow-y-auto flex-1 h-full  px-14 py-5 ">
         {children}
       </div>
       <div className="border border-l-2 p-4">

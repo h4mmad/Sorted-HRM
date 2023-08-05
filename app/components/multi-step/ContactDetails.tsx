@@ -1,11 +1,11 @@
 import { useFormContext } from "@/app/context/FormContext";
 
-export default function PersonalDetails() {
+export default function ContactDetails() {
   const { methods } = useFormContext();
 
   return (
     <>
-      <h1 className="text-2xl text-myDarkBlue mb-2">Personal</h1>
+      <h1 className="text-2xl text-myDarkBlue mb-2">Contact</h1>
 
       <section className="rounded-lg border border-slate-300 dark:bg-gray-900  shadow-md">
         <div className="flex flex-col flex-wrap  p-2  ">
@@ -18,7 +18,7 @@ export default function PersonalDetails() {
 
               <input
                 type="text"
-                {...methods.register("personal.fullName", {
+                {...methods.register("deez.fullName", {
                   required: true,
                 })}
                 className="p-2 appearance-none bg-gray-100 rounded-lg w-64  border border-slate-400 dark:bg-gray-700"
@@ -32,7 +32,7 @@ export default function PersonalDetails() {
 
               <input
                 type="date"
-                {...(methods.register("personal.dateOfBirth"),
+                {...(methods.register("deez.dateOfBirth"),
                 {
                   required: true,
                 })}
@@ -46,7 +46,7 @@ export default function PersonalDetails() {
               </p>
               <select
                 className="p-2 rounded-lg w-64 bg-white  border border-slate-400 cursor-pointer"
-                {...methods.register("personal.gender")}
+                {...methods.register("deez.gener")}
               >
                 <option>Male</option>
                 <option>Female</option>

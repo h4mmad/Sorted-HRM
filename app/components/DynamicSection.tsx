@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Tooltip } from "react-tooltip";
 import AddFieldForm from "@/app/components/AddFieldForm";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { removeField, deleteSection } from "../clientApiFns/employeeModelApi";
+import { removeField, deleteSection } from "../clientApiFns/modelApi";
 
 export default function DynamicSection({
   sectionId,
@@ -44,7 +44,7 @@ export default function DynamicSection({
 
   return (
     <div className="mb-8">
-      <div key={v4()} className="p-4 border border-slate-300   rounded-lg  ">
+      <div key={v4()} className="p-4 shadow-lg border rounded-lg  ">
         <div className="flex flex-row justify-between mb-2">
           <h2 className="font-medium text-2xl text-myDarkBlue dark:text-white dark:font-normal">
             {sectionName}
@@ -66,7 +66,7 @@ export default function DynamicSection({
         <div className="relative w-fit mt-4">
           <button
             onClick={() => setToggleAddFieldForm(!toggleAddFieldForm)}
-            className="text-sm text-myLightBlue dark:text-gray-500  dark:hover:text-white"
+            className="text-myLightBlue dark:text-gray-500  dark:hover:text-white"
           >
             {toggleAddFieldForm ? "Cancel" : "+ Add field"}
           </button>
@@ -76,7 +76,7 @@ export default function DynamicSection({
         <div className="flex flex-row flex-wrap">
           {sectionFields?.map((field, index) => {
             return (
-              <div className="rounded-lg  p-4 border border-slate-300 bg-white m-2 select-none">
+              <div className="rounded-lg  p-4 border border-slate-300 bg-gray-100 m-2 select-none">
                 <div className="flex items-center">
                   <p className="text-myDarkBlue font-medium text-lg">
                     {field.fieldName}
@@ -115,6 +115,12 @@ export default function DynamicSection({
                     <p className="text-slate-500">required:</p>
                     <p className="text-myDarkBlue ml-2">
                       {field.fieldIsRequired ? "yes" : "no"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-slate-500">jsonName:</p>
+                    <p className="text-myDarkBlue ml-2">
+                      {field.fieldJsonName}
                     </p>
                   </div>
                   {field.fieldType === "options" ? (

@@ -1,10 +1,12 @@
 import { v4 } from "uuid";
 import { useFormContext } from "../context/FormContext";
+import { getCamelCase } from "../helperFns/fns";
 
-export default function Section({
+export default function FormSection({
   sectionName,
   sectionFields,
   sectionId,
+  sectionJsonName,
 }: Section) {
   const { methods, step, length } = useFormContext();
 
@@ -13,7 +15,9 @@ export default function Section({
   } = methods;
   return (
     <>
-      <section className="my-8 rounded-lg border border-slate-300 dark:bg-gray-900  shadow-md">
+      <h1 className="text-2xl text-myDarkBlue mb-2">{sectionName}</h1>
+
+      <section className="rounded-lg border border-slate-300 dark:bg-gray-900  shadow-md">
         {
           <div className="flex flex-col flex-wrap  p-2  ">
             {sectionFields?.map((elem, index) => {
@@ -25,9 +29,18 @@ export default function Section({
                         {elem?.fieldName}
                         <span className="text-red-500"> *</span>
                       </p>
-                      <select className="p-2 rounded-lg w-64 bg-white  border border-slate-400 cursor-pointer">
+                      <select
+                        className="p-2 rounded-lg w-64 bg-white  border border-slate-400 cursor-pointer"
+                        {...methods.register(
+                          `${sectionJsonName}.${elem.fieldJsonName}`
+                        )}
+                      >
                         {elem?.fieldOptionValues?.map((fieldOption) => {
-                          return <option>{fieldOption?.name}</option>;
+                          return (
+                            <option value={fieldOption.name}>
+                              {fieldOption?.name}
+                            </option>
+                          );
                         })}
                       </select>
                     </div>
@@ -44,9 +57,10 @@ export default function Section({
 
                       <input
                         type={elem.fieldType}
-                        {...methods.register(elem?.fieldName, {
-                          required: elem?.fieldIsRequired,
-                        })}
+                        {...methods.register(
+                          `${sectionJsonName}.${elem.fieldJsonName}`,
+                          { required: elem.fieldIsRequired }
+                        )}
                         className="p-2 appearance-none bg-gray-100 rounded-lg w-64  border border-slate-400 dark:bg-gray-700"
                       />
                     </div>

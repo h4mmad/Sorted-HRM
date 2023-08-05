@@ -17,6 +17,7 @@ type RemoveFieldPatch = {
 
 type Section = {
   sectionName: string;
+  sectionJsonName: string;
   sectionId: string;
   sectionFields: Field[];
 };
@@ -39,3 +40,46 @@ type OptionField = {
   fieldType: "options";
   fieldOptionValues: { name: string }[];
 };
+
+type Employee = {
+  employeeId: string;
+  iqama: {
+    iqamaNumber: string;
+    iqamaExpiry: string;
+    iqamaStatus: string;
+  };
+  personal: {
+    fullName: string;
+    dateOfBirth: Date;
+    gender: string;
+    nationality: string;
+  };
+  passport: { passportNumber: string; passportExpiry: string };
+  contact: { phoneNumber: string; personalEmail: string; workEmail: string };
+  job: {
+    designation: string;
+    stream: string;
+    department: string;
+    remarks: string;
+    dateOfJoining: Date;
+    workStatus: string;
+    sponsoredBy: string;
+  };
+  qualification: { qualification: string; university: string };
+  other?: {};
+};
+
+type AddFieldInputs = {
+  fieldName: string;
+  fieldJsonName: string;
+  fieldType: "text" | "email" | "date" | "number" | "file" | "options";
+  fieldIsRequired: boolean;
+  optionsArray: { name: string }[];
+};
+enum FieldTypes {
+  Text = "text",
+  Date = "date",
+  Email = "email",
+  Number = "number",
+  Options = "options",
+}

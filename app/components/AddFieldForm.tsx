@@ -1,25 +1,11 @@
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import classNames from "classnames";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addField } from "../clientApiFns/employeeModelApi";
+import { addField } from "../clientApiFns/modelApi";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { v4 } from "uuid";
 import { Tooltip } from "react-tooltip";
-
-type Inputs = {
-  fieldName: string;
-  fieldType: "text" | "email" | "date" | "number" | "file" | "options";
-  fieldIsRequired: boolean;
-  fieldArray: { name: string }[];
-};
-
-enum FieldTypes {
-  Text = "text",
-  Date = "date",
-  Email = "email",
-  Number = "number",
-  Options = "options",
-}
+import { getCamelCase } from "../helperFns/fns";
 
 export default function AddFieldForm({ sectionId }: { sectionId: string }) {
   const queryClient = useQueryClient();
@@ -33,21 +19,21 @@ export default function AddFieldForm({ sectionId }: { sectionId: string }) {
   const {
     register,
     handleSubmit,
-    control: arrayControl,
+    control,
     watch,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<AddFieldInputs>();
 
   const {
     fields: arrayField,
     append,
     remove,
   } = useFieldArray({
-    control: arrayControl, // control props comes from useForm (optional: if you are using FormContext)
-    name: "fieldArray", // unique name for your Field Array
+    control,
+    name: "optionsArray",
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<AddFieldInputs> = (data) => {
     console.log(data);
     if (data.fieldType === "options") {
       addFieldMutation.mutate({
@@ -55,10 +41,10 @@ export default function AddFieldForm({ sectionId }: { sectionId: string }) {
         field: {
           fieldId: v4(),
           fieldIsRequired: data.fieldIsRequired,
-          fieldJsonName: data.fieldName,
+          fieldJsonName: getCamelCase(data.fieldName),
           fieldName: data.fieldName,
           fieldType: data.fieldType,
-          fieldOptionValues: data?.fieldArray,
+          fieldOptionValues: data?.optionsArray,
         },
       });
     } else {
@@ -67,8 +53,8 @@ export default function AddFieldForm({ sectionId }: { sectionId: string }) {
         field: {
           fieldId: v4(),
           fieldIsRequired: data.fieldIsRequired,
-          fieldJsonName: data.fieldName,
           fieldName: data.fieldName,
+          fieldJsonName: getCamelCase(data.fieldName),
           fieldType: data.fieldType,
         },
       });
@@ -76,7 +62,6 @@ export default function AddFieldForm({ sectionId }: { sectionId: string }) {
   };
 
   const selectedRadioValue = watch("fieldType");
-  console.log(selectedRadioValue);
 
   const fieldTypes = [
     FieldTypes.Text,
@@ -88,13 +73,13 @@ export default function AddFieldForm({ sectionId }: { sectionId: string }) {
 
   const form1 = (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex flex-col p-4 shadow-md space-y-6 bg-gray-100">
+      <div className="flex flex-col p-4 shadow-lg border border-myLightBlue space-y-6 bg-white rounded-lg">
         <h1 className="text-2xl text-myDarkBlue font-medium">Add field</h1>
         <div>
           <label className="block  text-myDarkBlue select-none">Name</label>
           <input
             type="text"
-            className="rounded-md p-2 border border-slate-300 bg-white"
+            className="rounded-md p-2 border border-slate-300 bg-gray-100"
             {...register("fieldName", { required: true })}
           />
           {errors.fieldName?.type === "required" && (
@@ -157,12 +142,13 @@ export default function AddFieldForm({ sectionId }: { sectionId: string }) {
           <div className="flex flex-col space-y-2">
             {arrayField.map((field, index) => (
               <>
+                {console.log(field.id)}
                 <div className="flex flex-row space-x-2 items-center">
                   <p className="text-myDarkBlue">{index + 1}</p>
                   <input
                     key={field.id}
                     className="p-2 border rounded-md border-slate-300 bg-white"
-                    {...register(`fieldArray.${index}.name`, {
+                    {...register(`optionsArray.${index}.name`, {
                       required: true,
                     })}
                   />
@@ -182,7 +168,9 @@ export default function AddFieldForm({ sectionId }: { sectionId: string }) {
             <button
               type="button"
               className="w-fit text-myDarkBlue"
-              onClick={() => append({ name: "" })}
+              onClick={() => {
+                append({ name: "" });
+              }}
             >
               Add option
             </button>
@@ -193,7 +181,7 @@ export default function AddFieldForm({ sectionId }: { sectionId: string }) {
           type="submit"
           className="p-2 text-white w-full hover:bg-myDarkBlue rounded-full bg-myLightBlue "
         >
-          + Add
+          Add
         </button>
       </div>
     </form>

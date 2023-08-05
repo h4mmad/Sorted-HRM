@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const employeeModelApi = axios.create({
+const modelApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
 });
 
 export async function getSections() {
   try {
-    const response = await employeeModelApi.get("/employee-model");
+    const response = await modelApi.get("/employee-model");
 
     return await response.data;
   } catch (error) {
@@ -19,16 +19,14 @@ export async function getSections() {
 */
 export async function deleteSection(sectionId: string) {
   try {
-    return await employeeModelApi.delete(
-      `/employee-model/?sectionId=${sectionId}`
-    );
+    return await modelApi.delete(`/employee-model/?sectionId=${sectionId}`);
   } catch (error) {
     throw error;
   }
 }
 
 export async function addSection({ sectionName, sectionId }: Section) {
-  return await employeeModelApi.post("/employee-model", {
+  return await modelApi.post("/employee-model", {
     sectionName,
     sectionId,
   });
@@ -53,7 +51,7 @@ export async function addField({
     field,
   };
 
-  return await employeeModelApi.patch("/employee-model", data);
+  return await modelApi.patch("/employee-model", data);
 }
 
 export async function removeField({
@@ -75,7 +73,7 @@ export async function removeField({
     sectionId: sectionId,
   };
 
-  return await employeeModelApi.patch("/employee-model", data);
+  return await modelApi.patch("/employee-model", data);
 }
 
-export default employeeModelApi;
+export default modelApi;

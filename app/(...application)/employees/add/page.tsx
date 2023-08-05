@@ -1,41 +1,44 @@
 "use client";
-
-import { getSections } from "@/app/clientApiFns/employeeModelApi";
+import { getSections } from "@/app/clientApiFns/modelApi";
 import { allSections } from "@/app/components/AddEmployeeDetailsLayout";
 import MultiStepForm from "@/app/components/multi-step/MultiStepForm";
-import Section from "@/app/components/Section";
+import Section from "@/app/components/FormSection";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { getCamelCase } from "@/app/helperFns/fns";
 
 export default function NewEmployee() {
-  const { data, isSuccess, isLoading, isError, error } = useQuery<
-    Section[],
-    AxiosError
-  >({
+  const { data } = useQuery<Section[], AxiosError>({
     queryKey: ["employee-model"],
     queryFn: getSections,
   });
 
   return (
-    <MultiStepForm>
-      {allSections.map((section, index) => {
-        return (
-          <Section
-            sectionFields={section.sectionFields}
-            sectionId={section.sectionId}
-            sectionName={section.sectionName}
-          />
-        );
-      })}
-      {data?.map((section, index) => {
-        return (
-          <Section
-            sectionFields={section.sectionFields}
-            sectionId={section.sectionId}
-            sectionName={section.sectionName}
-          />
-        );
-      })}
-    </MultiStepForm>
+    <div className="flex flex-col space-y-8">
+      <h1 className="text-3xl text-myDarkBlue">Add new employee</h1>
+      <MultiStepForm>
+        {allSections?.map((section, index) => {
+          return (
+            <Section
+              sectionId={section.sectionId}
+              sectionFields={section.sectionFields}
+              sectionName={section.sectionName}
+              sectionJsonName={getCamelCase(section.sectionName)}
+            />
+          );
+        })}
+        {data?.map((section, index) => {
+          return (
+            <Section
+              key={index}
+              sectionFields={section.sectionFields}
+              sectionId={section.sectionId}
+              sectionName={section.sectionName}
+              sectionJsonName={`others.${getCamelCase(section.sectionName)}`}
+            />
+          );
+        })}
+      </MultiStepForm>
+    </div>
   );
 }

@@ -1,15 +1,16 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { v4 } from "uuid";
 import { useQuery } from "@tanstack/react-query";
 import AddSectionForm from "@/app/components/AddSectionForm";
-import { getSections } from "@/app/clientApiFns/employeeModelApi";
+import { getSections } from "@/app/clientApiFns/modelApi";
 import LoadingSkeleton from "@/app/components/LoadingSekeleton";
 import NoSections from "@/app/components/NoSections";
 import { AxiosError } from "axios";
 import SectionErrorMessage from "@/app/components/SectionErrorMessage";
 import DynamicSection from "../../../components/DynamicSection";
+import { getCamelCase } from "@/app/helperFns/fns";
 
 export default function ModelBuilder() {
   const { data, isSuccess, isLoading, isError, error } = useQuery<
@@ -20,11 +21,24 @@ export default function ModelBuilder() {
     queryFn: getSections,
   });
 
+  const [toggle, setToggle] = useState(false);
+
   return (
     <div>
-      <div className="flex flex-row space-x-16 my-8">
-        <div className="sticky top-0 h-fit">
-          <AddSectionForm />
+      <div className="flex flex-col space-y-8">
+        <h1 className="text-3xl text-myDarkBlue">Employee model builder</h1>
+        <div className="relative">
+          <button
+            onClick={() => setToggle(!toggle)}
+            className="text-myLightBlue"
+          >
+            {toggle ? "Cancel" : "Add section"}
+          </button>
+          {toggle && (
+            <div className="absolute z-10">
+              <AddSectionForm />
+            </div>
+          )}
         </div>
 
         <div className="flex-1">
@@ -46,6 +60,7 @@ export default function ModelBuilder() {
                     return (
                       <DynamicSection
                         key={v4()}
+                        sectionJsonName={getCamelCase(sectionName)}
                         sectionId={sectionId}
                         sectionName={sectionName}
                         sectionFields={sectionFields}

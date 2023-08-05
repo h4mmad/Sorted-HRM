@@ -1,7 +1,7 @@
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addSection } from "../clientApiFns/employeeModelApi";
+import { addSection } from "../clientApiFns/modelApi";
 import { v4 } from "uuid";
 export default function AddSectionForm() {
   type Inputs = {
@@ -31,7 +31,7 @@ export default function AddSectionForm() {
   };
 
   return (
-    <div className="p-4 border flex w-fit flex-col space-y-8 border-slate-300 bg-gray-100 rounded-lg   dark:bg-black dark:border-gray-700">
+    <div className="p-4 border flex w-fit flex-col  space-y-5 border-myLightBlue bg-white rounded-lg  shadow-lg dark:bg-black dark:border-gray-700">
       <h1 className="text-2xl text-myDarkBlue font-medium">Add section</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
@@ -41,7 +41,7 @@ export default function AddSectionForm() {
             type="text"
             autoComplete="none"
             aria-autocomplete="none"
-            className="bg-white dark:text-white rounded-lg border border-slate-300 p-2 dark:bg-gray-700 dark:border-gray-700"
+            className="bg-gray-100 dark:text-white rounded-lg border border-slate-300 p-2 dark:bg-gray-700 dark:border-gray-700"
           />
           {errors.sectionName?.type === "required" && (
             <p role="alert" className="text-red-500 text-sm">
