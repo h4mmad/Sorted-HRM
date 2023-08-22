@@ -1,9 +1,9 @@
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addSection } from "../clientApiFns/modelApi";
+import { addSection } from "@/app/clientApiFns/modelApi";
 import { v4 } from "uuid";
-import { getCamelCase } from "../helperFns/fns";
+import { getCamelCase } from "@/app/helperFns/fns";
 export default function AddSectionForm() {
   type Inputs = {
     sectionName: string;

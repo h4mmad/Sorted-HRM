@@ -1,12 +1,11 @@
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import classNames from "classnames";
 import { useState } from "react";
-import { DividerLine } from "./DividerLine";
-
+import { DividerLine } from "../GeneralComponents/DividerLine";
+import { useEmployeeContext } from "@/app/context/EmployeeContext";
 export default function ButtonControls() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-
+  const { isEditing, setIsEditing } = useEmployeeContext();
   return (
     <div className="flex flex-row space-x-4 justify-end">
       {isEditing ? (

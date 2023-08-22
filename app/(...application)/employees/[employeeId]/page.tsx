@@ -7,16 +7,16 @@ import {
   getOneEmployee,
   updateOneEmployee,
 } from "@/app/clientApiFns/employeeApi";
-import EmployeeSkeleton from "@/app/components/EmployeeSkeleton";
+import EmployeeSkeleton from "@/app/components/EmployeeComponents/EmployeeSkeleton";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import ButtonControls from "@/app/components/ButtonControls";
-import EmployeeOverviewCard from "@/app/components/EmployeeOverviewCard";
-import { DividerLine } from "@/app/components/DividerLine";
-import EmployeePersonalDetails from "@/app/components/EmployeePersonalDetails";
-import EmployeeContactDetails from "@/app/components/EmployeeContaceDetails";
-import EmployeeIqamaDetails from "@/app/components/EmployeeIqamaDetails";
+import ButtonControls from "@/app/components/EmployeeComponents/ButtonControls";
+import EmployeeOverviewCard from "@/app/components/EmployeeComponents/OverviewCard";
+import EmployeePersonalDetails from "@/app/components/EmployeeComponents/PersonalDetails";
+import EmployeeContactDetails from "@/app/components/EmployeeComponents/ContactDetails";
+import EmployeeIqamaDetails from "@/app/components/EmployeeComponents/IqamaDetails";
+import { EmployeeContext } from "@/app/context/EmployeeContext";
 export default function Page() {
   const [isEditing, setIsEditing] = useState(false);
   const params = useParams();
@@ -92,29 +92,31 @@ export default function Page() {
   const router = useRouter();
 
   const content = (
-    <div className="flex flex-col space-y-12 ">
-      <form onSubmit={handleSubmit(submitHandler)}>
-        <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-medium text-myDarkBlue">
-            {data?.personal.fullName}
-          </h1>
-          <ButtonControls />
-        </div>
+    <EmployeeContext.Provider value={{ isEditing, setIsEditing }}>
+      <div className="flex flex-col space-y-12 ">
+        <form onSubmit={handleSubmit(submitHandler)}>
+          <div className="flex justify-between items-center">
+            <h1 className="text-3xl font-medium text-myDarkBlue">
+              {data?.personal.fullName}
+            </h1>
+            <ButtonControls />
+          </div>
 
-        {isSuccess ? <EmployeeOverviewCard data={data} /> : ""}
+          {isSuccess ? <EmployeeOverviewCard data={data} /> : ""}
 
-        <div className="flex flex-col space-y-12">
-          {/* Personal details */}
-          <EmployeePersonalDetails />
+          <div className="flex flex-col space-y-12">
+            {/* Personal details */}
+            <EmployeePersonalDetails />
 
-          {/* Contact details */}
-          <EmployeeContactDetails />
+            {/* Contact details */}
+            <EmployeeContactDetails />
 
-          {/* Iqama details */}
-          <EmployeeIqamaDetails />
-        </div>
-      </form>
-    </div>
+            {/* Iqama details */}
+            <EmployeeIqamaDetails />
+          </div>
+        </form>
+      </div>
+    </EmployeeContext.Provider>
   );
 
   return isLoading ? <EmployeeSkeleton /> : data && content;

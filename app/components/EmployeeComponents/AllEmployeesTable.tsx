@@ -9,11 +9,10 @@ import {
   createColumnHelper,
 } from "@tanstack/react-table";
 import { AxiosError } from "axios";
-import { getAllEmployees } from "../clientApiFns/employeeApi";
+import { getAllEmployees } from "@/app/clientApiFns/employeeApi";
 import { useMemo, useState } from "react";
-import { Search } from "./Search";
+import { Search } from "./TableSearchBox";
 import { DateTime } from "luxon";
-import { useEmployeeTableContext } from "../context/EmployeeTableContext";
 import Link from "next/link";
 import { TableSkeleton } from "./TableSkeleton";
 import classNames from "classnames";

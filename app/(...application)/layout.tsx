@@ -1,10 +1,9 @@
 "use client";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/NavComponents/NavBar";
 import "@/app/globals.css";
 import { useSession } from "next-auth/react";
 import { Inter } from "next/font/google";
-import User from "../components/User";
-
+import User from "../components/NavComponents/User";
 const inter = Inter({ subsets: ["latin"] });
 
 const metadata = {

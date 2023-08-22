@@ -1,6 +1,5 @@
 import { v4 } from "uuid";
-import { useFormContext } from "../context/FormContext";
-import { getCamelCase } from "../helperFns/fns";
+import { useFormContext } from "@/app/context/FormContext";
 
 export default function FormSection({
   sectionName,

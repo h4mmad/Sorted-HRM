@@ -1,11 +1,11 @@
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import classNames from "classnames";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addField } from "../clientApiFns/modelApi";
+import { addField } from "@/app/clientApiFns/modelApi";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { v4 } from "uuid";
 import { Tooltip } from "react-tooltip";
-import { getCamelCase } from "../helperFns/fns";
+import { getCamelCase } from "@/app/helperFns/fns";
 
 export default function AddFieldForm({ sectionId }: { sectionId: string }) {
   const queryClient = useQueryClient();
@@ -40,6 +40,7 @@ export default function AddFieldForm({ sectionId }: { sectionId: string }) {
         sectionId: sectionId,
         field: {
           fieldId: v4(),
+          fieldValue: "",
           fieldIsRequired: data.fieldIsRequired,
           fieldJsonName: getCamelCase(data.fieldName),
           fieldName: data.fieldName,
@@ -51,6 +52,7 @@ export default function AddFieldForm({ sectionId }: { sectionId: string }) {
       addFieldMutation.mutate({
         sectionId: sectionId,
         field: {
+          fieldValue: "",
           fieldId: v4(),
           fieldIsRequired: data.fieldIsRequired,
           fieldName: data.fieldName,
