@@ -28,7 +28,10 @@ export default function ApplicationLayout({
         <NavBar />
       </div>
 
-      <div className="overflow-y-auto flex-1 h-full  px-14 py-5 ">
+      <div className="overflow-y-auto  flex-1 h-full  px-14 py-5 ">
+        {/* <div className="absolute p-4 w-1/2 text-center m bg-yellow-100 rounded-md">
+          ERROR
+        </div> */}
         {children}
       </div>
       <div className="border border-l-2 p-4">

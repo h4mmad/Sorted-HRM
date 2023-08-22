@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import { getCamelCase } from "../helperFns/fns";
+import { getCamelCase, camelCaseToTitleCase } from "../helperFns/fns";
 
 export const JobDetails: Section = {
   sectionName: "Job",
@@ -12,6 +12,7 @@ export const JobDetails: Section = {
       fieldJsonName: "designation",
       fieldType: "text",
       fieldIsRequired: true,
+      fieldValue: "",
     },
     {
       fieldId: v4(),
@@ -19,6 +20,7 @@ export const JobDetails: Section = {
       fieldJsonName: "stream",
       fieldType: "options",
       fieldIsRequired: true,
+      fieldValue: "",
       fieldOptionValues: [{ name: "Admin" }, { name: "Teaching" }],
     },
     {
@@ -27,6 +29,7 @@ export const JobDetails: Section = {
       fieldJsonName: "department",
       fieldType: "options",
       fieldIsRequired: true,
+      fieldValue: "",
       fieldOptionValues: [{ name: "Teaching" }, { name: "Non-Teaching" }],
     },
     {
@@ -35,6 +38,7 @@ export const JobDetails: Section = {
       fieldJsonName: "remarks",
       fieldType: "text",
       fieldIsRequired: false,
+      fieldValue: "",
     },
     {
       fieldId: v4(),
@@ -42,6 +46,7 @@ export const JobDetails: Section = {
       fieldJsonName: "dateOfJoining",
       fieldType: "date",
       fieldIsRequired: true,
+      fieldValue: "",
     },
     {
       fieldId: v4(),
@@ -49,6 +54,7 @@ export const JobDetails: Section = {
       fieldJsonName: "workStatus",
       fieldType: "options",
       fieldIsRequired: true,
+      fieldValue: "",
       fieldOptionValues: [{ name: "active" }, { name: "inactive" }],
     },
     {
@@ -57,6 +63,7 @@ export const JobDetails: Section = {
       fieldJsonName: "sponsoredBy",
       fieldType: "options",
       fieldIsRequired: true,
+      fieldValue: "",
       fieldOptionValues: [{ name: "School" }, { name: "Husband" }],
     },
   ],
@@ -72,6 +79,7 @@ export const PersonalDetails: Section = {
       fieldId: v4(),
       fieldJsonName: "fullName",
       fieldType: "text",
+      fieldValue: "",
       fieldIsRequired: true,
     },
 
@@ -80,6 +88,7 @@ export const PersonalDetails: Section = {
       fieldId: v4(),
       fieldJsonName: "dateOfBirth",
       fieldType: "date",
+      fieldValue: "",
       fieldIsRequired: true,
     },
     {
@@ -88,6 +97,7 @@ export const PersonalDetails: Section = {
       fieldJsonName: "gender",
       fieldIsRequired: true,
       fieldType: "options",
+      fieldValue: "",
       fieldOptionValues: [{ name: "Male" }, { name: "Female" }],
     },
     {
@@ -95,6 +105,7 @@ export const PersonalDetails: Section = {
       fieldJsonName: "nationality",
       fieldId: v4(),
       fieldIsRequired: true,
+      fieldValue: "",
       fieldType: "options",
       fieldOptionValues: [
         { name: "India" },
@@ -119,6 +130,7 @@ const ContactDetails: Section = {
       fieldName: "Phone number",
       fieldJsonName: "phoneNumber",
       fieldType: "number",
+      fieldValue: "",
       fieldIsRequired: true,
     },
     {
@@ -126,6 +138,7 @@ const ContactDetails: Section = {
       fieldName: "Personal email",
       fieldJsonName: "personalEmail",
       fieldType: "email",
+      fieldValue: "",
       fieldIsRequired: true,
     },
     {
@@ -133,6 +146,7 @@ const ContactDetails: Section = {
       fieldName: "Work email",
       fieldJsonName: "workEmail",
       fieldType: "email",
+      fieldValue: "",
       fieldIsRequired: false,
     },
   ],
@@ -148,6 +162,7 @@ export const IqamaDetails: Section = {
       fieldName: "Iqama number",
       fieldJsonName: "iqamaNumber",
       fieldType: "number",
+      fieldValue: "",
       fieldIsRequired: true,
     },
     {
@@ -155,6 +170,7 @@ export const IqamaDetails: Section = {
       fieldName: "Iqama expiry",
       fieldJsonName: "iqamaExpiry",
       fieldType: "date",
+      fieldValue: "",
       fieldIsRequired: true,
     },
     {
@@ -163,7 +179,8 @@ export const IqamaDetails: Section = {
       fieldJsonName: "iqamaStatus",
       fieldType: "options",
       fieldIsRequired: true,
-      fieldOptionValues: [{ name: "active" }, { name: "inactive" }],
+      fieldValue: "",
+      fieldOptionValues: [{ name: "active" }, { name: "expired" }],
     },
   ],
 };
@@ -175,6 +192,7 @@ const Qualification: Section = {
   sectionFields: [
     {
       fieldId: v4(),
+      fieldValue: "",
       fieldName: "Qualification",
       fieldJsonName: "qualification",
       fieldType: "text",
@@ -183,6 +201,7 @@ const Qualification: Section = {
     {
       fieldId: v4(),
       fieldName: "University",
+      fieldValue: "",
       fieldJsonName: "university",
       fieldType: "text",
       fieldIsRequired: false,
@@ -199,6 +218,7 @@ const PassportDetails: Section = {
       fieldId: v4(),
       fieldName: "Passport number",
       fieldJsonName: "passportNumber",
+      fieldValue: "",
       fieldType: "text",
       fieldIsRequired: true,
     },
@@ -207,6 +227,7 @@ const PassportDetails: Section = {
       fieldName: "Passport expiry",
       fieldJsonName: "passportExpiry",
       fieldType: "date",
+      fieldValue: "",
       fieldIsRequired: false,
     },
   ],

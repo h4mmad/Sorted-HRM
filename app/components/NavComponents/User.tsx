@@ -28,10 +28,10 @@ export default function User() {
           </div>
 
           <div className="mt-4">
-            <button className="px-2 py-1 w-full text-left text-myDarkBlue     hover:bg-slate-200  rounded-lg">
+            <button className="px-2 py-1 w-full text-left text-myDarkBlue     hover:bg-slate-100  rounded-lg">
               Profile
             </button>
-            <button className="px-2 py-1 w-full text-left text-myDarkBlue   hover:bg-slate-200  rounded-lg">
+            <button className="px-2 py-1 w-full text-left text-myDarkBlue   hover:bg-slate-100  rounded-lg">
               Sign out
             </button>
           </div>

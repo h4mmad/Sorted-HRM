@@ -20,6 +20,7 @@ export default function NewEmployee() {
         {allSections?.map((section, index) => {
           return (
             <Section
+              key={section.sectionId}
               sectionId={section.sectionId}
               sectionFields={section.sectionFields}
               sectionName={section.sectionName}
@@ -30,11 +31,11 @@ export default function NewEmployee() {
         {data?.map((section, index) => {
           return (
             <Section
-              key={index}
-              sectionFields={section.sectionFields}
+              key={section.sectionId}
               sectionId={section.sectionId}
+              sectionFields={section.sectionFields}
               sectionName={section.sectionName}
-              sectionJsonName={`others.${getCamelCase(section.sectionName)}`}
+              sectionJsonName={getCamelCase(section.sectionName)}
             />
           );
         })}

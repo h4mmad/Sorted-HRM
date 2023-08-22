@@ -57,4 +57,8 @@ export function camelCaseToTitleCase(input: string) {
     });
 }
 
-console.log(camelCaseToTitleCase("mohammedHammad"));
+export function isObject(objValue: any) {
+  return (
+    objValue && typeof objValue === "object" && objValue.constructor === Object
+  );
+}

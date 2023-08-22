@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addSection } from "../clientApiFns/modelApi";
 import { v4 } from "uuid";
+import { getCamelCase } from "../helperFns/fns";
 export default function AddSectionForm() {
   type Inputs = {
     sectionName: string;
@@ -22,11 +23,13 @@ export default function AddSectionForm() {
     formState: { errors },
   } = useForm<Inputs>();
 
+  //add a section in the model builder
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     addSectionMutation.mutate({
       sectionName: data.sectionName,
       sectionId: v4(),
       sectionFields: [],
+      sectionJsonName: getCamelCase(data.sectionName),
     });
   };
 

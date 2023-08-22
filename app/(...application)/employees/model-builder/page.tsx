@@ -32,7 +32,7 @@ export default function ModelBuilder() {
             onClick={() => setToggle(!toggle)}
             className="text-myLightBlue"
           >
-            {toggle ? "Cancel" : "Add section"}
+            {toggle ? "Cancel" : "+ Add section"}
           </button>
           {toggle && (
             <div className="absolute z-10">

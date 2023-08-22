@@ -58,8 +58,7 @@ export default function FormSection({
                       <input
                         type={elem.fieldType}
                         {...methods.register(
-                          `${sectionJsonName}.${elem.fieldJsonName}`,
-                          { required: elem.fieldIsRequired }
+                          `${sectionJsonName}.${elem.fieldJsonName}`
                         )}
                         className="p-2 appearance-none bg-gray-100 rounded-lg w-64  border border-slate-400 dark:bg-gray-700"
                       />

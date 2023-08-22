@@ -19,7 +19,7 @@ type Section = {
   sectionName: string;
   sectionJsonName: string;
   sectionId: string;
-  sectionFields: Field[];
+  sectionFields?: Field[];
 };
 
 type Field = {
@@ -27,6 +27,7 @@ type Field = {
   fieldId: string;
   fieldJsonName: string;
   fieldIsRequired: boolean;
+  fieldValue: any;
   fieldValidationPattern?: boolean extends this["fieldIsRequired"]
     ? boolean
     : never;
@@ -46,7 +47,7 @@ type Employee = {
   iqama: {
     iqamaNumber: string;
     iqamaExpiry: string;
-    iqamaStatus: string;
+    iqamaStatus: "active" | "expired";
   };
   personal: {
     fullName: string;
@@ -66,7 +67,6 @@ type Employee = {
     sponsoredBy: string;
   };
   qualification: { qualification: string; university: string };
-  other?: {};
 };
 
 type AddFieldInputs = {
@@ -76,10 +76,3 @@ type AddFieldInputs = {
   fieldIsRequired: boolean;
   optionsArray: { name: string }[];
 };
-enum FieldTypes {
-  Text = "text",
-  Date = "date",
-  Email = "email",
-  Number = "number",
-  Options = "options",
-}

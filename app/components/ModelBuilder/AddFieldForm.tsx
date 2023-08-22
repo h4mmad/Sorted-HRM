@@ -62,6 +62,13 @@ export default function AddFieldForm({ sectionId }: { sectionId: string }) {
   };
 
   const selectedRadioValue = watch("fieldType");
+  enum FieldTypes {
+    Text = "text",
+    Date = "date",
+    Email = "email",
+    Number = "number",
+    Options = "options",
+  }
 
   const fieldTypes = [
     FieldTypes.Text,
