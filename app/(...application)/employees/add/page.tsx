@@ -1,8 +1,8 @@
 "use client";
 import { getSections } from "@/app/clientApiFns/modelApi";
 import { allSections } from "@/app/components/AddEmployeeDetailsLayout";
-import MultiStepForm from "@/app/components/multi-step/MultiStepForm";
-import Section from "@/app/components/FormSection";
+import MultiStepForm from "@/app/components/multi_step_form_components/MultiStepForm";
+import FormSection from "@/app/components/model_builder_components/FormSection";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { getCamelCase } from "@/app/helperFns/fns";
@@ -19,7 +19,7 @@ export default function NewEmployee() {
       <MultiStepForm>
         {allSections?.map((section, index) => {
           return (
-            <Section
+            <FormSection
               key={section.sectionId}
               sectionId={section.sectionId}
               sectionFields={section.sectionFields}
@@ -30,7 +30,7 @@ export default function NewEmployee() {
         })}
         {data?.map((section, index) => {
           return (
-            <Section
+            <FormSection
               key={section.sectionId}
               sectionId={section.sectionId}
               sectionFields={section.sectionFields}

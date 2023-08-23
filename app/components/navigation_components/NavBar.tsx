@@ -1,4 +1,3 @@
-import User from "./User";
 import NestedNav from "./NestedNav";
 import NavButton from "./NavButton";
 
@@ -14,7 +13,7 @@ export default function NavBar() {
           { title: "Add employee", to: "/employees/add" },
           {
             title: "Model builder",
-            to: "/employees/model-builder",
+            to: "/employees/model_builder",
           },
         ]}
       />

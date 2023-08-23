@@ -115,7 +115,7 @@ const EmployeeTable = () => {
           })}
         </thead>
 
-        <tbody className="rounded-md">
+        <tbody className="rounded-lg">
           {table.getRowModel().rows.map((row) => {
             return (
               <tr key={row.id}>

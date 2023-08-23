@@ -12,7 +12,7 @@ export const Search = ({
   return (
     <div
       className={classNames([
-        "bg-gray-100 rounded-md",
+        "bg-white rounded-lg border border-slate-300",
         { "outline outline-2": isFocused },
       ])}
     >
@@ -20,7 +20,7 @@ export const Search = ({
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         placeholder="Search anything..."
-        className="bg-gray-100 rounded-md w-64 p-3 border-none outline-none appearance-none  placeholder:text-gray-400"
+        className="bg-white rounded-md w-64 p-3 border-none outline-none appearance-none  placeholder:text-gray-400"
         onChange={(e) => setFiltering(e.target.value)}
       />
       <SearchIcon className="text-gray-500 m-2" />

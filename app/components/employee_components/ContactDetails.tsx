@@ -1,14 +1,18 @@
-export default function EmployeeContactDetails() {
+import { useEmployeeContext } from "@/app/context/EmployeeContext";
+
+export default function ContactDetails() {
+  const { employeeMethods, isEditing, setIsEditing, data } =
+    useEmployeeContext();
   return (
-    <section className="flex-1">
+    <section className="flex-1 ">
       <h2 className="text-xl  text-myDarkBlue">Contact</h2>
 
-      <div className="flex flex-col space-y-6 rounded-lg border border-slate-200 shadow-md bg-white h-fit p-4">
+      <div className="flex flex-col bg-white space-y-6 rounded-lg border border-slate-300 shadow-md h-fit p-4">
         <div>
-          <label className="block text-gray-500">Phone number</label>
+          <label className="block text-myLightBlue">Phone number</label>
           <input
             disabled={!isEditing}
-            {...register("phoneNumber", {
+            {...employeeMethods.register("phoneNumber", {
               required: true,
             })}
             defaultValue={data?.contact.phoneNumber}
@@ -17,7 +21,7 @@ export default function EmployeeContactDetails() {
         </div>
 
         <div>
-          <label className="block text-gray-500">Email</label>
+          <label className="block text-myLightBlue">Email</label>
 
           <input
             value={data?.contact.personalEmail}

@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
     if (empId) {
       const employeeDetails = await employees.findOne({ employeeId: empId });
       if (employeeDetails != undefined) {
-        console.log(employeeDetails);
+        console.log("fetched from database...", employeeDetails);
         return NextResponse.json(employeeDetails);
       } else {
         return NextResponse.redirect("http://localhost:3000/employees");

@@ -16,7 +16,7 @@ export default function FormSection({
     <>
       <h1 className="text-2xl text-myDarkBlue mb-2">{sectionName}</h1>
 
-      <section className="rounded-lg border border-slate-300 dark:bg-gray-900  shadow-md">
+      <section className="rounded-lg border bg-white border-slate-300 dark:bg-gray-900  shadow-md">
         {
           <div className="flex flex-col flex-wrap  p-2  ">
             {sectionFields?.map((elem, index) => {

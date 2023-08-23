@@ -34,7 +34,11 @@ export default function MultiStepForm({ children }: MultiStepFormProps) {
   const queryClient = useQueryClient();
 
   const addEmployeeMutation = useMutation(addEmployee, {
-    onSuccess: () => queryClient.invalidateQueries(["get-employees"]),
+    onSuccess: () => {
+      console.log("Employee added");
+      setStep(0);
+      queryClient.invalidateQueries(["get-employees"]);
+    },
   });
   const onSubmit: SubmitHandler<Employee> = (data) => {
     const { iqama, personal, contact, qualification, job, passport, ...rest } =

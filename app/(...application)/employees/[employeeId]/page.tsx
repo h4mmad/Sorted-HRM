@@ -7,16 +7,20 @@ import {
   getOneEmployee,
   updateOneEmployee,
 } from "@/app/clientApiFns/employeeApi";
-import EmployeeSkeleton from "@/app/components/EmployeeComponents/EmployeeSkeleton";
+import EmployeeSkeleton from "@/app/components/employee_components/EmployeeSkeleton";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import ButtonControls from "@/app/components/EmployeeComponents/ButtonControls";
-import EmployeeOverviewCard from "@/app/components/EmployeeComponents/OverviewCard";
-import EmployeePersonalDetails from "@/app/components/EmployeeComponents/PersonalDetails";
-import EmployeeContactDetails from "@/app/components/EmployeeComponents/ContactDetails";
-import EmployeeIqamaDetails from "@/app/components/EmployeeComponents/IqamaDetails";
-import { EmployeeContext } from "@/app/context/EmployeeContext";
+import ButtonControls from "@/app/components/employee_components/ButtonControls";
+import EmployeeOverviewCard from "@/app/components/employee_components/OverviewCard";
+import EmployeeContext from "@/app/context/EmployeeContext";
+import PersonalDetails from "@/app/components/employee_components/PersonalDetails";
+import ContactDetails from "@/app/components/employee_components/ContactDetails";
+import IqamaDetails from "@/app/components/employee_components/IqamaDetails";
+import PassportDetails from "@/app/components/employee_components/PassportDetails";
+import JobDetails from "@/app/components/employee_components/JobDetails";
+import classNames from "classnames";
+import { DividerLine } from "@/app/components/general_components/DividerLine";
 export default function Page() {
   const [isEditing, setIsEditing] = useState(false);
   const params = useParams();
@@ -24,7 +28,14 @@ export default function Page() {
 
   const { data, isLoading, isSuccess } = useQuery<Employee, AxiosError>(
     ["employee", employeeId],
-    () => getOneEmployee(employeeId)
+
+    () => {
+      console.log("data refetched");
+      return getOneEmployee(employeeId);
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
   );
 
   const queryClient = useQueryClient();
@@ -49,13 +60,8 @@ export default function Page() {
     updateEmployeeMutation.mutate(employee);
   };
 
-  type EditableFormInputs = {
-    fullName: string;
-    nationality: string;
-    phoneNumber: string;
-  };
-
-  const { register, handleSubmit } = useForm<EditableFormInputs>();
+  const employeeMethods = useForm<EditableFormInputs>();
+  const { handleSubmit } = employeeMethods;
 
   const submitHandler = (formData: EditableFormInputs) => {
     console.log(formData);
@@ -91,33 +97,46 @@ export default function Page() {
 
   const router = useRouter();
 
-  const content = (
-    <EmployeeContext.Provider value={{ isEditing, setIsEditing }}>
-      <div className="flex flex-col space-y-12 ">
-        <form onSubmit={handleSubmit(submitHandler)}>
+  return isLoading ? (
+    <EmployeeSkeleton />
+  ) : (
+    <EmployeeContext.Provider
+      value={{ employeeMethods, isEditing, setIsEditing, data }}
+    >
+      <form onSubmit={handleSubmit(submitHandler)}>
+        <div className="flex flex-col space-y-12">
+          {isEditing ? (
+            <div className="flex justify-center">
+              <div className="p-2 w-64 fixed rounded-md bg-yellow-200  text-center">
+                Editing...
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+
+          {isSuccess ? <EmployeeOverviewCard data={data} /> : ""}
+          <DividerLine />
           <div className="flex justify-between items-center">
-            <h1 className="text-3xl font-medium text-myDarkBlue">
-              {data?.personal.fullName}
-            </h1>
+            <h1 className="text-2xl text-myDarkBlue">Employee details</h1>
+
             <ButtonControls />
           </div>
 
-          {isSuccess ? <EmployeeOverviewCard data={data} /> : ""}
-
-          <div className="flex flex-col space-y-12">
-            {/* Personal details */}
-            <EmployeePersonalDetails />
-
-            {/* Contact details */}
-            <EmployeeContactDetails />
-
-            {/* Iqama details */}
-            <EmployeeIqamaDetails />
+          <div className="flex flex-row space-x-8 flex-wrap ml-4">
+            <PersonalDetails />
+            <ContactDetails />
           </div>
-        </form>
-      </div>
+
+          <JobDetails />
+
+          <div className="flex flex-row space-x-8 flex-wrap">
+            <IqamaDetails />
+            <PassportDetails />
+          </div>
+          {isEditing && <ButtonControls />}
+        </div>
+      </form>
     </EmployeeContext.Provider>
   );
-
-  return isLoading ? <EmployeeSkeleton /> : data && content;
 }

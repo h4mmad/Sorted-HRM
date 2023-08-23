@@ -1,7 +1,7 @@
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import classNames from "classnames";
 import { useState } from "react";
-import { DividerLine } from "../GeneralComponents/DividerLine";
+import { DividerLine } from "../general_components/DividerLine";
 import { useEmployeeContext } from "@/app/context/EmployeeContext";
 export default function ButtonControls() {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +10,10 @@ export default function ButtonControls() {
     <div className="flex flex-row space-x-4 justify-end">
       {isEditing ? (
         <>
-          <button className="text-green-600 rounded-md p-2 hover:bg-green-100 border border-green-600">
+          <button
+            type="submit"
+            className="text-green-600 rounded-md p-2 hover:bg-green-100 border border-green-600"
+          >
             Save changes
           </button>
           <button
@@ -28,7 +31,7 @@ export default function ButtonControls() {
         {!isEditing ? (
           <button
             className={classNames([
-              "rounded-full p-2 flex justify-center items-center border shadow-sm",
+              "rounded-full p-2 flex justify-center items-center border bg-white shadow-sm",
               { "border-myDarkBlue": isOpen },
             ])}
             onClick={() => setIsOpen(!isOpen)}
@@ -50,7 +53,10 @@ export default function ButtonControls() {
               Edit employee
             </button>
             <DividerLine />
-            <button className="p-2 rounded-md hover:bg-red-100 hover:text-red-500 text-gray-400 w-full mt-2">
+            <button
+              className="p-2 rounded-md hover:bg-red-100 hover:text-red-500 text-gray-400 w-full mt-2"
+              onClick={() => {}}
+            >
               Delete employee
             </button>
           </div>

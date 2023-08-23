@@ -1,14 +1,15 @@
 import { createContext, useContext } from "react";
+import { FieldValues, UseFormReturn } from "react-hook-form";
 
 type EmployeeContext = {
   isEditing: boolean;
-  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
   data: Employee | undefined;
-  register: any;
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+  employeeMethods: UseFormReturn<EditableFormInputs, any>;
 };
 
-export const EmployeeContext = createContext<EmployeeContext>(
-  {} as EmployeeContext
-);
+const EmployeeContext = createContext<EmployeeContext>({} as EmployeeContext);
 
 export const useEmployeeContext = () => useContext(EmployeeContext);
+
+export default EmployeeContext;

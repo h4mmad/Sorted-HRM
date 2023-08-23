@@ -3,15 +3,12 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function FormButtonControls() {
-  const { goToNextStep, goToPreviousStep, step, length, sectionTitle } =
-    useFormContext();
+  const { goToNextStep, goToPreviousStep, step, length } = useFormContext();
 
   return (
     <div className="flex flex-row space-x-2 justify-between">
       <div>
-        <h2 className="text-3xl font-semibold text-myDarkBlue dark:text-white select-none ">
-          {sectionTitle}
-        </h2>
+        <h2 className="text-3xl font-semibold text-myDarkBlue dark:text-white select-none "></h2>
         <p className="mt-2">
           Step {step + 1} of {length}
         </p>

@@ -3,9 +3,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { v4 } from "uuid";
 import { useState } from "react";
 import { Tooltip } from "react-tooltip";
-import AddFieldForm from "@/app/components/AddFieldForm";
+import AddFieldForm from "./AddFieldForm";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { removeField, deleteSection } from "../clientApiFns/modelApi";
+import { removeField, deleteSection } from "@/app/clientApiFns/modelApi";
 
 export default function DynamicSection({
   sectionId,

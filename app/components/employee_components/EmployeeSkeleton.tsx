@@ -15,15 +15,15 @@ const EmployeeSkeleton = () => {
       {/* form */}
       {/* Personal details */}
       <div className="flex flex-col space-y-8">
-        <section className="p-4">
+        <section>
           <h2 className="text-xl font-medium text-myDarkBlue"></h2>
           <div className="rounded-md  bg-gray-300 animate-pulse h-32"></div>
         </section>
-        <section className="p-4">
+        <section>
           <h2 className="text-xl font-medium text-myDarkBlue"></h2>
           <div className="rounded-md  bg-gray-200 animate-pulse h-32"></div>
         </section>
-        <section className="p-4">
+        <section>
           <h2 className="text-xl font-medium text-myDarkBlue"></h2>
           <div className="rounded-md bg-gray-300 animate-pulse h-32"></div>
         </section>

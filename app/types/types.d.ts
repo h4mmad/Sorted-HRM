@@ -46,7 +46,7 @@ type Employee = {
   employeeId: string;
   iqama: {
     iqamaNumber: string;
-    iqamaExpiry: string;
+    iqamaExpiry: Date;
     iqamaStatus: "active" | "expired";
   };
   personal: {
@@ -55,7 +55,7 @@ type Employee = {
     gender: string;
     nationality: string;
   };
-  passport: { passportNumber: string; passportExpiry: string };
+  passport: { passportNumber: string; passportExpiry: Date };
   contact: { phoneNumber: string; personalEmail: string; workEmail: string };
   job: {
     designation: string;
@@ -75,4 +75,14 @@ type AddFieldInputs = {
   fieldType: "text" | "email" | "date" | "number" | "file" | "options";
   fieldIsRequired: boolean;
   optionsArray: { name: string }[];
+};
+
+type EditableFormInputs = {
+  fullName: string;
+  nationality: string;
+  phoneNumber: string;
+  iqamaExpiry: Date;
+  passportNumber: string;
+  passportExpiry: Date;
+  designation: string;
 };
