@@ -1,17 +1,19 @@
+import getEmployeeStatusTag from "@/app/helperFns/getEmployeeStatusTag";
+import getMaleOrFemaleTag from "@/app/helperFns/getMaleOrFemaleTag";
 import { DateTime } from "luxon";
 export default function EmployeeOverviewCard({
   data,
 }: {
   data: Employee | undefined;
 }) {
-  {
-    console.log(
-      DateTime.fromFormat(String(data?.iqama.iqamaExpiry), "yyyy-MM-dd")
-        .diffNow()
-        .as("days")
-        .toFixed(0)
-    );
-  }
+  // {
+  //   console.log(
+  //     DateTime.fromFormat(String(data?.iqama.iqamaExpiry), "yyyy-MM-dd")
+  //       .diffNow()
+  //       .as("days")
+  //       .toFixed(0)
+  //   );
+  // }
 
   return (
     <div className="flex flex-row space-x-8 mt-4">
@@ -29,8 +31,6 @@ export default function EmployeeOverviewCard({
             </p>
             <p className="text-myDarkBlue">{data?.job.designation}</p>
             <div>
-              <p className="text-gray-500">{data?.personal.gender}</p>
-
               <p className="text-gray-500">
                 {Math.floor(
                   Math.abs(
@@ -74,8 +74,8 @@ export default function EmployeeOverviewCard({
           </div> */}
         </div>
 
-        <p className="text-gray-500">Expires on:</p>
-        <p>
+        <p className="">Expires on:</p>
+        <p className="">
           {DateTime.fromFormat(
             String(data?.iqama.iqamaExpiry),
             "yyyy-MM-dd"

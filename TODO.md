@@ -18,3 +18,9 @@
 Sun Jul 2
 
 - useReact query and axios, get rid of loading
+
+---
+
+[ ] complete the add employee form
+[ ] make sure date of birth employee can be 18 years and older
+[ ] try conditional rendering

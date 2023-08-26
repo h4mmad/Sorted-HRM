@@ -11,7 +11,7 @@ type MultiStepFormProps = {
 };
 
 export default function MultiStepForm({ children }: MultiStepFormProps) {
-  const methods = useForm();
+  const methods = useForm<Employee>();
   const [step, setStep] = useState(0);
 
   const steps = React.Children.toArray(children);
@@ -41,8 +41,7 @@ export default function MultiStepForm({ children }: MultiStepFormProps) {
     },
   });
   const onSubmit: SubmitHandler<Employee> = (data) => {
-    const { iqama, personal, contact, qualification, job, passport, ...rest } =
-      data;
+    const { iqama, personal, contact, job, passport, ...rest } = data;
 
     console.log(data);
 
@@ -53,7 +52,6 @@ export default function MultiStepForm({ children }: MultiStepFormProps) {
       employeeId: v4(),
       job,
       passport,
-      qualification,
     };
     addEmployeeMutation.mutate(employeeData);
   };

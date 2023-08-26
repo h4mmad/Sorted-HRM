@@ -5,7 +5,7 @@ type EmployeeContext = {
   isEditing: boolean;
   data: Employee | undefined;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
-  employeeMethods: UseFormReturn<EditableFormInputs, any>;
+  employeeMethods: UseFormReturn<UpdateEmployeeInputs, any>;
 };
 
 const EmployeeContext = createContext<EmployeeContext>({} as EmployeeContext);

@@ -7,7 +7,7 @@ type FormContextType = {
   length: number;
   goToNextStep: (e: React.MouseEvent) => void;
   goToPreviousStep: (e: React.MouseEvent) => void;
-  methods: UseFormReturn<FieldValues, any, undefined>;
+  methods: UseFormReturn<Employee, any, undefined>;
   submitStep: (data: any) => void;
 };
 

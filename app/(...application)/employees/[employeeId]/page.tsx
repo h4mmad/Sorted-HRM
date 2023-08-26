@@ -19,7 +19,6 @@ import ContactDetails from "@/app/components/employee_components/ContactDetails"
 import IqamaDetails from "@/app/components/employee_components/IqamaDetails";
 import PassportDetails from "@/app/components/employee_components/PassportDetails";
 import JobDetails from "@/app/components/employee_components/JobDetails";
-import classNames from "classnames";
 import { DividerLine } from "@/app/components/general_components/DividerLine";
 export default function Page() {
   const [isEditing, setIsEditing] = useState(false);
@@ -56,42 +55,27 @@ export default function Page() {
     deleteEmployeeMutation.mutate(employeeId);
     router.push("/employees");
   };
-  const updateEmployeeHander = (employee: Employee) => {
-    updateEmployeeMutation.mutate(employee);
+
+  const updateEmployeeHander = (employeeUpdate: UpdateEmployeeInputs) => {
+    if (isSuccess) {
+      const employeeId: string = data.employeeId;
+      updateEmployeeMutation.mutate({ employeeUpdate, employeeId });
+    }
   };
 
-  const employeeMethods = useForm<EditableFormInputs>();
+  const employeeMethods = useForm<UpdateEmployeeInputs>({
+    defaultValues: {
+      job: {
+        department: data?.job.department,
+        workStatus: data?.job.workStatus,
+      },
+    },
+  });
   const { handleSubmit } = employeeMethods;
 
-  const submitHandler = (formData: EditableFormInputs) => {
-    console.log(formData);
-    if (isSuccess) {
-      const employeeObj: Employee = {
-        personal: {
-          ...data?.personal,
-          fullName: formData.fullName,
-          nationality: formData.nationality,
-        },
-        iqama: {
-          ...data.iqama,
-        },
-        contact: {
-          ...data.contact,
-        },
-        job: {
-          ...data.job,
-        },
-        qualification: {
-          ...data.qualification,
-        },
-        passport: {
-          ...data.passport,
-        },
-        employeeId: data.employeeId,
-      };
-      console.log(employeeObj);
-    }
-
+  const submitHandler = (updateFormData: UpdateEmployeeInputs) => {
+    console.log(updateFormData);
+    updateEmployeeHander(updateFormData);
     setIsEditing(false);
   };
 
@@ -104,7 +88,7 @@ export default function Page() {
       value={{ employeeMethods, isEditing, setIsEditing, data }}
     >
       <form onSubmit={handleSubmit(submitHandler)}>
-        <div className="flex flex-col space-y-12">
+        <div className="flex flex-col space-y-10">
           {isEditing ? (
             <div className="flex justify-center">
               <div className="p-2 w-64 fixed rounded-md bg-yellow-200  text-center">
@@ -118,21 +102,23 @@ export default function Page() {
           {isSuccess ? <EmployeeOverviewCard data={data} /> : ""}
           <DividerLine />
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl text-myDarkBlue">Employee details</h1>
+            <h1 className="text-2xl ">Employee details</h1>
 
             <ButtonControls />
           </div>
 
-          <div className="flex flex-row space-x-8 flex-wrap ml-4">
-            <PersonalDetails />
-            <ContactDetails />
-          </div>
+          <div className="ml-4 flex flex-col space-y-10">
+            <div className="flex flex-row space-x-10 flex-wrap">
+              <PersonalDetails />
+              <ContactDetails />
+            </div>
 
-          <JobDetails />
+            <JobDetails />
 
-          <div className="flex flex-row space-x-8 flex-wrap">
-            <IqamaDetails />
-            <PassportDetails />
+            <div className="flex flex-row space-x-10 flex-wrap">
+              {/* <IqamaDetails /> */}
+              <PassportDetails />
+            </div>
           </div>
           {isEditing && <ButtonControls />}
         </div>

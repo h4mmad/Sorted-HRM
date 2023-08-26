@@ -5,7 +5,9 @@ import { DividerLine } from "../general_components/DividerLine";
 import { useEmployeeContext } from "@/app/context/EmployeeContext";
 export default function ButtonControls() {
   const [isOpen, setIsOpen] = useState(false);
-  const { isEditing, setIsEditing } = useEmployeeContext();
+  const { isEditing, setIsEditing, employeeMethods } = useEmployeeContext();
+  const { formState, control, reset } = employeeMethods;
+
   return (
     <div className="flex flex-row space-x-4 justify-end">
       {isEditing ? (
@@ -17,7 +19,11 @@ export default function ButtonControls() {
             Save changes
           </button>
           <button
-            onClick={() => setIsEditing(false)}
+            type="button"
+            onClick={() => {
+              setIsEditing(false);
+              reset();
+            }}
             className="text-red-500 rounded-md p-2 bg-red-100 border border-red-500"
           >
             Cancel
@@ -30,6 +36,7 @@ export default function ButtonControls() {
       <div className="relative">
         {!isEditing ? (
           <button
+            type="button"
             className={classNames([
               "rounded-full p-2 flex justify-center items-center border bg-white shadow-sm",
               { "border-myDarkBlue": isOpen },
@@ -44,6 +51,7 @@ export default function ButtonControls() {
         {isOpen && (
           <div className="rounded-md p-2 bg-white w-64 text-base break-normal absolute right-0 mt-1 border shadow-lg border-slate-300">
             <button
+              type="button"
               onClick={() => {
                 setIsEditing(true);
                 setIsOpen(false);
@@ -54,8 +62,8 @@ export default function ButtonControls() {
             </button>
             <DividerLine />
             <button
+              type="button"
               className="p-2 rounded-md hover:bg-red-100 hover:text-red-500 text-gray-400 w-full mt-2"
-              onClick={() => {}}
             >
               Delete employee
             </button>

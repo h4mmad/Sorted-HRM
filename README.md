@@ -132,3 +132,39 @@ possible use of state or reducer
 }
 
 ```
+
+To validate the expiry date:
+
+1. check if the expiry date is in the future
+2. if the user enters a past date as expiry do not accept, send error message as the iqama has expired
+
+- Iqama status and Passport status is checked at the server, when a request is made, storing the status may show old values, the status is checked at request time, by checking the expiry date.
+
+---
+
+If you're encountering an error message in React Hook Form (RHF) even though you've set a default value for an input, there are a few common issues that could be causing this problem. Let's explore some possible reasons and their solutions:
+
+Validation Rules:
+If you've defined validation rules for the input field using register, RHF might be applying those validation rules to the default value as well. If the default value doesn't meet the validation criteria, an error will be shown. Make sure that the default value you're providing matches the validation rules you've set.
+
+Default Value Mismatch:
+Ensure that the default value you've set for the input matches the expected data type. For example, if you're using a numeric default value for an input that's supposed to accept strings, RHF might consider it invalid.
+
+Validation Errors from Other Inputs:
+Sometimes, validation errors might be coming from other inputs in the form, and you might think they are related to the input with the default value. Check all inputs in your form to see if any other inputs are triggering the error messages.
+
+Form Submission without Interacting with the Input:
+If you are triggering form submission without interacting with the input (e.g., directly calling handleSubmit), RHF might not have had a chance to validate the input yet. Try to interact with the input (e.g., type something and then delete it) before submitting the form.
+
+Server-Side Validation Errors:
+If you're fetching data from a server and populating the form with that data, any server-side validation errors might not be properly handled by RHF. Ensure that the data you're populating the form with is valid and doesn't contain any errors.
+
+Incorrect Usage of defaultValue:
+Double-check that you're using the defaultValue prop correctly in your input component. It should be used to set the initial value of an uncontrolled input, and it's not directly related to RHF's internal state management. If you're using Controller, use the defaultValue prop there, or if you're using register, you might need to use value instead of defaultValue.
+
+Library Version and Updates:
+Ensure that you are using a recent version of React Hook Form and that there are no breaking changes or bug fixes that could affect default values or error handling.
+
+If none of these suggestions resolve the issue, it might help to provide more specific details about your code and the error message you're encountering. This way, I can offer more targeted assistance.
+
+---

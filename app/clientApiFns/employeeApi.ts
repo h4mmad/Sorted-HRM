@@ -36,18 +36,22 @@ export async function deleteOneEmployee(employeeId: string) {
   }
 }
 
-export async function updateOneEmployee(employee: Employee) {
+export async function updateOneEmployee({
+  employeeUpdate,
+  employeeId,
+}: {
+  employeeUpdate: UpdateEmployeeInputs;
+  employeeId: string;
+}) {
   try {
-    const employeeObj: Employee = {
-      employeeId: employee.employeeId,
-      contact: employee.contact,
-      iqama: employee.iqama,
-      job: employee.job,
-      passport: employee.passport,
-      personal: employee.personal,
-      qualification: employee.qualification,
+    const updateEmployeeObj: SendEmployeeUpdateType = {
+      employeeId,
+      contact: employeeUpdate.contact,
+      iqama: employeeUpdate.iqama,
+      job: employeeUpdate.job,
+      passport: employeeUpdate.passport,
     };
-    return await employeeApi.put("/employee", { employeeObj });
+    return await employeeApi.put("/employee", updateEmployeeObj);
   } catch (error) {
     throw error;
   }

@@ -3,6 +3,8 @@ import { MongoClient } from "mongodb";
 import { redirect, useSearchParams } from "next/navigation";
 import { error } from "console";
 import { validate as uuidValidate } from "uuid";
+import { getActiveOrExpiredStatus } from "@/app/helperFns/dateHelperFns";
+import { getEmployeeById, updateEmployeeById } from "../lib/apiHelperFns";
 
 const client = new MongoClient(process.env.NEXT_PUBLIC_MONGODB_URI);
 const database = client.db("sorted_hrm");
@@ -10,11 +12,29 @@ const employees = database.collection("employees");
 
 export async function POST(request: NextRequest) {
   try {
-    const employee: Employee = await request.json();
+    const employeeData: Employee = await request.json();
 
-    console.log(employee);
+    const {
+      iqama: { iqamaExpiry, iqamaNumber },
+      passport: { passportExpiry, passportNumber },
+      ...rest
+    } = employeeData;
 
-    await employees.insertOne(employee);
+    const employeeObj: Employee = {
+      passport: {
+        passportExpiry,
+        passportNumber,
+        passportStatus: getActiveOrExpiredStatus(String(passportExpiry)),
+      },
+      iqama: {
+        iqamaExpiry,
+        iqamaNumber,
+        iqamaStatus: getActiveOrExpiredStatus(String(iqamaExpiry)),
+      },
+      ...rest,
+    };
+
+    await employees.insertOne(employeeObj);
 
     return NextResponse.json({
       messsage: `All OK`,
@@ -26,16 +46,35 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const empId = request.nextUrl.searchParams.get("employeeId");
+    const employeeId = request.nextUrl.searchParams.get("employeeId");
 
-    if (empId) {
-      const employeeDetails = await employees.findOne({ employeeId: empId });
-      if (employeeDetails != undefined) {
-        console.log("fetched from database...", employeeDetails);
-        return NextResponse.json(employeeDetails);
-      } else {
-        return NextResponse.redirect("http://localhost:3000/employees");
+    if (employeeId) {
+      const employeeData = await getEmployeeById(employeeId);
+      if (employeeData) {
+        const {
+          iqama: { iqamaExpiry, iqamaNumber },
+          passport: { passportExpiry, passportNumber },
+          ...rest
+        } = employeeData;
+
+        const employeeObj: Employee = {
+          passport: {
+            passportExpiry,
+            passportNumber,
+            passportStatus: getActiveOrExpiredStatus(String(passportExpiry)),
+          },
+          iqama: {
+            iqamaExpiry,
+            iqamaNumber,
+            iqamaStatus: getActiveOrExpiredStatus(String(iqamaExpiry)),
+          },
+          ...rest,
+        };
+
+        return NextResponse.json(employeeObj);
       }
+    } else {
+      return NextResponse.redirect("http://localhost:3000/employees");
     }
   } catch (error) {
     return NextResponse.redirect("http://localhost:3000/employees");
@@ -67,7 +106,18 @@ export async function DELETE(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
-    const data = await request.json();
-    console.log(data);
+    const updateData: SendEmployeeUpdateType = await request.json();
+    console.log(updateData.contact);
+    console.log(updateData.employeeId);
+    console.log(updateData.iqama);
+    console.log(updateData.passport);
+    console.log(updateData.job);
+
+    const fieldsToUpdate = {
+      "passport.passportNumber": updateData.passport.passportNumber,
+    };
+    await updateEmployeeById(updateData.employeeId, fieldsToUpdate);
+
+    return NextResponse.json(updateData);
   } catch (error) {}
 }

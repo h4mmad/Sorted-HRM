@@ -16,6 +16,7 @@ import { DateTime } from "luxon";
 import Link from "next/link";
 import { TableSkeleton } from "./TableSkeleton";
 import classNames from "classnames";
+import getExpiredOrActiveTag from "@/app/helperFns/getExpiredOrActiveTag";
 
 const EmployeeTable = () => {
   const [filtering, setFiltering] = useState("");
@@ -47,17 +48,7 @@ const EmployeeTable = () => {
     }),
     columnHelper.accessor((row) => row.iqama.iqamaStatus, {
       id: "iqamaStatus",
-      cell: (info) => (
-        <span
-          className={classNames([
-            "rounded-full p-2",
-            { "bg-green-100 text-green-700": info.getValue() === "active" },
-            { "bg-red-100 text-red-700": info.getValue() === "expired" },
-          ])}
-        >
-          {info.getValue()}
-        </span>
-      ),
+      cell: (info) => getExpiredOrActiveTag(info.getValue()),
       header: () => <span>Iqama status</span>,
     }),
     columnHelper.accessor((row) => row.employeeId, {

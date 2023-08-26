@@ -46,27 +46,25 @@ type Employee = {
   employeeId: string;
   iqama: {
     iqamaNumber: string;
-    iqamaExpiry: Date;
-    iqamaStatus: "active" | "expired";
+    iqamaExpiry: Date | null;
   };
   personal: {
     fullName: string;
-    dateOfBirth: Date;
-    gender: string;
+    dateOfBirth: Date | null;
+    gender: "male" | "female";
     nationality: string;
   };
-  passport: { passportNumber: string; passportExpiry: Date };
-  contact: { phoneNumber: string; personalEmail: string; workEmail: string };
+  passport: {
+    passportNumber: string;
+    passportExpiry: Date | null;
+  };
+  contact: { phoneNumber: number; email: string };
   job: {
     designation: string;
-    stream: string;
-    department: string;
-    remarks: string;
+    department: "Teaching" | "Non-Teaching";
     dateOfJoining: Date;
-    workStatus: string;
-    sponsoredBy: string;
+    workStatus: "active" | "inactive";
   };
-  qualification: { qualification: string; university: string };
 };
 
 type AddFieldInputs = {
@@ -77,12 +75,37 @@ type AddFieldInputs = {
   optionsArray: { name: string }[];
 };
 
-type EditableFormInputs = {
-  fullName: string;
-  nationality: string;
-  phoneNumber: string;
-  iqamaExpiry: Date;
-  passportNumber: string;
-  passportExpiry: Date;
-  designation: string;
+type UpdateEmployeeInputs = {
+  contact: { phoneNumber: number; email: string };
+  iqama: {
+    iqamaExpiry: Date | null | undefined;
+  };
+  passport: {
+    passportNumber: string;
+    passportExpiry: Date | null | undefined;
+  };
+  job: {
+    designation: string;
+    department: string;
+    workStatus: "active" | "inactive";
+    sponsoredby: string;
+  };
+};
+
+type SendEmployeeUpdateType = {
+  employeeId: string;
+  contact: { phoneNumber: number; email: string };
+  iqama: {
+    iqamaExpiry: Date | null | undefined;
+  };
+  passport: {
+    passportNumber: string;
+    passportExpiry: Date | null | undefined;
+  };
+  job: {
+    designation: string;
+    department: string;
+    workStatus: "active" | "inactive";
+    sponsoredby: string;
+  };
 };
