@@ -1,23 +1,29 @@
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import classNames from "classnames";
 import { useState } from "react";
-import { DividerLine } from "../general_components/DividerLine";
+import { DividerLine } from "../other/DividerLine";
 import { useEmployeeContext } from "@/app/context/EmployeeContext";
 export default function ButtonControls() {
   const [isOpen, setIsOpen] = useState(false);
-  const { isEditing, setIsEditing, employeeMethods } = useEmployeeContext();
+  const { isEditing, setIsEditing, employeeMethods, imageUrl } =
+    useEmployeeContext();
   const { formState, control, reset } = employeeMethods;
 
   return (
     <div className="flex flex-row space-x-4 justify-end">
       {isEditing ? (
         <>
-          <button
-            type="submit"
-            className="text-green-600 rounded-md p-2 hover:bg-green-100 border border-green-600"
-          >
-            Save changes
-          </button>
+          {formState.isDirty || imageUrl ? (
+            <button
+              type="submit"
+              className="text-green-600 rounded-md p-2 hover:bg-green-100 border border-green-600"
+            >
+              Save changes
+            </button>
+          ) : (
+            ""
+          )}
+
           <button
             type="button"
             onClick={() => {

@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import { Controller } from "react-hook-form";
 import classNames from "classnames";
 import "react-datepicker/dist/react-datepicker.css";
-import InputErrorMessage from "../general_components/InputErrorMessage";
+import InputErrorMessage from "../other/InputErrorMessage";
 import { inputStyle } from "@/app/helperFns/styles";
 // import { AiOutlineCheckCircle } from "react-icons/ai";
 
@@ -17,32 +17,36 @@ export default function PersonalForm() {
       <h1 className="text-2xl text-myDarkBlue mb-2">Personal</h1>
 
       <section className="rounded-lg border bg-white border-slate-300 dark:bg-gray-900  shadow-md">
-        <div className="flex flex-col flex-wrap  p-2">
-          <div className="m-5">
-            <label className="block">Full name</label>
-            <input
-              {...register("personal.fullName", {
-                required: "Full name is required",
-              })}
-              className={classNames([inputStyle, "bg-gray-100"])}
-            />
-            <InputErrorMessage message={errors.personal?.fullName?.message} />
-          </div>
-          <div className="m-5">
-            <label className="block">Gender</label>
-            <select
-              className={inputStyle}
-              {...register("personal.gender", {
-                required: "Please select an option",
-              })}
-            >
-              <option value="">Select an option</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
+        <div className="flex flex-col flex-wrap  p-2 text-myDarkBlue">
+          <div className="flex flex-row flex-wrap justify-start">
+            <div className="m-5">
+              <label className="block ">Full name</label>
+              <input
+                placeholder="John Doe"
+                {...register("personal.fullName", {
+                  required: "Full name is required",
+                })}
+                className={classNames([inputStyle, "bg-gray-100"])}
+              />
+              <InputErrorMessage message={errors.personal?.fullName?.message} />
+            </div>
+            <div className="m-5">
+              <label className="block">Gender</label>
+              <select
+                className={inputStyle}
+                {...register("personal.gender", {
+                  required: "Please select an option",
+                })}
+              >
+                <option value="">Select an option</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
 
-            <InputErrorMessage message={errors.personal?.gender?.message} />
+              <InputErrorMessage message={errors.personal?.gender?.message} />
+            </div>
           </div>
+
           <div className="m-5">
             <label className="block">Nationality</label>
             <select
@@ -75,16 +79,7 @@ export default function PersonalForm() {
               render={({ field }) => (
                 <DatePicker
                   placeholderText="11 August, 2001"
-                  className={classNames([
-                    inputStyle,
-                    "bg-gray-100",
-
-                    {
-                      "bg-green-200":
-                        !errors.personal?.dateOfBirth &&
-                        dirtyFields.personal?.dateOfBirth,
-                    },
-                  ])}
+                  className={classNames([inputStyle, "bg-gray-100"])}
                   dateFormat="dd MMMM, yyyy"
                   selected={field.value}
                   onChange={(date) => {

@@ -40,16 +40,17 @@ export async function updateOneEmployee({
   employeeUpdate,
   employeeId,
 }: {
-  employeeUpdate: UpdateEmployeeInputs;
+  employeeUpdate: UpdateEmployee;
   employeeId: string;
 }) {
   try {
-    const updateEmployeeObj: SendEmployeeUpdateType = {
+    const updateEmployeeObj: UpdateEmployee = {
       employeeId,
       contact: employeeUpdate.contact,
       iqama: employeeUpdate.iqama,
       job: employeeUpdate.job,
       passport: employeeUpdate.passport,
+      employeePictureURL: employeeUpdate.employeePictureURL,
     };
     return await employeeApi.put("/employee", updateEmployeeObj);
   } catch (error) {

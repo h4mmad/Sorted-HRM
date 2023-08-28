@@ -3,13 +3,13 @@
 import React, { useState } from "react";
 import { v4 } from "uuid";
 import { useQuery } from "@tanstack/react-query";
-import AddSectionForm from "@/app/components/model_builder_components/AddSectionForm";
+import AddSectionForm from "@/app/components/model_builder/AddSectionForm";
 import { getSections } from "@/app/clientApiFns/modelApi";
-import LoadingSkeleton from "@/app/components/employee_components/LoadingSekeleton";
-import NoSections from "@/app/components/model_builder_components/NoSections";
+import LoadingSkeleton from "@/app/components/single_employee/LoadingSekeleton";
+import NoSections from "@/app/components/model_builder/NoSections";
 import { AxiosError } from "axios";
-import SectionErrorMessage from "@/app/components/model_builder_components/SectionErrorMessage";
-import DynamicSection from "@/app/components/model_builder_components/DynamicSection";
+import SectionErrorMessage from "@/app/components/model_builder/SectionErrorMessage";
+import DynamicSection from "@/app/components/model_builder/DynamicSection";
 import { getCamelCase } from "@/app/helperFns/fns";
 
 export default function ModelBuilder() {

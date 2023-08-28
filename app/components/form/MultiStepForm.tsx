@@ -12,6 +12,10 @@ type MultiStepFormProps = {
 
 export default function MultiStepForm({ children }: MultiStepFormProps) {
   const methods = useForm<Employee>();
+  const {
+    formState: {},
+  } = methods;
+
   const [step, setStep] = useState(0);
 
   const steps = React.Children.toArray(children);
@@ -42,10 +46,8 @@ export default function MultiStepForm({ children }: MultiStepFormProps) {
   });
   const onSubmit: SubmitHandler<Employee> = (data) => {
     const { iqama, personal, contact, job, passport, ...rest } = data;
-
-    console.log(data);
-
     const employeeData: Employee = {
+      employeePictureURL: "",
       iqama,
       personal,
       contact,
@@ -68,7 +70,6 @@ export default function MultiStepForm({ children }: MultiStepFormProps) {
     }
   };
 
-  console.log(steps.length);
   return (
     <FormContext.Provider
       value={{
@@ -81,7 +82,7 @@ export default function MultiStepForm({ children }: MultiStepFormProps) {
         submitStep,
       }}
     >
-      <div className="flex flex-col">
+      <div className="flex flex-col relative">
         <form onSubmit={methods.handleSubmit(submitStep)}>
           <FormButtonControls />
           {currentStep}

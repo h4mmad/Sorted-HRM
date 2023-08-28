@@ -44,6 +44,7 @@ type OptionField = {
 
 type Employee = {
   employeeId: string;
+  employeePictureURL?: string;
   iqama: {
     iqamaNumber: string;
     iqamaExpiry: Date | null;
@@ -58,11 +59,11 @@ type Employee = {
     passportNumber: string;
     passportExpiry: Date | null;
   };
-  contact: { phoneNumber: number; email: string };
+  contact: { phoneNumber: string; email: string };
   job: {
     designation: string;
     department: "Teaching" | "Non-Teaching";
-    dateOfJoining: Date;
+    dateOfJoining: Date | null;
     workStatus: "active" | "inactive";
   };
 };
@@ -75,7 +76,9 @@ type AddFieldInputs = {
   optionsArray: { name: string }[];
 };
 
-type UpdateEmployeeInputs = {
+type UpdateEmployee = {
+  employeePictureURL?: string;
+  employeeId?: string;
   contact: { phoneNumber: number; email: string };
   iqama: {
     iqamaExpiry: Date | null | undefined;
@@ -88,24 +91,5 @@ type UpdateEmployeeInputs = {
     designation: string;
     department: string;
     workStatus: "active" | "inactive";
-    sponsoredby: string;
-  };
-};
-
-type SendEmployeeUpdateType = {
-  employeeId: string;
-  contact: { phoneNumber: number; email: string };
-  iqama: {
-    iqamaExpiry: Date | null | undefined;
-  };
-  passport: {
-    passportNumber: string;
-    passportExpiry: Date | null | undefined;
-  };
-  job: {
-    designation: string;
-    department: string;
-    workStatus: "active" | "inactive";
-    sponsoredby: string;
   };
 };

@@ -2,52 +2,52 @@ import { useFormContext } from "@/app/context/FormContext";
 import { validateExpiryDate } from "@/app/helperFns/dateHelperFns";
 import DatePicker from "react-datepicker";
 import { Controller } from "react-hook-form";
-import classNames from "classnames";
 import "react-datepicker/dist/react-datepicker.css";
-import InputErrorMessage from "../general_components/InputErrorMessage";
+import InputErrorMessage from "../other/InputErrorMessage";
 import { inputStyle } from "@/app/helperFns/styles";
+import classNames from "classnames";
 
-export default function IqamaForm() {
+export default function PassportForm() {
   const { methods } = useFormContext();
   const { register, formState, control, setError, clearErrors } = methods;
   const { errors } = formState;
   return (
     <>
-      <h1 className="text-2xl text-myDarkBlue mb-2">Iqama</h1>
+      <h1 className="text-2xl text-myDarkBlue mb-2">Passport</h1>
 
       <section className="rounded-lg border bg-white border-slate-300 dark:bg-gray-900  shadow-md">
         <div className="flex flex-col flex-wrap  p-2">
           <div className="m-5">
             <label className="block">Number</label>
             <input
-              {...register("iqama.iqamaNumber", {
-                required: "Iqama number is required",
-                pattern: {
-                  value: /^[12]\d{9}$/,
-                  message: "Invalid iqama number format",
-                },
+              placeholder="N7083243"
+              {...register("passport.passportNumber", {
+                required: "Passport number is required",
               })}
-              className={inputStyle}
+              className={classNames([inputStyle, "bg-gray-100"])}
             />
-            <InputErrorMessage message={errors.iqama?.iqamaNumber?.message} />
+            <InputErrorMessage
+              message={errors.passport?.passportNumber?.message}
+            />
           </div>
 
           <div className="m-5">
             <label className="block">Expiry date</label>
             <Controller
-              name="iqama.iqamaExpiry"
+              name="passport.passportExpiry"
               control={control}
               rules={{
                 required: "Expiry date is required",
                 validate: (value) =>
                   validateExpiryDate(
                     value,
-                    "Iqama expiry date should be in the future"
+                    "Passport expiry date should be in the future"
                   ),
               }}
               render={({ field }) => (
                 <DatePicker
-                  className={inputStyle}
+                  placeholderText="11 August, 2030"
+                  className={classNames([inputStyle, "bg-gray-100"])}
                   dateFormat="dd MMMM, yyyy"
                   selected={field.value}
                   onChange={(date) => {
@@ -57,12 +57,13 @@ export default function IqamaForm() {
                       const currentDate = new Date();
 
                       if (date < currentDate) {
-                        setError("iqama.iqamaExpiry", {
+                        setError("passport.passportExpiry", {
                           type: "validate",
-                          message: "Iqama expiry date should be in the future",
+                          message:
+                            "Passport expiry date should be in the future",
                         });
                       } else {
-                        clearErrors("iqama.iqamaExpiry");
+                        clearErrors("passport.passportExpiry");
                       }
                     }
                   }}
@@ -70,7 +71,9 @@ export default function IqamaForm() {
               )}
             />
 
-            <InputErrorMessage message={errors.iqama?.iqamaExpiry?.message} />
+            <InputErrorMessage
+              message={errors.passport?.passportExpiry?.message}
+            />
           </div>
         </div>
       </section>

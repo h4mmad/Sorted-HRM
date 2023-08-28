@@ -7,27 +7,30 @@ import {
   getOneEmployee,
   updateOneEmployee,
 } from "@/app/clientApiFns/employeeApi";
-import EmployeeSkeleton from "@/app/components/employee_components/EmployeeSkeleton";
+import EmployeeSkeleton from "@/app/components/single_employee/EmployeeSkeleton";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import ButtonControls from "@/app/components/employee_components/ButtonControls";
-import EmployeeOverviewCard from "@/app/components/employee_components/OverviewCard";
+import ButtonControls from "@/app/components/single_employee/ButtonControls";
+import EmployeeOverviewCard from "@/app/components/single_employee/OverviewCard";
 import EmployeeContext from "@/app/context/EmployeeContext";
-import PersonalDetails from "@/app/components/employee_components/PersonalDetails";
-import ContactDetails from "@/app/components/employee_components/ContactDetails";
-import IqamaDetails from "@/app/components/employee_components/IqamaDetails";
-import PassportDetails from "@/app/components/employee_components/PassportDetails";
-import JobDetails from "@/app/components/employee_components/JobDetails";
-import { DividerLine } from "@/app/components/general_components/DividerLine";
+import PersonalDetails from "@/app/components/single_employee/PersonalDetails";
+import ContactDetails from "@/app/components/single_employee/ContactDetails";
+import IqamaDetails from "@/app/components/single_employee/IqamaDetails";
+import PassportDetails from "@/app/components/single_employee/PassportDetails";
+import JobDetails from "@/app/components/single_employee/JobDetails";
+import { DividerLine } from "@/app/components/other/DividerLine";
 export default function Page() {
   const [isEditing, setIsEditing] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
   const params = useParams();
   const { employeeId } = params;
 
-  const { data, isLoading, isSuccess } = useQuery<Employee, AxiosError>(
+  const { data, isLoading, isSuccess, isRefetching } = useQuery<
+    Employee,
+    AxiosError
+  >(
     ["employee", employeeId],
-
     () => {
       console.log("data refetched");
       return getOneEmployee(employeeId);
@@ -56,14 +59,14 @@ export default function Page() {
     router.push("/employees");
   };
 
-  const updateEmployeeHander = (employeeUpdate: UpdateEmployeeInputs) => {
+  const updateEmployeeHander = (employeeUpdate: UpdateEmployee) => {
     if (isSuccess) {
       const employeeId: string = data.employeeId;
       updateEmployeeMutation.mutate({ employeeUpdate, employeeId });
     }
   };
 
-  const employeeMethods = useForm<UpdateEmployeeInputs>({
+  const employeeMethods = useForm<UpdateEmployee>({
     defaultValues: {
       job: {
         department: data?.job.department,
@@ -71,21 +74,39 @@ export default function Page() {
       },
     },
   });
-  const { handleSubmit } = employeeMethods;
+  const { handleSubmit, formState } = employeeMethods;
 
-  const submitHandler = (updateFormData: UpdateEmployeeInputs) => {
-    console.log(updateFormData);
-    updateEmployeeHander(updateFormData);
+  const submitHandler = (updateFormData: UpdateEmployee) => {
+    console.log(imageUrl);
+    if (formState.isDirty || imageUrl) {
+      const updateObj: UpdateEmployee = {
+        contact: updateFormData.contact,
+        iqama: updateFormData.iqama,
+        job: updateFormData.job,
+        passport: updateFormData.passport,
+        employeePictureURL: imageUrl,
+      };
+      updateEmployeeHander(updateObj);
+      setImageUrl("");
+    }
+
     setIsEditing(false);
   };
 
   const router = useRouter();
 
-  return isLoading ? (
+  return isLoading || isRefetching ? (
     <EmployeeSkeleton />
   ) : (
     <EmployeeContext.Provider
-      value={{ employeeMethods, isEditing, setIsEditing, data }}
+      value={{
+        employeeMethods,
+        isEditing,
+        setIsEditing,
+        data,
+        imageUrl,
+        setImageUrl,
+      }}
     >
       <form onSubmit={handleSubmit(submitHandler)}>
         <div className="flex flex-col space-y-10">
@@ -99,10 +120,10 @@ export default function Page() {
             ""
           )}
 
-          {isSuccess ? <EmployeeOverviewCard data={data} /> : ""}
+          {isSuccess ? <EmployeeOverviewCard /> : ""}
           <DividerLine />
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl ">Employee details</h1>
+            <h1 className="text-2xl text-myDarkBlue">Employee details</h1>
 
             <ButtonControls />
           </div>
@@ -116,7 +137,7 @@ export default function Page() {
             <JobDetails />
 
             <div className="flex flex-row space-x-10 flex-wrap">
-              {/* <IqamaDetails /> */}
+              <IqamaDetails />
               <PassportDetails />
             </div>
           </div>

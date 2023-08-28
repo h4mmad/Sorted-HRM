@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { MongoClient } from "mongodb";
 import { redirect, useSearchParams } from "next/navigation";
-import { error } from "console";
 import { validate as uuidValidate } from "uuid";
 import { getActiveOrExpiredStatus } from "@/app/helperFns/dateHelperFns";
 import { getEmployeeById, updateEmployeeById } from "../lib/apiHelperFns";
@@ -24,12 +23,10 @@ export async function POST(request: NextRequest) {
       passport: {
         passportExpiry,
         passportNumber,
-        passportStatus: getActiveOrExpiredStatus(String(passportExpiry)),
       },
       iqama: {
         iqamaExpiry,
         iqamaNumber,
-        iqamaStatus: getActiveOrExpiredStatus(String(iqamaExpiry)),
       },
       ...rest,
     };
@@ -54,6 +51,7 @@ export async function GET(request: NextRequest) {
         const {
           iqama: { iqamaExpiry, iqamaNumber },
           passport: { passportExpiry, passportNumber },
+          employeePictureURL,
           ...rest
         } = employeeData;
 
@@ -61,13 +59,12 @@ export async function GET(request: NextRequest) {
           passport: {
             passportExpiry,
             passportNumber,
-            passportStatus: getActiveOrExpiredStatus(String(passportExpiry)),
           },
           iqama: {
             iqamaExpiry,
             iqamaNumber,
-            iqamaStatus: getActiveOrExpiredStatus(String(iqamaExpiry)),
           },
+          employeePictureURL,
           ...rest,
         };
 
@@ -106,17 +103,23 @@ export async function DELETE(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
-    const updateData: SendEmployeeUpdateType = await request.json();
-    console.log(updateData.contact);
-    console.log(updateData.employeeId);
-    console.log(updateData.iqama);
-    console.log(updateData.passport);
-    console.log(updateData.job);
+    const updateData: UpdateEmployee = await request.json();
+
+    console.log("update data", updateData);
 
     const fieldsToUpdate = {
+      employeePictureURL: updateData.employeePictureURL,
       "passport.passportNumber": updateData.passport.passportNumber,
+      "passport.passportExpiry": updateData.passport.passportExpiry,
+      "job.department": updateData.job.department,
+      "job.designation": updateData.job.designation,
+      "job.workStatus": updateData.job.workStatus,
+      "iqama.iqamaExpiry": updateData.iqama.iqamaExpiry,
+      "contact.phoneNumber": updateData.contact.phoneNumber,
+      "contact.email": updateData.contact.email,
     };
-    await updateEmployeeById(updateData.employeeId, fieldsToUpdate);
+    if (updateData.employeeId)
+      await updateEmployeeById(updateData.employeeId, fieldsToUpdate);
 
     return NextResponse.json(updateData);
   } catch (error) {}

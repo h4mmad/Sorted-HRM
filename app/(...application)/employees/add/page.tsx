@@ -1,8 +1,11 @@
 "use client";
-import IqamaForm from "@/app/components/add_employee_form_components/IqamaForm";
-import PassportForm from "@/app/components/add_employee_form_components/PassportForm";
-import PersonalForm from "@/app/components/add_employee_form_components/PersonalForm";
-import MultiStepForm from "@/app/components/multi_step_form_components/MultiStepForm";
+
+import MultiStepForm from "@/app/components/form/MultiStepForm";
+import ContactForm from "@/app/components/form/ContactForm";
+import PersonalForm from "@/app/components/form/PersonalForm";
+import IqamaForm from "@/app/components/form/IqamaForm";
+import PassportForm from "@/app/components/form/PassportForm";
+import JobForm from "@/app/components/form/JobForm";
 
 export default function NewEmployee() {
   return (
@@ -10,8 +13,10 @@ export default function NewEmployee() {
       <h1 className="text-3xl text-myDarkBlue">Add new employee</h1>
       <MultiStepForm>
         <PersonalForm />
+        <ContactForm />
         <IqamaForm />
         <PassportForm />
+        <JobForm />
       </MultiStepForm>
     </div>
   );

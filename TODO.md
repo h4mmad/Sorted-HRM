@@ -21,6 +21,10 @@ Sun Jul 2
 
 ---
 
-[ ] complete the add employee form
-[ ] make sure date of birth employee can be 18 years and older
-[ ] try conditional rendering
+Tasks
+
+[X] complete the add employee form
+[X] make sure date of birth employee can be 18 years and older
+[] try conditional rendering
+[] later, try validating iqama by checking with database if another record exists.
+[] use conditional redering for each individual employee

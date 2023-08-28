@@ -3,7 +3,12 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function FormButtonControls() {
-  const { goToNextStep, goToPreviousStep, step, length } = useFormContext();
+  const { goToNextStep, goToPreviousStep, step, length, methods } =
+    useFormContext();
+  const {
+    formState: { isSubmitting, isSubmitted, isSubmitSuccessful },
+  } = methods;
+  console.log(isSubmitting);
 
   return (
     <div className="flex flex-row space-x-2 justify-between">
@@ -35,10 +40,11 @@ export default function FormButtonControls() {
           </button>
         ) : (
           <button
+            disabled={isSubmitting}
             type="submit"
             className="px-4 py-2 rounded-md border border-green-700 text-green-700 hover:bg-green-700 hover:text-white h-fit"
           >
-            Submit
+            {isSubmitting ? "Submitting" : "Submit"}
           </button>
         )}
       </div>

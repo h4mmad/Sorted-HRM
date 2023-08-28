@@ -1,5 +1,5 @@
 "use client";
-import EmployeeTable from "@/app/components/employee_components/AllEmployeesTable";
+import EmployeeTable from "@/app/components/table/AllEmployeesTable";
 
 export default function Employees() {
   return <EmployeeTable />;
