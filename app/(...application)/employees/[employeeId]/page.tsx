@@ -72,6 +72,7 @@ export default function Page() {
         department: data?.job.department,
         workStatus: data?.job.workStatus,
       },
+      employeePictureURL: data?.employeePictureURL,
     },
   });
   const { handleSubmit, formState } = employeeMethods;

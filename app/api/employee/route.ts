@@ -107,19 +107,34 @@ export async function PUT(request: NextRequest) {
 
     console.log("update data", updateData);
 
-    const fieldsToUpdate = {
-      employeePictureURL: updateData.employeePictureURL,
-      "passport.passportNumber": updateData.passport.passportNumber,
-      "passport.passportExpiry": updateData.passport.passportExpiry,
-      "job.department": updateData.job.department,
-      "job.designation": updateData.job.designation,
-      "job.workStatus": updateData.job.workStatus,
-      "iqama.iqamaExpiry": updateData.iqama.iqamaExpiry,
-      "contact.phoneNumber": updateData.contact.phoneNumber,
-      "contact.email": updateData.contact.email,
-    };
-    if (updateData.employeeId)
-      await updateEmployeeById(updateData.employeeId, fieldsToUpdate);
+    if (updateData.employeePictureURL) {
+      const fieldsToUpdate = {
+        employeePictureURL: updateData.employeePictureURL,
+        "passport.passportNumber": updateData.passport.passportNumber,
+        "passport.passportExpiry": updateData.passport.passportExpiry,
+        "job.department": updateData.job.department,
+        "job.designation": updateData.job.designation,
+        "job.workStatus": updateData.job.workStatus,
+        "iqama.iqamaExpiry": updateData.iqama.iqamaExpiry,
+        "contact.phoneNumber": updateData.contact.phoneNumber,
+        "contact.email": updateData.contact.email,
+      };
+      if (updateData.employeeId)
+        await updateEmployeeById(updateData.employeeId, fieldsToUpdate);
+    } else {
+      const fieldsToUpdate = {
+        "passport.passportNumber": updateData.passport.passportNumber,
+        "passport.passportExpiry": updateData.passport.passportExpiry,
+        "job.department": updateData.job.department,
+        "job.designation": updateData.job.designation,
+        "job.workStatus": updateData.job.workStatus,
+        "iqama.iqamaExpiry": updateData.iqama.iqamaExpiry,
+        "contact.phoneNumber": updateData.contact.phoneNumber,
+        "contact.email": updateData.contact.email,
+      };
+      if (updateData.employeeId)
+        await updateEmployeeById(updateData.employeeId, fieldsToUpdate);
+    }
 
     return NextResponse.json(updateData);
   } catch (error) {}

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { MongoClient } from "mongodb";
+import { main } from "../lib/db";
 
 const client = new MongoClient(process.env.NEXT_PUBLIC_MONGODB_URI);
 const database = client.db("sorted_hrm");
@@ -9,7 +10,7 @@ export async function GET(request: NextRequest) {
   try {
     const cursor = employees.find(
       {},
-      { projection: { iqama: 1, _id: 1, employeeId: 1, personal: 1 } }
+      { projection: { iqama: 1, _id: 1, employeeId: 1, personal: 1, job: 1 } }
     );
     const documents = [];
     for await (const document of cursor) {

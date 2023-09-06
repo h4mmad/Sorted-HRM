@@ -15,8 +15,9 @@ import { Search } from "./TableSearchBox";
 import { DateTime } from "luxon";
 import Link from "next/link";
 import { TableSkeleton } from "./TableSkeleton";
-import classNames from "classnames";
 import getExpiredOrActiveTag from "@/app/helperFns/getExpiredOrActiveTag";
+import { getActiveOrExpiredStatus } from "@/app/helperFns/dateHelperFns";
+import getActiveOrInactiveTag from "@/app/helperFns/getActiveOrInactiveTag";
 
 const EmployeeTable = () => {
   const [filtering, setFiltering] = useState("");
@@ -33,31 +34,47 @@ const EmployeeTable = () => {
   const tableColumns = [
     columnHelper.accessor((row) => row.personal.fullName, {
       id: "fullName",
-      cell: (info) => info.getValue(),
+      cell: (info) => <p>{info.getValue()}</p>,
       header: () => <h6>Name</h6>,
+    }),
+    columnHelper.accessor((row) => row?.job?.workStatus, {
+      id: "workStatus",
+      cell: (info) => getActiveOrInactiveTag(info.getValue()),
+      header: () => <h6>Work status</h6>,
     }),
     columnHelper.accessor((row) => row.iqama.iqamaNumber, {
       id: "iqamaNumber",
       cell: (info) => info.getValue(),
-      header: () => <h6>Iqama number</h6>,
+      header: () => <h6>Iqama no.</h6>,
     }),
     columnHelper.accessor((row) => row.iqama.iqamaExpiry, {
       id: "iqamaExpiry",
-      cell: (info) => info.getValue(),
+      cell: (info) =>
+        info.getValue() ? (
+          <p>
+            {DateTime.fromJSDate(new Date(String(info.getValue()))).toFormat(
+              "dd LLLL, yyyy"
+            )}
+          </p>
+        ) : (
+          ""
+        ),
       header: () => <h6>Iqama expiry</h6>,
     }),
-    columnHelper.accessor((row) => row.iqama.iqamaStatus, {
+    columnHelper.accessor((row) => row.iqama.iqamaExpiry, {
       id: "iqamaStatus",
-      cell: (info) => getExpiredOrActiveTag(info.getValue()),
+      cell: (info) =>
+        getExpiredOrActiveTag(
+          getActiveOrExpiredStatus(String(info.getValue()))
+        ),
       header: () => <span>Iqama status</span>,
     }),
     columnHelper.accessor((row) => row.employeeId, {
       id: "employeeId",
-      header: () => <h6>More details</h6>,
       cell: (info) => (
         <Link
           href={`/employees/${info.getValue()}`}
-          className="px-4 p-2 rounded-full text-myLightBlue border border-myLightBlue hover:bg-myLightBlue hover:text-white"
+          className="py-2 px-4 rounded-full border hover:bg-myDarkBlue hover:text-white"
         >
           View
         </Link>

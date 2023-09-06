@@ -52,7 +52,7 @@ export default function EmployeeImage() {
         src={
           data?.employeePictureURL
             ? data.employeePictureURL
-            : "https://cdn-icons-png.flaticon.com/128/456/456212.png"
+            : "https://cdn-icons-png.flaticon.com/512/149/149071.png"
         }
       />
 
