@@ -6,7 +6,7 @@ import {
   deleteOneEmployee,
   getOneEmployee,
   updateOneEmployee,
-} from "@/app/clientApiFns/employeeApi";
+} from "@/app/(...application)/lib/clientApiFns/employeeApi";
 import EmployeeSkeleton from "@/app/components/single_employee/EmployeeSkeleton";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

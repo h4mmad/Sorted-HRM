@@ -1,4 +1,7 @@
-import { getAge, getDaysToExpiry } from "@/app/helperFns/dateHelperFns";
+import {
+  getAge,
+  getDaysToExpiry,
+} from "@/app/(...application)/lib/helperFns/dateHelperFns";
 import { DateTime } from "luxon";
 import EmployeeImage from "./EmployeeImage";
 import { useState } from "react";

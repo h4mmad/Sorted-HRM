@@ -5,7 +5,7 @@ import { addField } from "@/app/clientApiFns/modelApi";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { v4 } from "uuid";
 import { Tooltip } from "react-tooltip";
-import { getCamelCase } from "@/app/helperFns/fns";
+import { getCamelCase } from "@/app/(...application)/lib/helperFns/fns";
 
 export default function AddFieldForm({ sectionId }: { sectionId: string }) {
   const queryClient = useQueryClient();

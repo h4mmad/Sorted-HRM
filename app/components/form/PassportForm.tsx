@@ -1,10 +1,10 @@
 import { useFormContext } from "@/app/context/FormContext";
-import { validateExpiryDate } from "@/app/helperFns/dateHelperFns";
+import { validateExpiryDate } from "@/app/(...application)/lib/helperFns/dateHelperFns";
 import DatePicker from "react-datepicker";
 import { Controller } from "react-hook-form";
 import "react-datepicker/dist/react-datepicker.css";
 import InputErrorMessage from "../other/InputErrorMessage";
-import { inputStyle } from "@/app/helperFns/styles";
+import { inputStyle } from "@/app/(...application)/lib/helperFns/styles";
 import classNames from "classnames";
 
 export default function PassportForm() {

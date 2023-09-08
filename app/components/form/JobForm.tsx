@@ -1,10 +1,10 @@
 import { useFormContext } from "@/app/context/FormContext";
 import InputErrorMessage from "../other/InputErrorMessage";
-import { inputStyle } from "@/app/helperFns/styles";
+import { inputStyle } from "@/app/(...application)/lib/helperFns/styles";
 import { Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { validateDateOfJoining } from "@/app/helperFns/dateHelperFns";
+import { validateDateOfJoining } from "@/app/(...application)/lib/helperFns/dateHelperFns";
 import JobDepartmentSelector from "./JobDepartmentSelector";
 import WorkStatusSelector from "./WorkStatusSelector";
 import DesignationInput from "./DesignationInput";

@@ -1,4 +1,4 @@
-import { inputStyle } from "@/app/helperFns/styles";
+import { inputStyle } from "@/app/(...application)/lib/helperFns/styles";
 import { DateTime } from "luxon";
 
 export default function DateValue({

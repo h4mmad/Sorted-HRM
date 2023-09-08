@@ -8,3 +8,12 @@ CREATE TABLE employee_basic_info (
   phone_number VARCHAR(15),
   email VARCHAR(100)
 );
+
+ALTER TABLE employee_basic_info
+ALTER COLUMN full_name SET NOT NULL, 
+ALTER COLUMN date_of_birth SET NOT NULL,
+AlTER COLUMN gender SET NOT NULL,
+ALTER COLUMN nationality SET NOT NULL,
+ALTER COLUMN phone_number SET NOT NULL,
+ALTER COLUMN email SET NOT NULL;
+

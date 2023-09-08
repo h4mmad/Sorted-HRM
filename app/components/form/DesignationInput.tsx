@@ -1,4 +1,4 @@
-import { inputStyle } from "@/app/helperFns/styles";
+import { inputStyle } from "@/app/(...application)/lib/helperFns/styles";
 import { FormState, UseFormRegister } from "react-hook-form";
 import InputErrorMessage from "../other/InputErrorMessage";
 

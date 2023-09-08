@@ -9,15 +9,15 @@ import {
   createColumnHelper,
 } from "@tanstack/react-table";
 import { AxiosError } from "axios";
-import { getAllEmployees } from "@/app/clientApiFns/employeeApi";
+import { getAllEmployees } from "@/app/(...application)/lib/clientApiFns/employeeApi";
 import { useMemo, useState } from "react";
 import { Search } from "./TableSearchBox";
 import { DateTime } from "luxon";
 import Link from "next/link";
 import { TableSkeleton } from "./TableSkeleton";
-import getExpiredOrActiveTag from "@/app/helperFns/getExpiredOrActiveTag";
-import { getActiveOrExpiredStatus } from "@/app/helperFns/dateHelperFns";
-import getActiveOrInactiveTag from "@/app/helperFns/getActiveOrInactiveTag";
+import getExpiredOrActiveTag from "@/app/(...application)/lib/helperFns/getExpiredOrActiveTag";
+import { getActiveOrExpiredStatus } from "@/app/(...application)/lib/helperFns/dateHelperFns";
+import getActiveOrInactiveTag from "@/app/(...application)/lib/helperFns/getActiveOrInactiveTag";
 
 const EmployeeTable = () => {
   const [filtering, setFiltering] = useState("");

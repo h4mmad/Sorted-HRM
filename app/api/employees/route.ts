@@ -1,25 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
-import { MongoClient } from "mongodb";
-import { main } from "../lib/db";
+import db from "@/app/(...application)/lib/db";
+import { readFileSync } from "fs";
 
-const client = new MongoClient(process.env.NEXT_PUBLIC_MONGODB_URI);
-const database = client.db("sorted_hrm");
-const employees = database.collection("employees");
+const tableViewQuery = readFileSync(
+  "app/(...application)/lib/SQL/views/table_view.sql"
+).toString();
 
 export async function GET(request: NextRequest) {
   try {
-    const cursor = employees.find(
-      {},
-      { projection: { iqama: 1, _id: 1, employeeId: 1, personal: 1, job: 1 } }
-    );
-    const documents = [];
-    for await (const document of cursor) {
-      documents.push(document);
-    }
+    const result = await db.query(tableViewQuery);
 
-    console.log(documents);
-    return NextResponse.json(documents);
+    return NextResponse.json(result);
   } catch (error) {
     throw error;
+  } finally {
   }
 }

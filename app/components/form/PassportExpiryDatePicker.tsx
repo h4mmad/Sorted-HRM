@@ -7,8 +7,8 @@ import {
   UseFormSetError,
   UseFormClearErrors,
 } from "react-hook-form";
-import { validateExpiryDate } from "@/app/helperFns/dateHelperFns";
-import { inputStyle } from "@/app/helperFns/styles";
+import { validateExpiryDate } from "@/app/(...application)/lib/helperFns/dateHelperFns";
+import { inputStyle } from "@/app/(...application)/lib/helperFns/styles";
 
 export default function PassportExpiryDatePicker({
   formState,

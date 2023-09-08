@@ -1,7 +1,7 @@
 import { useFormContext } from "@/app/context/FormContext";
 import "react-datepicker/dist/react-datepicker.css";
 import InputErrorMessage from "../other/InputErrorMessage";
-import { inputStyle } from "@/app/helperFns/styles";
+import { inputStyle } from "@/app/(...application)/lib/helperFns/styles";
 import IqamaExpiryDatePicker from "./IqamaExpiryDatePicker";
 import classNames from "classnames";
 

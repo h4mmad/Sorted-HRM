@@ -1,5 +1,5 @@
 import { useEmployeeContext } from "@/app/context/EmployeeContext";
-import getMaleOrFemaleTag from "@/app/helperFns/getMaleOrFemaleTag";
+import getMaleOrFemaleTag from "@/app/(...application)/lib/helperFns/getMaleOrFemaleTag";
 import classNames from "classnames";
 import DateValue from "../form/DateValue";
 
